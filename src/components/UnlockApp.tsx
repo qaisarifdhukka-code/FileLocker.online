@@ -249,22 +249,19 @@ export default function UnlockApp() {
         {status === 'IDLE' && (
           <div className="p-8 md:p-16 text-center">
             {!file ? (
-              <div className="border-2 border-dashed border-gray-300 rounded-[2rem] p-10 max-w-3xl mx-auto bg-gray-50/50 hover:bg-gray-50 transition-colors">
-                <div className="w-16 h-16 mx-auto mb-6">
-                  <LockOpen className="w-full h-full text-gray-400 stroke-1" />
-                </div>
-                
-                <div className="flex flex-col items-center gap-4 max-w-sm mx-auto">
-                  <button onClick={selectVault} className="w-full bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform active:scale-95">
-                    <FileIcon className="w-5 h-5" /> Select Vault
-                  </button>
-                  
-                  <span className="text-gray-400 font-medium text-sm my-2">or Drag files here</span>
-                  
-                  <div className="w-10 h-10 bg-brand-blue/10 rounded-full flex items-center justify-center">
-                      <svg className="w-5 h-5 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
+              <div className="border-2 border-dashed border-[#d3e3fd] rounded-3xl p-12 max-w-2xl mx-auto flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#f4f8fc] group bg-white">
+                <div className="relative w-16 h-16 mb-5">
+                  <div className="absolute inset-0 bg-brand-blue opacity-10 rounded-2xl group-hover:scale-110 group-hover:opacity-20 transition-all duration-300"></div>
+                  <div className="absolute inset-0 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
+                    <LockOpen className="w-8 h-8 text-brand-blue" />
                   </div>
                 </div>
+                
+                <h3 className="text-gray-700 font-semibold text-lg mb-2">
+                  Drop your protected file here, or{' '}
+                  <button onClick={selectVault} className="text-brand-blue font-bold hover:underline focus:outline-none">browse</button>
+                </h3>
+                <p className="text-gray-400 text-sm font-medium">Supports: .vault files</p>
 
                 {errorMsg && (
                   <p className="mt-4 text-sm text-red-600 font-medium">{errorMsg}</p>

@@ -174,32 +174,27 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         
         {step === STEPS.SELECT && (
-          <div className="p-6 md:p-8 text-center">
-            <div className="border-2 border-dashed border-gray-300 rounded-[2rem] p-6 max-w-3xl mx-auto bg-gray-50/50 hover:bg-gray-50 transition-colors">
-              <div className="w-12 h-12 mx-auto mb-4">
-                <FileIcon className="w-full h-full text-gray-400 stroke-1" />
-              </div>
-              
-              <div className="flex flex-col items-center gap-3 max-w-sm mx-auto">
-                {(initialMode === 'both' || initialMode === 'file') && (
-                  <button onClick={handleSelectFile} className="w-full bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform active:scale-95">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
-                    Upload {initialMode === 'both' ? 'File' : 'from PC or Mobile'}
-                  </button>
-                )}
-                {(initialMode === 'both' || initialMode === 'folder') && (
-                  <button onClick={handleSelectFolder} className={`w-full font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform active:scale-95 ${initialMode === 'folder' ? 'bg-brand-blue hover:bg-brand-blue-dark text-white' : 'bg-white hover:bg-gray-50 border border-gray-200 text-brand-blue shadow-sm'}`}>
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
-                    Upload Folder
-                  </button>
-                )}
-                <span className="text-gray-400 font-medium text-sm my-1">or Drag files here</span>
-                
-                <div className="w-8 h-8 bg-brand-blue/10 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
+          <div className="p-8 md:p-12 text-center">
+            <div className="border-2 border-dashed border-[#d3e3fd] rounded-3xl p-12 max-w-2xl mx-auto flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#f4f8fc] group bg-white">
+                <div className="relative w-16 h-16 mb-5">
+                  <div className="absolute inset-0 bg-brand-blue opacity-10 rounded-2xl group-hover:scale-110 group-hover:opacity-20 transition-all duration-300"></div>
+                  <div className="absolute inset-0 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
+                    <FileIcon className="w-8 h-8 text-brand-blue" />
+                  </div>
                 </div>
+                
+                <h3 className="text-gray-700 font-semibold text-lg mb-2">
+                  Drop your item here, or browse for a{' '}
+                  {(initialMode === 'both' || initialMode === 'file') && (
+                    <button onClick={handleSelectFile} className="text-brand-blue font-bold hover:underline focus:outline-none">file</button>
+                  )}
+                  {initialMode === 'both' && ' or '}
+                  {(initialMode === 'both' || initialMode === 'folder') && (
+                    <button onClick={handleSelectFolder} className="text-brand-blue font-bold hover:underline focus:outline-none">folder</button>
+                  )}
+                </h3>
+                <p className="text-gray-400 text-sm font-medium">Supports: Any file type and size</p>
               </div>
-            </div>
 
             {error && (
               <p className="mt-4 text-sm text-red-600 font-medium">{error}</p>
