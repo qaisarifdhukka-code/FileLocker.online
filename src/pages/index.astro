@@ -1,0 +1,304 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProvisioningApp from '../components/ProvisioningApp';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is FileLocker free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. FileLocker provides browser-based tools for password protecting and opening supported FileLocker files."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are my files uploaded to a server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. FileLocker processes your files locally in your browser. Your selected files are not uploaded to a FileLocker server for processing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I password protect a folder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can select a folder and protect its contents with a single password while preserving its folder structure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What types of files can I protect?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can use FileLocker with many common file types, including documents, photos, videos, archives, and other files."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I protect large files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "FileLocker is designed to work with large files by processing data in smaller parts instead of loading the entire file into memory at once."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to install software?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. FileLocker runs in your web browser, so there is no separate application to install."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I forget my password?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "FileLocker does not store your password. If you forget it, the protected file cannot be opened through FileLocker."
+      }
+    }
+  ]
+};
+---
+
+<Layout title="Password-Protect Files and Folders Online | FileLocker">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+  <!-- HERO SECTION -->
+  <section class="w-full bg-[#f8fafc] flex flex-col items-center pt-24 pb-20 px-4 text-center relative overflow-hidden">
+      <!-- Decorative Floating Shapes -->
+      <div class="hidden sm:block absolute top-10 left-10 text-orange-400 opacity-70 animate-bounce" style="animation-duration: 3s;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2z"/></svg>
+      </div>
+      <div class="hidden sm:block absolute top-20 right-20 text-pink-500 opacity-70 animate-pulse">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+      </div>
+      <div class="hidden sm:block absolute bottom-10 left-1/4 text-blue-400 opacity-70">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+      </div>
+      <div class="hidden sm:block absolute bottom-20 right-1/4 text-purple-400 opacity-70 animate-bounce" style="animation-duration: 4s;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l4 8h8l-6 6 2 8-8-6-8 6 2-8-6-6h8z"/></svg>
+      </div>
+
+      <div class="inline-flex items-center gap-2 mb-8 bg-white border border-gray-200 shadow-sm rounded-full px-4 py-1.5 text-sm font-medium text-gray-600">
+          <span class="bg-blue-50 text-brand-blue px-2 py-0.5 rounded-md border border-blue-100 font-bold">Free Online File Protection Tool</span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-gray-900 max-w-4xl leading-[1.15]">
+          Password Protect Files and <span class="bg-brand-blue text-white px-4 py-1 rounded-lg inline-block shadow-md mt-2 md:mt-0">Folders</span> Online
+      </h1>
+      <p class="text-lg md:text-xl text-gray-500 mb-12 max-w-2xl font-medium px-4">
+          Add password protection to files and folders directly from your browser. No installation, no account, and no file upload required.
+      </p>
+
+      <div class="w-full max-w-2xl mx-auto relative z-10 -mt-8">
+          <ProvisioningApp client:load initialMode="both" hideHeader={true} />
+          
+          <!-- Trust Checkmarks -->
+          <div class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-medium text-gray-600">
+              <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Files stay on your device</span>
+              <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> No account required</span>
+              <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Free to use</span>
+          </div>
+      </div>
+  </section>
+
+  <!-- HOW TO SEO SECTION -->
+  <section class="w-full bg-brand-blue py-24 px-6 relative overflow-hidden">
+      <!-- Decorative background glow -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white opacity-10 rounded-full blur-[100px] pointer-events-none"></div>
+      
+      <div class="max-w-5xl mx-auto relative z-10">
+          <div class="text-center mb-16">
+              <h2 class="text-3xl font-extrabold text-white mb-4">How to Password Protect a File or Folder Online</h2>
+              <p class="text-white/80 max-w-2xl mx-auto text-lg leading-relaxed">
+                  FileLocker helps you add password protection to files and folders without installing additional software. You can protect documents, photos, videos, archives, and other personal or work-related files directly from your browser.
+              </p>
+              <p class="text-white/80 max-w-2xl mx-auto text-lg leading-relaxed mt-4">
+                  Unlike many online file tools, your files are processed on your device instead of being uploaded to a remote server.
+              </p>
+          </div>
+          
+          <div class="bg-white rounded-[2.5rem] p-10 md:p-16 shadow-2xl relative">
+              
+              <!-- Desktop Connecting Lines -->
+              <div class="hidden md:block absolute top-[110px] left-1/4 right-1/4 h-px border-t-2 border-dashed border-gray-200 z-0"></div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 relative z-10">
+                  <!-- Step 1 -->
+                  <div class="flex flex-col items-center text-center">
+                      <div class="relative mb-8">
+                          <div class="w-24 h-24 bg-white rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex items-center justify-center text-brand-blue border border-gray-50">
+                              <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" /></svg>
+                          </div>
+                          <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-brand-blue text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider whitespace-nowrap shadow-sm">
+                              Step 1
+                          </div>
+                      </div>
+                      <h3 class="font-extrabold text-gray-900 text-xl mb-3">Choose What You Want to Protect</h3>
+                      <p class="text-gray-500 text-sm leading-relaxed px-2">Select a file or choose a folder from your device.</p>
+                  </div>
+
+                  <!-- Step 2 -->
+                  <div class="flex flex-col items-center text-center">
+                      <div class="relative mb-8">
+                          <div class="w-24 h-24 bg-white rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex items-center justify-center text-brand-blue border border-gray-50">
+                              <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                          </div>
+                          <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-brand-blue text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider whitespace-nowrap shadow-sm">
+                              Step 2
+                          </div>
+                      </div>
+                      <h3 class="font-extrabold text-gray-900 text-xl mb-3">Create a Password</h3>
+                      <p class="text-gray-500 text-sm leading-relaxed px-2">Enter a password that will be required to open the protected content later.</p>
+                  </div>
+
+                  <!-- Step 3 -->
+                  <div class="flex flex-col items-center text-center">
+                      <div class="relative mb-8">
+                          <div class="w-24 h-24 bg-white rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex items-center justify-center text-brand-blue border border-gray-50">
+                              <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          </div>
+                          <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-brand-blue text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider whitespace-nowrap shadow-sm">
+                              Step 3
+                          </div>
+                      </div>
+                      <h3 class="font-extrabold text-gray-900 text-xl mb-3">Save Your Protected File</h3>
+                      <p class="text-gray-500 text-sm leading-relaxed px-2">FileLocker creates a protected .vault file that you can save to your device and open later with your password.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- POPULAR USES -->
+  <section class="w-full bg-[#f8fafc] py-20 px-6 border-t border-gray-100">
+      <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl font-extrabold text-gray-900 mb-6">What Can You Password Protect?</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed mb-10">
+              FileLocker can be used to protect many types of files and folders, including:
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-3 mb-10">
+              <span class="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium">PDF documents</span>
+              <span class="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium">Word and Office files</span>
+              <span class="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium">Photos and personal images</span>
+              <span class="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium">Videos</span>
+              <span class="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium">ZIP and archive files</span>
+              <span class="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium">Work documents</span>
+              <span class="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium">Personal folders</span>
+              <span class="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium">Large files</span>
+          </div>
+
+          <p class="text-gray-600 max-w-xl mx-auto text-lg leading-relaxed">
+              You don't need a separate tool for every file type. Choose the file or folder you want to protect and create a password.
+          </p>
+      </div>
+  </section>
+
+  <!-- WHY USE FILELOCKER -->
+  <section class="w-full bg-white py-20 px-6 border-t border-gray-100">
+      <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">Protect Files Without Installing Software</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed text-center mb-12">
+              Sometimes you only need to protect a file—you don't want to install a large application, create an account, or upload private files to an unknown server. FileLocker is designed for those situations.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100">
+                  <h3 class="font-bold text-gray-900 text-xl mb-3 flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></div> No Software Installation</h3>
+                  <p class="text-gray-600">Use the tool directly in your supported web browser.</p>
+              </div>
+              <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100">
+                  <h3 class="font-bold text-gray-900 text-xl mb-3 flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg></div> No Account Required</h3>
+                  <p class="text-gray-600">Start protecting files without signing up.</p>
+              </div>
+              <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100">
+                  <h3 class="font-bold text-gray-900 text-xl mb-3 flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg></div> Your Files Stay Local</h3>
+                  <p class="text-gray-600">Your file is processed on your device rather than uploaded for processing.</p>
+              </div>
+              <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100">
+                  <h3 class="font-bold text-gray-900 text-xl mb-3 flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg></div> Works With Files and Folders</h3>
+                  <p class="text-gray-600">Protect an individual file or lock an entire folder with one password.</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- LARGE FILES SECTION -->
+  <section class="w-full bg-gradient-to-b from-[#f8fafc] to-white py-20 px-6 border-t border-gray-100">
+      <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl font-extrabold text-gray-900 mb-6">Need to Password Protect a Large File?</h2>
+          <p class="text-gray-600 text-lg leading-relaxed mb-6">
+              Large files can be difficult to protect using traditional online tools because many websites require you to upload the entire file before processing it.
+          </p>
+          <p class="text-gray-600 text-lg leading-relaxed mb-10">
+              FileLocker is designed to process files locally in your browser, helping you work with large documents, videos, archives, and other files without first uploading them to a server.
+          </p>
+          <a href="/lock-file" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:-translate-y-1 transform active:scale-95 inline-block text-lg">
+              Protect a Large File
+          </a>
+      </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="w-full bg-[#f8fafc] py-20 px-6 border-t border-gray-100">
+      <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-extrabold text-gray-900 mb-10 text-center">Frequently Asked Questions</h2>
+          <div class="space-y-4 max-w-3xl mx-auto">
+              <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                  <h4 class="font-bold text-gray-900 text-lg">Is FileLocker free to use?</h4>
+                  <p class="text-gray-600 mt-2 leading-relaxed">Yes. FileLocker provides browser-based tools for password protecting and opening supported FileLocker files.</p>
+              </div>
+              <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                  <h4 class="font-bold text-gray-900 text-lg">Are my files uploaded to a server?</h4>
+                  <p class="text-gray-600 mt-2 leading-relaxed">No. FileLocker processes your files locally in your browser. Your selected files are not uploaded to a FileLocker server for processing.</p>
+              </div>
+              <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                  <h4 class="font-bold text-gray-900 text-lg">Can I password protect a folder?</h4>
+                  <p class="text-gray-600 mt-2 leading-relaxed">Yes. You can select a folder and protect its contents with a single password while preserving its folder structure.</p>
+              </div>
+              <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                  <h4 class="font-bold text-gray-900 text-lg">What types of files can I protect?</h4>
+                  <p class="text-gray-600 mt-2 leading-relaxed">You can use FileLocker with many common file types, including documents, photos, videos, archives, and other files.</p>
+              </div>
+              <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                  <h4 class="font-bold text-gray-900 text-lg">Can I protect large files?</h4>
+                  <p class="text-gray-600 mt-2 leading-relaxed">FileLocker is designed to work with large files by processing data in smaller parts instead of loading the entire file into memory at once.</p>
+              </div>
+              <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                  <h4 class="font-bold text-gray-900 text-lg">Do I need to install software?</h4>
+                  <p class="text-gray-600 mt-2 leading-relaxed">No. FileLocker runs in your web browser, so there is no separate application to install.</p>
+              </div>
+              <div class="bg-red-50 p-6 rounded-2xl border border-red-100 shadow-sm mt-8">
+                  <h4 class="font-bold text-gray-900 text-lg flex items-center gap-2">
+                      <svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                      What happens if I forget my password?
+                  </h4>
+                  <p class="text-gray-800 mt-2 leading-relaxed font-medium">FileLocker does not store your password. If you forget it, the protected file cannot be opened through FileLocker.</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- BOTTOM CTA SECTION -->
+  <section class="w-full bg-white py-24 px-6 border-t border-gray-100 text-center">
+      <div class="max-w-2xl mx-auto">
+          <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Ready to Protect Your Files?</h2>
+          <p class="text-gray-500 text-xl mb-10">Password protect a file or folder directly from your browser.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/lock-file" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 px-10 rounded-xl shadow-lg transition-transform hover:-translate-y-1 transform active:scale-95 text-lg">
+                  Protect a File
+              </a>
+              <a href="/lock-folder" class="bg-white hover:bg-gray-50 border-2 border-gray-200 text-gray-900 font-bold py-4 px-10 rounded-xl shadow-sm transition-transform hover:-translate-y-1 transform active:scale-95 text-lg">
+                  Protect a Folder
+              </a>
+          </div>
+      </div>
+  </section>
+
+</Layout>

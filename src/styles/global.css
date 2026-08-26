@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Official Brand Colors */
+  --color-brand-blue: #2563EB;
+  --color-brand-blue-dark: #1D4ED8;
+  --color-brand-dark: #0A0A12;
+  --color-bg-light: #f8fafc;
+
+  /* Legacy Colors (keep for compatibility during transition) */
+  --color-tech-blue: #2563EB;
+  --color-deep-navy: #0F172A;
+  --color-surface-container: #eceef3;
+  --color-surface-container-low: #f2f3f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-border-light: #E2E8F0;
+  --color-outline: #737686;
+  --color-outline-variant: #c3c6d7;
+  --color-on-surface-variant: #434655;
+  --color-crisp-cyan: #06B6D4;
+  --color-success: #10B981;
+  --color-error: #EF4444;
+
+  --font-label-sm: 'Inter', sans-serif;
+  --font-label-lg: 'Inter', sans-serif;
+  --font-headline-lg: 'Inter', sans-serif;
+  --font-headline-md: 'Inter', sans-serif;
+  --font-body-md: 'Inter', sans-serif;
+  --font-body-lg: 'Inter', sans-serif;
+
+  /* TinyWow-inspired Card Colors */
+  --color-card-purple-from: #7c3aed;
+  --color-card-purple-to: #6d28d9;
+  
+  --color-card-orange-from: #f97316;
+  --color-card-orange-to: #ea580c;
+  
+  --color-card-pink-from: #ec4899;
+  --color-card-pink-to: #be185d;
+  
+  --color-card-blue-from: #3b82f6;
+  --color-card-blue-to: #1d4ed8;
+
+  --color-card-teal-from: #14b8a6;
+  --color-card-teal-to: #0f766e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #191c20;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f8fafc; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }

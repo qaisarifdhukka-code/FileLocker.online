@@ -1,0 +1,168 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { 
+  title, 
+  description = "Protect files and folders with a password directly in your browser. No account required and no file upload to a server." 
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/filelocker-logo-main-dark.svg" />
+    <slot name="head" />
+</head>
+<body class="text-brand-dark flex flex-col min-h-screen bg-bg-light">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="bg-white px-4 md:px-8 py-3 flex items-center justify-between sticky top-0 z-50 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2 cursor-pointer flex-shrink-0">
+            <img src="/filelocker-logo-main.svg" alt="FileLocker" class="h-7 w-auto" />
+        </a>
+        
+        <!-- Center Links (Desktop Dropdowns) -->
+        <div class="hidden md:flex items-center gap-6 lg:gap-10 text-[15px] font-medium text-gray-700 ml-auto mr-4">
+            
+            <!-- Protect Dropdown -->
+            <div class="relative group py-2">
+                <button class="flex items-center gap-1 hover:text-brand-blue transition-colors outline-none focus:outline-none">
+                    Protect
+                    <svg class="w-4 h-4 text-gray-400 group-hover:text-brand-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-56 bg-white border border-gray-100 shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top overflow-hidden">
+                    <div class="flex flex-col py-2">
+                        <a href="/lock-file" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Password Protect a File</a>
+                        <a href="/lock-folder" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Password Protect a Folder</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unlock Dropdown -->
+            <div class="relative group py-2">
+                <button class="flex items-center gap-1 hover:text-brand-blue transition-colors outline-none focus:outline-none">
+                    Unlock
+                    <svg class="w-4 h-4 text-gray-400 group-hover:text-brand-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 bg-white border border-gray-100 shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top overflow-hidden">
+                    <div class="flex flex-col py-2">
+                        <a href="/unlock-file" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Open a Protected File</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guides Dropdown -->
+            <div class="relative group py-2">
+                <button class="flex items-center gap-1 hover:text-brand-blue transition-colors outline-none focus:outline-none">
+                    Guides
+                    <svg class="w-4 h-4 text-gray-400 group-hover:text-brand-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-64 bg-white border border-gray-100 shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top overflow-hidden">
+                    <div class="flex flex-col py-2">
+                        <a href="/guides" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Guides Directory</a>
+                        <a href="/guides/password-protect-pdf" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Password Protect a PDF</a>
+                        <a href="/guides/protect-large-videos" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Protect Large Video Files</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Right Actions (Hamburger on Mobile) -->
+        <div class="flex items-center flex-shrink-0">
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-500 hover:text-brand-blue focus:outline-none">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE DROPDOWN MENU -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 shadow-lg absolute w-full z-40 top-[60px] left-0 overflow-hidden">
+        <div class="flex flex-col px-4 py-4 space-y-4 font-medium text-gray-700">
+            <a href="/lock-file" class="hover:text-brand-blue flex items-center justify-between border-b border-gray-50 pb-2">Protect a File <span>→</span></a>
+            <a href="/lock-folder" class="hover:text-brand-blue flex items-center justify-between border-b border-gray-50 pb-2">Protect a Folder <span>→</span></a>
+            <a href="/unlock-file" class="hover:text-brand-blue flex items-center justify-between border-b border-gray-50 pb-2">Open Protected File <span>→</span></a>
+            <a href="/guides" class="hover:text-brand-blue flex items-center justify-between">Guides <span>→</span></a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col w-full h-[calc(100vh-65px)] relative">
+        <slot />
+    </main>
+    
+    <!-- FOOTER -->
+    <footer class="w-full bg-white border-t border-gray-100 py-16 mt-auto">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="md:col-span-1">
+                <a href="/" class="flex items-center gap-2 mb-4">
+                    <img src="/filelocker-logo-main.svg" alt="FileLocker" class="h-6 w-auto" />
+                </a>
+                <p class="text-gray-500 text-sm mb-4">
+                    Browser-based tools to password protect and open files securely.
+                </p>
+                <p class="text-gray-400 text-sm">
+                    &copy; {new Date().getFullYear()} FileLocker.
+                </p>
+            </div>
+            
+            <div>
+                <h4 class="font-bold text-gray-900 mb-4">Tools</h4>
+                <ul class="space-y-3 text-sm text-gray-500">
+                    <li><a href="/lock-file" class="hover:text-brand-blue transition-colors">Password Protect a File</a></li>
+                    <li><a href="/lock-folder" class="hover:text-brand-blue transition-colors">Password Protect a Folder</a></li>
+                    <li><a href="/unlock-file" class="hover:text-brand-blue transition-colors">Open a Protected File</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-gray-900 mb-4">Guides</h4>
+                <ul class="space-y-3 text-sm text-gray-500">
+                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">How to Password Protect a File</a></li>
+                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">How to Password Protect a Folder</a></li>
+                    <li><a href="/guides/password-protect-pdf" class="hover:text-brand-blue transition-colors">How to Protect a PDF With a Password</a></li>
+                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">How to Password Protect a ZIP File</a></li>
+                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">How to Lock a Folder on Windows</a></li>
+                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">How to Password Protect Photos</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-gray-900 mb-4">About</h4>
+                <ul class="space-y-3 text-sm text-gray-500">
+                    <li><a href="/how-it-works" class="hover:text-brand-blue transition-colors">How FileLocker Works</a></li>
+                    <li><a href="/privacy" class="hover:text-brand-blue transition-colors">Privacy</a></li>
+                    <li><a href="/security" class="hover:text-brand-blue transition-colors">Security</a></li>
+                    <li><a href="/faq" class="hover:text-brand-blue transition-colors">FAQ</a></li>
+                    <li><a href="/terms" class="hover:text-brand-blue transition-colors">Terms of Service</a></li>
+                    <li><a href="/contact" class="hover:text-brand-blue transition-colors">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            
+            if (btn && menu) {
+                btn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

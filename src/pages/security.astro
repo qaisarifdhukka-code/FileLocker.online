@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="FileLocker Security Architecture | AES-GCM Browser Encryption" 
+  description="Deep dive into the cryptographic architecture of FileLocker. We use Argon2id and AES-GCM directly in the browser via Web Crypto APIs."
+>
+  <div class="w-full bg-[#f8fafc] min-h-screen py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Security Architecture</h1>
+        <p class="text-xl text-gray-500 max-w-2xl mx-auto">
+          For the technically curious: here is exactly how FileLocker encrypts your data locally using modern Web Crypto APIs.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
+        <div class="prose prose-lg max-w-none text-gray-600">
+          
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">1. Key Derivation (Argon2id)</h3>
+          <p>
+            When you enter a password, FileLocker does not use it directly as an encryption key. Instead, we use <strong>Argon2id</strong> (the winner of the Password Hashing Competition) to derive a secure 256-bit cryptographic key. 
+          </p>
+          <p>
+            We generate a unique, cryptographically secure 16-byte salt for every file. This salt is stored in the header of the resulting <code>.vault</code> file, ensuring that even if you use the same password for two different files, the resulting encryption keys are entirely different.
+          </p>
+
+          <hr class="my-8 border-gray-100" />
+
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">2. Data Encryption (AES-GCM)</h3>
+          <p>
+            The actual file contents are encrypted using <strong>AES-GCM</strong> (Advanced Encryption Standard with Galois/Counter Mode). This is the gold standard for authenticated encryption.
+          </p>
+          <ul class="list-disc pl-6 space-y-2 mt-4">
+            <li><strong>AES-256</strong> ensures the data is mathematically unbreakable by brute force.</li>
+            <li><strong>GCM (Authenticated Mode)</strong> ensures that if a single byte of the encrypted <code>.vault</code> file is tampered with or corrupted, FileLocker will detect it and refuse to decrypt the file, preventing malicious alterations.</li>
+          </ul>
+
+          <hr class="my-8 border-gray-100" />
+
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">3. Large File Streaming (OPFS)</h3>
+          <p>
+            Traditional browser-based encryption tools crash when you try to encrypt a file larger than your computer's available RAM (e.g., a 10GB video file). 
+          </p>
+          <p>
+            FileLocker solves this using the <strong>Origin Private File System (OPFS)</strong> and advanced streaming APIs. We process the file in small, manageable chunks (typically 10MB), encrypting and writing them sequentially to disk. This allows FileLocker to securely encrypt practically infinite file sizes without crashing your browser.
+          </p>
+
+          <hr class="my-8 border-gray-100" />
+
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">4. Folder Packaging (TAR)</h3>
+          <p>
+            When you choose to protect an entire folder, FileLocker intercepts the folder structure and creates a raw byte-stream <strong>TAR (Tape Archive)</strong> on the fly. This TAR stream is fed directly into the AES-GCM encryption pipeline. 
+          </p>
+          <p>
+            When you unlock the file, the process is reversed, cleanly restoring your exact folder structure with zero data loss.
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</Layout>

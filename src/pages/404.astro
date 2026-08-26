@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Page Not Found | FileLocker" description="The page you are looking for does not exist.">
+  <div class="flex flex-col items-center justify-center py-32 px-6 text-center min-h-[60vh]">
+    <div class="w-24 h-24 bg-brand-blue/10 rounded-full flex items-center justify-center mb-8">
+      <svg class="w-12 h-12 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+    <h1 class="text-6xl font-extrabold text-gray-900 mb-4">404</h1>
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Page Not Found</h2>
+    <p class="text-lg text-gray-500 max-w-lg mb-10">
+      Oops! It looks like this page was moved or doesn't exist. Don't worry, your files are still safe.
+    </p>
+    <a href="/" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 px-10 rounded-xl shadow-lg transition-transform hover:-translate-y-1 transform active:scale-95 text-lg">
+      Go back to the tool
+    </a>
+  </div>
+</Layout>

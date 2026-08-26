@@ -1,0 +1,79 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="How to Password Protect Large Video Files | FileLocker Online" 
+  description="Learn how to encrypt and password protect massive video files (10GB+) directly in your browser without uploading them."
+>
+  <div class="w-full bg-[#f8fafc] min-h-screen py-16 px-6">
+    <div class="max-w-3xl mx-auto">
+      
+      <!-- Breadcrumbs -->
+      <nav class="flex text-sm text-gray-500 mb-8 font-medium">
+        <a href="/guides" class="hover:text-brand-blue">Guides</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">Protect Large Videos</span>
+      </nav>
+
+      <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
+        
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 leading-tight">How to Protect Large Video Files</h1>
+        
+        <div class="prose prose-lg max-w-none text-gray-600">
+          <p class="lead text-xl text-gray-500 mb-8">
+            Protecting small documents is easy, but what happens when you need to secure a 10GB 4K video recording before sharing it? Most online tools will immediately crash your browser because they try to load the entire massive file into your computer's RAM.
+          </p>
+
+          <p>
+            FileLocker is different. It is specifically engineered to handle <strong>massive files of any size</strong> using modern streaming technology. It processes your massive video in tiny, manageable chunks, meaning it will never crash your browser or slow down your PC, no matter how large the file is.
+          </p>
+
+          <div class="bg-purple-50 border border-purple-100 rounded-2xl p-6 my-8">
+            <h3 class="text-lg font-bold text-gray-900 mt-0 mb-2 flex items-center gap-2">
+              <svg class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              Lightning Fast
+            </h3>
+            <p class="m-0 text-sm">
+              Because FileLocker doesn't upload your 10GB video to a server over the internet, it works at the native read/write speed of your hard drive. A 1GB video can be secured in a matter of seconds.
+            </p>
+          </div>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-6">Step-by-Step Guide</h2>
+          
+          <ol class="space-y-6 list-decimal list-outside ml-6 font-medium text-gray-900">
+            <li>
+              <strong>Open the FileLocker Tool</strong><br/>
+              <span class="text-gray-600 font-normal">Go to our free <a href="/lock-file" class="text-brand-blue hover:underline">File Protection tool</a>.</span>
+            </li>
+            <li>
+              <strong>Select your Video (.mp4, .mov, .mkv)</strong><br/>
+              <span class="text-gray-600 font-normal">Click "Upload from PC or Mobile" and select your large video file. Don't worry, nothing is actually uploaded over the internet.</span>
+            </li>
+            <li>
+              <strong>Create a Password</strong><br/>
+              <span class="text-gray-600 font-normal">Enter a strong password. This password will be required to watch the video later.</span>
+            </li>
+            <li>
+              <strong>Save the .vault File</strong><br/>
+              <span class="text-gray-600 font-normal">Click "Lock & Save File". FileLocker will process the video stream and output a secure <code>.vault</code> file. You can now upload this file to Google Drive, Dropbox, or a USB drive securely.</span>
+            </li>
+          </ol>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-6">Unlocking the Video</h2>
+          <p>
+            When someone needs to watch the video, they must go to the <a href="/unlock-file" class="text-brand-blue hover:underline">Unlock Tool</a> and enter the password. FileLocker will instantly stream the decryption process and restore the original, playable `.mp4` or `.mov` file in perfect, uncompressed quality.
+          </p>
+
+        </div>
+
+        <div class="mt-12 text-center border-t border-gray-100 pt-10">
+          <a href="/lock-file" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 inline-block text-lg">
+            Protect a Video Now
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</Layout>

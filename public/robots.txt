@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://filelocker.online/sitemap-index.xml

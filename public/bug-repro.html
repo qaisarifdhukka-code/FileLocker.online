@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chromium Large File close() Repro</title>
+    <style>
+        body { font-family: system-ui, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .box { border: 1px solid #ccc; padding: 20px; border-radius: 8px; margin-top: 20px; }
+        button { padding: 10px 20px; font-size: 16px; margin-top: 10px; cursor: pointer; }
+        #log { white-space: pre-wrap; background: #f5f5f5; padding: 10px; border-radius: 4px; font-family: monospace; font-size: 13px; max-height: 400px; overflow-y: auto; margin-top: 20px;}
+        .error { color: red; font-weight: bold; }
+        .success { color: green; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>Chromium Large File <code>close()</code> Repro</h1>
+    <p>This isolates the File System Access API from FileLocker. It performs a straight chunk-by-chunk copy with <strong>no encryption, no React, and no complex logic.</strong></p>
+    
+    <div class="box">
+        <h3>1. Select Large File (e.g., >3 GB)</h3>
+        <input type="file" id="fileInput" style="width: 100%; font-size: 16px; padding: 10px;" />
+
+        <h3>2. Select Test Configuration</h3>
+        <label style="display: block; margin: 10px 0;"><input type="checkbox" id="chkDelay"> <b>Test 2A:</b> Add 500ms artificial delay per chunk (Tests transaction duration)</label>
+        <label style="display: block; margin: 10px 0;"><input type="checkbox" id="chkEncrypt"> <b>Test 2B:</b> Perform real AES-GCM encryption (Tests CPU/memory stress)</label>
+
+        <h3>3. Run Test</h3>
+        <button id="startBtn" disabled>Start Repro Test</button>
+    </div>
+
+    <div id="log"></div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const startBtn = document.getElementById('startBtn');
+        const logEl = document.getElementById('log');
+        const chkDelay = document.getElementById('chkDelay');
+        const chkEncrypt = document.getElementById('chkEncrypt');
+
+        function log(msg, className = '') {
+            const div = document.createElement('div');
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            if (className) div.className = className;
+            logEl.appendChild(div);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        let selectedFile = null;
+
+        fileInput.addEventListener('change', (e) => {
+            selectedFile = e.target.files[0];
+            if (selectedFile) {
+                log(`Selected: ${selectedFile.name} (${(selectedFile.size / 1024 / 1024).toFixed(2)} MB)`);
+                startBtn.disabled = false;
+            }
+        });
+
+        // AES Encryption helper (matching FileLocker pure-vault-writer logic exactly)
+        async function doAESEncryption(buffer, chunkCounter) {
+            if (!window.testKey) {
+                log('Generating AES-256-GCM test key...', 'success');
+                window.testKey = await crypto.subtle.generateKey(
+                    { name: "AES-GCM", length: 256 },
+                    true,
+                    ["encrypt", "decrypt"]
+                );
+                window.testNonce = crypto.getRandomValues(new Uint8Array(8));
+            }
+            
+            const iv = new Uint8Array(12);
+            iv.set(window.testNonce, 0);
+            const view = new DataView(iv.buffer);
+            view.setUint32(8, chunkCounter, false);
+            
+            const encrypted = await crypto.subtle.encrypt(
+                { name: "AES-GCM", iv },
+                window.testKey,
+                buffer
+            );
+            
+            const webCryptoOutput = new Uint8Array(encrypted);
+            const tagStart = webCryptoOutput.length - 16;
+            const tag = webCryptoOutput.slice(tagStart);
+            const ciphertext = webCryptoOutput.slice(0, tagStart);
+            
+            const finalChunk = new Uint8Array(12 + 16 + ciphertext.length);
+            finalChunk.set(iv, 0);
+            finalChunk.set(tag, 12);
+            finalChunk.set(ciphertext, 28);
+            
+            return finalChunk;
+        }
+
+        startBtn.addEventListener('click', async () => {
+            if (!selectedFile) return;
+            startBtn.disabled = true;
+            
+            const useDelay = chkDelay.checked;
+            const useEncrypt = chkEncrypt.checked;
+            log(`Starting test... Delay=${useDelay}, Encrypt=${useEncrypt}`);
+
+            const CHUNK_SIZE = 10 * 1024 * 1024; // 10 MB chunks
+            const totalSize = selectedFile.size;
+
+            let fileHandle;
+            let writable;
+
+            try {
+                log('Opening showSaveFilePicker...');
+                fileHandle = await window.showSaveFilePicker({
+                    suggestedName: `repro-${selectedFile.name}`,
+                });
+
+                log('Creating writable stream...');
+                writable = await fileHandle.createWritable();
+
+                let offset = 0;
+                let chunkCounter = 0;
+                log('Starting 10MB chunk loop...');
+
+                while (offset < totalSize) {
+                    const end = Math.min(offset + CHUNK_SIZE, totalSize);
+                    
+                    const chunkBlob = selectedFile.slice(offset, end);
+                    let buffer = await chunkBlob.arrayBuffer();
+
+                    // Optional Test 2B: Real Encryption
+                    let finalBufferToWrite = buffer;
+                    if (useEncrypt) {
+                        finalBufferToWrite = await doAESEncryption(buffer, chunkCounter);
+                    }
+
+                    // Write to file
+                    await writable.write(finalBufferToWrite);
+
+                    offset = end;
+                    chunkCounter++;
+
+                    // Optional Test 2A: Artificial Delay
+                    if (useDelay) {
+                        await new Promise(r => setTimeout(r, 500));
+                    }
+
+                    if (chunkCounter % 10 === 0) {
+                        log(`Written ${(offset / 1024 / 1024).toFixed(2)} MB / ${(totalSize / 1024 / 1024).toFixed(2)} MB...`);
+                    }
+                    
+                    // Always yield to event loop for GC like FileLocker does
+                    if (chunkCounter % 5 === 0) {
+                        await new Promise(r => setTimeout(r, 0));
+                    }
+                }
+
+                log('All chunks written successfully. Preparing to close stream.');
+                log(`Total chunks: ${chunkCounter}, Total bytes processed: ${offset}`);
+                log('Calling writable.close()...');
+
+                try {
+                    await writable.close();
+                    log('writable.close() SUCCESS! The bug did not trigger.', 'success');
+                } catch (closeErr) {
+                    log(`writable.close() FAILED!`, 'error');
+                    log(`${closeErr.name}: ${closeErr.message}`, 'error');
+                    throw closeErr; 
+                }
+
+            } catch (err) {
+                log(`Operation failed: ${err.name}: ${err.message}`, 'error');
+                console.error(err);
+                if (writable) {
+                    try {
+                        log('Attempting to abort stream...');
+                        await writable.abort();
+                        log('Stream aborted.');
+                    } catch (abortErr) {
+                        log(`Abort failed: ${abortErr.message}`, 'error');
+                    }
+                }
+            } finally {
+                startBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+---
+import TestHarness from '../components/TestHarness.tsx';
+import OpfsTestHarness from '../components/OpfsTestHarness.tsx';
+import SwOpfsTestHarness from '../components/SwOpfsTestHarness.tsx';
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>FileLocker Engine Test</title>
+  </head>
+  <body class="bg-slate-100 min-h-screen">
+    <TestHarness client:load />
+    <div style="margin-top: 2rem;">
+      <OpfsTestHarness client:load />
+    </div>
+    <div style="margin-top: 2rem;">
+      <SwOpfsTestHarness client:load />
+    </div>
+  </body>
+</html>

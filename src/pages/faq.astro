@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Frequently Asked Questions | FileLocker Online" 
+  description="Answers to common questions about FileLocker, file size limits, password recovery, and browser compatibility."
+>
+  <div class="w-full bg-[#f8fafc] min-h-screen py-16 px-6">
+    <div class="max-w-3xl mx-auto">
+      
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Frequently Asked Questions</h1>
+        <p class="text-xl text-gray-500">
+          Everything you need to know about protecting your files with FileLocker.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Are my files uploaded to your servers?</h3>
+          <p class="text-gray-600 leading-relaxed">
+            No. FileLocker operates 100% within your web browser using client-side JavaScript. Your files never leave your computer, ensuring absolute privacy. You can even disconnect from the internet while the file is processing!
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+          <h3 class="text-xl font-bold text-gray-900 mb-3">What happens if I forget my password?</h3>
+          <p class="text-gray-600 leading-relaxed">
+            If you forget your password, <strong class="text-gray-900">your file cannot be recovered</strong>. Because we do not use servers or accounts, we do not have a copy of your password or your file. Please keep your passwords safe.
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Is there a limit on file sizes?</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Unlike other web tools, FileLocker does not artificially limit your file sizes. Thanks to modern browser streaming APIs (OPFS), FileLocker can process extremely large files (e.g., 10GB+ videos) without crashing your browser. The only limit is the available storage space on your hard drive.
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Can I open my protected files on a Mac or Phone?</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Yes! Because FileLocker is a web application, it works across Windows, Mac, Linux, iOS, and Android. You can lock a file on your Windows PC, send the <code>.vault</code> file to your iPhone, and unlock it there using Safari.
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Why is my file saved as a .vault file?</h3>
+          <p class="text-gray-600 leading-relaxed">
+            The <code>.vault</code> extension is simply our way of identifying that the file has been encrypted by FileLocker. It contains your scrambled file contents plus some cryptographic metadata (like a salt and a nonce) required to unlock it later. When you unlock the file, it will be restored to its original format (e.g., <code>.pdf</code>, <code>.mp4</code>).
+          </p>
+        </div>
+
+      </div>
+
+      <div class="mt-16 text-center">
+        <a href="/lock-file" class="text-brand-blue font-bold hover:underline text-lg">
+          Ready to protect a file? Get started →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</Layout>

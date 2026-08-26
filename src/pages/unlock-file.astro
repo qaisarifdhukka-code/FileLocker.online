@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import UnlockApp from '../components/UnlockApp';
+---
+
+<Layout 
+  title="Open a Password-Protected File Online - Free Unlock Tool" 
+  description="Restore a FileLocker protected file using the password used to create it. No software required."
+>
+  <div class="flex-1 bg-bg-light w-full flex items-center justify-center">
+    <UnlockApp client:load />
+  </div>
+
+  <!-- SEO CONTENT -->
+  <section class="w-full bg-white py-16 px-6 border-t border-gray-200">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">How to open a .vault file</h2>
+      <div class="prose prose-blue text-gray-600">
+        <p>If someone sent you a FileLocker `.vault` file, you are in the right place. Our unlock tool reverses the protection process entirely within your browser.</p>
+        <ol>
+          <li>Select the `.vault` file from your device.</li>
+          <li>Enter the password that was used to lock the file. (You must get this from the person who locked the file).</li>
+          <li>Wait for the decryption to complete, and your browser will save the original file or folder back to your device.</li>
+        </ol>
+        <p>FileLocker cannot recover lost passwords because all data is processed strictly client-side. We do not store encryption keys.</p>
+      </div>
+    </div>
+  </section>
+</Layout>

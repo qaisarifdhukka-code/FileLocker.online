@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProvisioningApp from '../components/ProvisioningApp';
+---
+
+<Layout 
+  title="Password Protect a File Online - Free File Protection Tool" 
+  description="Add password protection to a file directly in your browser. No software required."
+>
+  <div class="flex-1 bg-bg-light w-full flex items-center justify-center">
+    <ProvisioningApp client:load initialMode="file" />
+  </div>
+
+  <!-- SEO CONTENT -->
+  <section class="w-full bg-white py-16 px-6 border-t border-gray-200">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">How to password protect a file</h2>
+      <div class="prose prose-blue text-gray-600">
+        <p>FileLocker allows you to secure individual files without uploading them to any server. Our browser-based tool uses advanced cryptography to generate a locked `.vault` file right on your hard drive.</p>
+        <ol>
+          <li>Select the file you want to protect from your device.</li>
+          <li>Enter a secure password that will be used as the encryption key.</li>
+          <li>Save the resulting `.vault` file. You can now safely share or store it.</li>
+        </ol>
+        <p>Because the processing happens locally, there are no limits on file size, and your sensitive data remains entirely private.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
