@@ -1,4 +1,5 @@
-export const onRequest: PagesFunction = async (context) => {
+// @ts-ignore - Cloudflare Pages types are not installed
+export const onRequest = async (context: any) => {
   // Pass the request through to the asset/page
   const response = await context.next();
 
