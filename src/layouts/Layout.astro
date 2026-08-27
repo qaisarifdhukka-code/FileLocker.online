@@ -10,6 +10,11 @@ const {
   title, 
   description = "Protect files and folders with a password directly in your browser. No account required and no file upload to a server." 
 } = Astro.props;
+
+const canonicalPath = Astro.url.pathname === '/' 
+  ? '/' 
+  : Astro.url.pathname.replace(/\/$/, '');
+const canonicalURL = new URL(canonicalPath, 'https://filelocker.online').toString();
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +24,7 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href={canonicalURL} />
     <slot name="head" />
 </head>
 <body class="text-brand-dark flex flex-col min-h-screen bg-bg-light overflow-x-hidden">
@@ -129,12 +135,11 @@ const {
             <div>
                 <h4 class="font-bold text-gray-900 mb-4">Guides</h4>
                 <ul class="space-y-3 text-sm text-gray-500">
-                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">How to Password Protect a File</a></li>
-                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">How to Password Protect a Folder</a></li>
+                    <li><a href="/lock-file" class="hover:text-brand-blue transition-colors">How to Password Protect a File</a></li>
+                    <li><a href="/lock-folder" class="hover:text-brand-blue transition-colors">How to Password Protect a Folder</a></li>
                     <li><a href="/guides/password-protect-pdf" class="hover:text-brand-blue transition-colors">How to Protect a PDF With a Password</a></li>
-                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">How to Password Protect a ZIP File</a></li>
-                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">How to Lock a Folder on Windows</a></li>
-                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">How to Password Protect Photos</a></li>
+                    <li><a href="/guides/protect-large-videos" class="hover:text-brand-blue transition-colors">How to Protect Large Video Files</a></li>
+                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">Browse All Security Guides</a></li>
                 </ul>
             </div>
 
