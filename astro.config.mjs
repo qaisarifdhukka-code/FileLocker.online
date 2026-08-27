@@ -11,7 +11,7 @@ export default defineConfig({
   integrations: [
     react(), 
     sitemap({
-      filter: (page) => !page.includes('/test') && !page.includes('/e2e'),
+      filter: (page) => !page.includes('/test') && !page.includes('/e2e') && !page.endsWith('/lock') && !page.endsWith('/unlock'),
       serialize(item) {
         if (item.url === 'https://filelocker.online' || item.url === 'https://filelocker.online/') {
           item.url = 'https://filelocker.online/';
@@ -22,6 +22,17 @@ export default defineConfig({
       }
     })
   ],
+
+  redirects: {
+    '/lock': {
+      status: 301,
+      destination: '/lock-file'
+    },
+    '/unlock': {
+      status: 301,
+      destination: '/unlock-file'
+    }
+  },
 
   vite: {
     plugins: [tailwindcss()]
