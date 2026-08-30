@@ -1,2 +1,24 @@
 /lock /lock-file 301
 /unlock /unlock-file 301
+
+/about/ / 301
+/contact/ /contact 301
+/docs/ /guides 301
+/docs/delivery-methods/ /how-it-works 301
+/docs/faq/ /faq 301
+/docs/getting-started/ /how-it-works 301
+/docs/locking-files/ /lock-file 301
+/docs/passwords/ /security 301
+/docs/security/ /security 301
+/docs/supported-browsers/ /faq 301
+/docs/troubleshooting/ /faq 301
+/docs/unlocking-files/ /unlock-file 301
+/early-access/ / 301
+/faq/ /faq 301
+/features/ / 301
+/how-it-works/ /how-it-works 301
+/pricing/ / 301
+/privacy/ /privacy 301
+/security/ /security 301
+/terms/ /terms 301
+/who-its-for/ / 301
