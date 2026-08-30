@@ -36,10 +36,6 @@ export default defineConfig({
       status: 301,
       destination: '/'
     },
-    '/contact/': {
-      status: 301,
-      destination: '/contact'
-    },
     '/docs/': {
       status: 301,
       destination: '/guides'
@@ -84,33 +80,13 @@ export default defineConfig({
       status: 301,
       destination: '/'
     },
-    '/faq/': {
-      status: 301,
-      destination: '/faq'
-    },
     '/features/': {
       status: 301,
       destination: '/'
     },
-    '/how-it-works/': {
-      status: 301,
-      destination: '/how-it-works'
-    },
     '/pricing/': {
       status: 301,
       destination: '/'
-    },
-    '/privacy/': {
-      status: 301,
-      destination: '/privacy'
-    },
-    '/security/': {
-      status: 301,
-      destination: '/security'
-    },
-    '/terms/': {
-      status: 301,
-      destination: '/terms'
     },
     '/who-its-for/': {
       status: 301,
