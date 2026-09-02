@@ -17,7 +17,7 @@ function hexToBytes(hex: string) {
   return b;
 }
 
-export default function UnlockApp() {
+export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean } = {}) {
   const [file, setFile] = useState<File | null>(null);
   const [meta, setMeta] = useState<any>(null);
   const [password, setPassword] = useState('');
@@ -236,12 +236,14 @@ export default function UnlockApp() {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto py-12 px-4 sm:px-6">
+    <div className={`w-full max-w-2xl mx-auto ${hideHeader ? 'py-2' : 'py-12'} px-4 sm:px-6`}>
       
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">Unlock a File</h1>
-        <p className="text-gray-500">Restore a FileLocker protected file using its password.</p>
-      </div>
+      {!hideHeader && (
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-3">Unlock a File</h1>
+          <p className="text-gray-500">Restore a FileLocker protected file using its password.</p>
+        </div>
+      )}
 
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         
