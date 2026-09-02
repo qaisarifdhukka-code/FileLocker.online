@@ -64,10 +64,25 @@ const faqSchema = {
     }
   ]
 };
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FileLocker",
+  "url": "https://filelocker.online",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Browser-based tool to password protect files and folders online. No software installation or server uploads required."
+};
 ---
 
 <Layout title="Password-Protect Files and Folders Online | FileLocker">
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
   <!-- HERO SECTION -->
   <section class="w-full bg-[#f8fafc] flex flex-col items-center pt-24 pb-20 px-4 text-center relative overflow-hidden">
       <!-- Decorative Floating Shapes -->
@@ -376,6 +391,35 @@ const faqSchema = {
                   <p class="text-gray-800 mt-2 leading-relaxed font-medium">FileLocker does not store your password. If you forget it, the protected file cannot be opened through FileLocker.</p>
               </div>
           </div>
+      </div>
+  </section>
+
+  <!-- GUIDES SECTION -->
+  <section class="w-full bg-white py-20 px-6 border-t border-gray-100">
+      <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl font-extrabold text-gray-900 mb-6">File Protection Guides</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed mb-10">
+              Step-by-step instructions for protecting specific file types.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-3xl mx-auto text-left">
+              <a href="/guides/password-protect-pdf" class="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:border-brand-blue hover:shadow-md transition-all group">
+                  <div class="font-bold text-gray-900 mb-1 group-hover:text-brand-blue transition-colors">How to Password Protect a PDF</div>
+                  <div class="text-gray-500 text-sm">Secure PDF documents without an Adobe subscription.</div>
+              </a>
+              <a href="/guides/password-protect-zip" class="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:border-brand-blue hover:shadow-md transition-all group">
+                  <div class="font-bold text-gray-900 mb-1 group-hover:text-brand-blue transition-colors">How to Password Protect a ZIP File</div>
+                  <div class="text-gray-500 text-sm">Add password protection to any ZIP archive.</div>
+              </a>
+              <a href="/guides/password-protect-excel" class="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:border-brand-blue hover:shadow-md transition-all group">
+                  <div class="font-bold text-gray-900 mb-1 group-hover:text-brand-blue transition-colors">How to Password Protect an Excel File</div>
+                  <div class="text-gray-500 text-sm">Protect spreadsheets using Excel's built-in tools or FileLocker.</div>
+              </a>
+              <a href="/guides/protect-large-videos" class="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:border-brand-blue hover:shadow-md transition-all group">
+                  <div class="font-bold text-gray-900 mb-1 group-hover:text-brand-blue transition-colors">How to Protect Large Video Files</div>
+                  <div class="text-gray-500 text-sm">Encrypt videos of any size without browser crashes.</div>
+              </a>
+          </div>
+          <a href="/guides" class="inline-block mt-8 text-brand-blue font-bold hover:underline">Browse all guides →</a>
       </div>
   </section>
 

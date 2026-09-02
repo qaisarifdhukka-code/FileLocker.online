@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -19,7 +19,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
         <div class="prose prose-lg max-w-none text-gray-600">
           
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">1. Key Derivation (Argon2id)</h3>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">1. Key Derivation (Argon2id)</h2>
           <p>
             When you enter a password, FileLocker does not use it directly as an encryption key. Instead, we use <strong>Argon2id</strong> (the winner of the Password Hashing Competition) to derive a secure 256-bit cryptographic key. 
           </p>
@@ -29,7 +29,7 @@ import Layout from '../layouts/Layout.astro';
 
           <hr class="my-8 border-gray-100" />
 
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">2. Data Encryption (AES-GCM)</h3>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">2. Data Encryption (AES-GCM)</h2>
           <p>
             The actual file contents are encrypted using <strong>AES-GCM</strong> (Advanced Encryption Standard with Galois/Counter Mode). This is the gold standard for authenticated encryption.
           </p>
@@ -40,7 +40,7 @@ import Layout from '../layouts/Layout.astro';
 
           <hr class="my-8 border-gray-100" />
 
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">3. Large File Streaming (OPFS)</h3>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">3. Large File Streaming (OPFS)</h2>
           <p>
             Traditional browser-based encryption tools crash when you try to encrypt a file larger than your computer's available RAM (e.g., a 10GB video file). 
           </p>
@@ -50,7 +50,7 @@ import Layout from '../layouts/Layout.astro';
 
           <hr class="my-8 border-gray-100" />
 
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">4. Folder Packaging (TAR)</h3>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">4. Folder Packaging (TAR)</h2>
           <p>
             When you choose to protect an entire folder, FileLocker intercepts the folder structure and creates a raw byte-stream <strong>TAR (Tape Archive)</strong> on the fly. This TAR stream is fed directly into the AES-GCM encryption pipeline. 
           </p>
@@ -64,3 +64,4 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </div>
 </Layout>
+

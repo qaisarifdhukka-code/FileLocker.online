@@ -23,6 +23,19 @@ const canonicalURL = new URL(canonicalPath, 'https://filelocker.online').toStrin
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
     <meta name="description" content={description} />
+    
+    <!-- OpenGraph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="FileLocker" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="canonical" href={canonicalURL} />
     <slot name="head" />
@@ -137,9 +150,11 @@ const canonicalURL = new URL(canonicalPath, 'https://filelocker.online').toStrin
                 <ul class="space-y-3 text-sm text-gray-500">
                     <li><a href="/lock-file" class="hover:text-brand-blue transition-colors">How to Password Protect a File</a></li>
                     <li><a href="/lock-folder" class="hover:text-brand-blue transition-colors">How to Password Protect a Folder</a></li>
-                    <li><a href="/guides/password-protect-pdf" class="hover:text-brand-blue transition-colors">How to Protect a PDF With a Password</a></li>
+                    <li><a href="/guides/password-protect-pdf" class="hover:text-brand-blue transition-colors">How to Password Protect a PDF</a></li>
+                    <li><a href="/guides/password-protect-zip" class="hover:text-brand-blue transition-colors">How to Password Protect a ZIP File</a></li>
+                    <li><a href="/guides/password-protect-excel" class="hover:text-brand-blue transition-colors">How to Password Protect an Excel File</a></li>
                     <li><a href="/guides/protect-large-videos" class="hover:text-brand-blue transition-colors">How to Protect Large Video Files</a></li>
-                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">Browse All Security Guides</a></li>
+                    <li><a href="/guides" class="hover:text-brand-blue transition-colors">Browse All Guides</a></li>
                 </ul>
             </div>
 

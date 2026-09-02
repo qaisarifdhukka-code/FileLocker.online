@@ -1,29 +1,132 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import UnlockApp from '../components/UnlockApp';
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FileLocker — Unlock Tool",
+  "url": "https://filelocker.online/unlock-file",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Unlock and open FileLocker-protected .vault files directly in your browser. No software installation required."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What types of files can I unlock with FileLocker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "FileLocker's unlock tool is designed to open .vault files that were created with FileLocker. It decrypts the file entirely within your browser and restores the original file or folder."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my file uploaded to a server when I unlock it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The decryption process happens entirely within your browser. Your file is never sent to a server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I enter the wrong password?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "FileLocker uses authenticated encryption (AES-GCM), which detects an incorrect password and refuses to produce corrupted output. You will see an error message and can try again with the correct password."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can FileLocker recover a lost password?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Because FileLocker processes everything locally and never stores passwords or encryption keys, there is no way to recover a forgotten password. The correct password is required to open a protected file."
+      }
+    }
+  ]
+};
 ---
 
 <Layout 
-  title="Open a Password-Protected File Online - Free Unlock Tool" 
-  description="Restore a FileLocker protected file using the password used to create it. No software required."
+  title="Unlock a Password Protected File Online | FileLocker"
+  description="Open and decrypt a FileLocker-protected file directly in your browser. No software required, no file uploads — all processing happens locally on your device."
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- H1 for SEO -->
+  <div class="w-full bg-bg-light pt-8 pb-2 px-4 text-center">
+    <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900">Unlock a Password Protected File</h1>
+    <p class="text-gray-500 text-base mt-2 max-w-xl mx-auto">Open a FileLocker-protected <code>.vault</code> file directly in your browser — no uploads, no software required.</p>
+  </div>
+
   <div class="flex-1 bg-bg-light w-full flex items-center justify-center">
     <UnlockApp client:load />
   </div>
 
   <!-- SEO CONTENT -->
   <section class="w-full bg-white py-16 px-6 border-t border-gray-200">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-2xl font-bold text-gray-900 mb-6">How to open a .vault file</h2>
-      <div class="prose prose-blue text-gray-600">
-        <p>If someone sent you a FileLocker `.vault` file, you are in the right place. Our unlock tool reverses the protection process entirely within your browser.</p>
-        <ol>
-          <li>Select the `.vault` file from your device.</li>
-          <li>Enter the password that was used to lock the file. (You must get this from the person who locked the file).</li>
-          <li>Wait for the decryption to complete, and your browser will save the original file or folder back to your device.</li>
-        </ol>
-        <p>FileLocker cannot recover lost passwords because all data is processed strictly client-side. We do not store encryption keys.</p>
+    <div class="max-w-4xl mx-auto space-y-12">
+
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">How to Open a Password Protected File</h2>
+        <div class="prose prose-blue text-gray-600 max-w-none">
+          <p>FileLocker's unlock tool decrypts any <code>.vault</code> file that was created with FileLocker. The entire process runs inside your web browser — your file is never sent to a server.</p>
+          <ol>
+            <li><strong>Select your .vault file.</strong> Click the upload area and choose the <code>.vault</code> file from your device.</li>
+            <li><strong>Enter the password.</strong> Type the password that was used when the file was originally protected. You must get this from the person who created the protected file.</li>
+            <li><strong>Save the original file.</strong> FileLocker decrypts the contents and your browser prompts you to save the restored file or folder to your device.</li>
+          </ol>
+          <p>Because all processing happens locally, there is no waiting for uploads or server processing. Large files — including videos — are decrypted using the same streaming approach used during encryption.</p>
+        </div>
       </div>
+
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">What is a .vault File?</h2>
+        <div class="prose prose-blue text-gray-600 max-w-none">
+          <p>A <code>.vault</code> file is a file that has been encrypted by FileLocker. It contains the original file's encrypted contents along with cryptographic metadata — such as a salt and nonce — needed to safely decrypt it. When you unlock a <code>.vault</code> file that contains a folder, FileLocker also restores the original folder structure exactly as it was when protected.</p>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+            <h3 class="font-bold text-gray-900 text-lg mb-2">What types of files can I unlock with FileLocker?</h3>
+            <p class="text-gray-600">FileLocker's unlock tool opens <code>.vault</code> files created with FileLocker. It decrypts the file within your browser and restores the original file or folder.</p>
+          </div>
+          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+            <h3 class="font-bold text-gray-900 text-lg mb-2">Is my file uploaded to a server when I unlock it?</h3>
+            <p class="text-gray-600">No. The decryption process happens entirely within your browser. Your file is never sent to a server.</p>
+          </div>
+          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+            <h3 class="font-bold text-gray-900 text-lg mb-2">What happens if I enter the wrong password?</h3>
+            <p class="text-gray-600">FileLocker uses authenticated encryption (AES-GCM), which detects an incorrect password and refuses to produce corrupted output. You will see an error and can try again with the correct password.</p>
+          </div>
+          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+            <h3 class="font-bold text-gray-900 text-lg mb-2">Can FileLocker recover a lost password?</h3>
+            <p class="text-gray-600">No. Because FileLocker processes everything locally and never stores passwords or encryption keys, there is no way to recover a forgotten password. The correct password is required to open a protected file.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center border-t border-gray-100 pt-8">
+        <p class="text-gray-500 mb-4 text-sm">Need to protect a file instead?</p>
+        <a href="/lock-file" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform hover:-translate-y-1 transform active:scale-95 inline-block">
+          Password Protect a File
+        </a>
+      </div>
+
     </div>
   </section>
 </Layout>

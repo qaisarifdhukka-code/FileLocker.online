@@ -1,10 +1,10 @@
----
+﻿---
 import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="Guides & Tutorials | FileLocker Online" 
-  description="Learn how to password protect PDFs, encrypt large video files, and secure your folders with our step-by-step guides."
+  title="Guides & Tutorials | FileLocker"
+  description="Step-by-step guides on how to password protect PDFs, ZIP files, Excel spreadsheets, large video files, and more using FileLocker."
 >
   <div class="w-full bg-[#f8fafc] min-h-screen py-16 px-6">
     <div class="max-w-6xl mx-auto">
@@ -12,31 +12,55 @@ import Layout from '../../layouts/Layout.astro';
       <div class="text-center mb-16">
         <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Guides & Tutorials</h1>
         <p class="text-xl text-gray-500 max-w-2xl mx-auto">
-          Step-by-step instructions on how to secure different types of files and folders using FileLocker.
+          Step-by-step instructions on how to secure different types of files using FileLocker.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <!-- Guide 1 -->
+        <!-- PDF Guide -->
         <a href="/guides/password-protect-pdf" class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
           <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
           </div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">How to Password Protect a PDF File</h2>
-          <p class="text-gray-500 mb-8 flex-1">Learn how to lock sensitive PDF documents for free without needing an expensive Adobe Acrobat subscription.</p>
+          <div class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">How to Password Protect a PDF File</div>
+          <p class="text-gray-500 mb-8 flex-1">Secure sensitive PDF documents for free without an Adobe Acrobat subscription.</p>
           <div class="font-bold text-brand-blue flex items-center gap-2">
             Read Guide <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </div>
         </a>
 
-        <!-- Guide 2 -->
+        <!-- ZIP Guide -->
+        <a href="/guides/password-protect-zip" class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
+          <div class="w-14 h-14 bg-yellow-50 rounded-2xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+          </div>
+          <div class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">How to Password Protect a ZIP File</div>
+          <p class="text-gray-500 mb-8 flex-1">Learn how to password protect a ZIP file using 7-Zip, Windows, macOS, or FileLocker.</p>
+          <div class="font-bold text-brand-blue flex items-center gap-2">
+            Read Guide <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </div>
+        </a>
+
+        <!-- Excel Guide -->
+        <a href="/guides/password-protect-excel" class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
+          <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+          </div>
+          <div class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">How to Password Protect an Excel File</div>
+          <p class="text-gray-500 mb-8 flex-1">Protect Excel spreadsheets using Microsoft Excel's built-in encryption or FileLocker.</p>
+          <div class="font-bold text-brand-blue flex items-center gap-2">
+            Read Guide <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </div>
+        </a>
+
+        <!-- Large Videos Guide -->
         <a href="/guides/protect-large-videos" class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
           <div class="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
           </div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">How to Protect Large Video Files</h2>
-          <p class="text-gray-500 mb-8 flex-1">Secure massive 10GB+ video files (`.mp4`, `.mov`) without crashing your browser or waiting for uploads.</p>
+          <div class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">How to Protect Large Video Files</div>
+          <p class="text-gray-500 mb-8 flex-1">Encrypt massive 10GB+ video files without crashing your browser or waiting for uploads.</p>
           <div class="font-bold text-brand-blue flex items-center gap-2">
             Read Guide <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </div>

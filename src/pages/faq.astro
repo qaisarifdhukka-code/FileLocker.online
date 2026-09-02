@@ -1,11 +1,59 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are my files uploaded to your servers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. FileLocker operates 100% within your web browser using client-side JavaScript. Your files never leave your computer, ensuring absolute privacy. You can even disconnect from the internet while the file is processing!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I forget my password?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If you forget your password, your file cannot be recovered. Because we do not use servers or accounts, we do not have a copy of your password or your file. Please keep your passwords safe."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a limit on file sizes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unlike other web tools, FileLocker does not artificially limit your file sizes. Thanks to modern browser streaming APIs (OPFS), FileLocker can process extremely large files (e.g., 10GB+ videos) without crashing your browser. The only limit is the available storage space on your hard drive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I open my protected files on a Mac or Phone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Because FileLocker is a web application, it works across Windows, Mac, Linux, iOS, and Android. You can lock a file on your Windows PC, send the .vault file to your iPhone, and unlock it there using Safari."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is my file saved as a .vault file?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The .vault extension is simply our way of identifying that the file has been encrypted by FileLocker. It contains your scrambled file contents plus some cryptographic metadata (like a salt and a nonce) required to unlock it later. When you unlock the file, it will be restored to its original format."
+      }
+    }
+  ]
+};
 ---
 
 <Layout 
-  title="Frequently Asked Questions | FileLocker Online" 
+  title="Frequently Asked Questions | FileLocker" 
   description="Answers to common questions about FileLocker, file size limits, password recovery, and browser compatibility."
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
   <div class="w-full bg-[#f8fafc] min-h-screen py-16 px-6">
     <div class="max-w-3xl mx-auto">
       
