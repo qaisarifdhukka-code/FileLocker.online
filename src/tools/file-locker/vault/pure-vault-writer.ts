@@ -26,7 +26,7 @@ export async function createPureVault(
   globalNonce: Uint8Array,
   metadataJson: string,
   onProgress?: (percent: number, label?: string) => void
-): Promise<void> {
+): Promise<{ status: 'success' | 'os_lock', filename?: string }> {
   const totalSize = source.size;
   const CHUNK_SIZE = 10 * 1024 * 1024; // 10 MB
   let stage = 'Initializing';
@@ -68,7 +68,7 @@ export async function createPureVault(
     view.setUint32(5, metaBuf.length, true); // Little Endian
     headerBuf.set(metaBuf, 9);
     headerBuf.set(globalNonce, 9 + metaBuf.length);
-    
+
     await writable.write(headerBuf);
     // --------------------------------------
 
@@ -81,7 +81,7 @@ export async function createPureVault(
     for await (const plainChunk of stream) {
       stage = `Encrypting chunk at offset ${offset}`;
       const encryptedChunk = await encryptChunk(plainChunk, key, globalNonce, chunkCounter);
-      
+
       stage = `Writing encrypted chunk at offset ${offset}`;
       await writable.write(encryptedChunk);
 
@@ -107,7 +107,7 @@ export async function createPureVault(
       if (onProgress) onProgress(99, `Finalizing... please wait ${i}s for OS locks to release`);
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
-    
+
     console.log("[finalize] All chunks written successfully.");
     console.log("[finalize] Calling writable.close()");
 
@@ -116,8 +116,22 @@ export async function createPureVault(
       await writable.close();
       console.log("[finalize] writable.close() SUCCESS");
       if (onProgress) onProgress(100, 'Encryption complete');
+      return { status: 'success', filename: fileHandle?.name };
     } catch (error: any) {
       console.error("[finalize] writable.close() FAILED", error);
+      
+      if (error.name === 'InvalidModificationError' || (error.message && error.message.includes('state had changed'))) {
+        try {
+          if (fileHandle && typeof fileHandle.remove === 'function') {
+            await fileHandle.remove();
+            console.log("[finalize] Removed 0-byte placeholder file");
+          }
+        } catch (rmErr) {
+          console.error("[finalize] Failed to remove 0-byte placeholder", rmErr);
+        }
+        return { status: 'os_lock', filename: fileHandle?.name };
+      }
+      
       throw error;
     }
   } catch (err: any) {

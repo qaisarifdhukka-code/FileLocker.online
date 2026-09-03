@@ -35,10 +35,11 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState('');
-  
+
   const [progress, setProgress] = useState(0);
   const [progressLabel, setProgressLabel] = useState('');
   const [error, setError] = useState('');
+  const [osLockWarning, setOsLockWarning] = useState<string | null>(null);
 
   const handleSelectFile = async () => {
     try {
@@ -81,11 +82,11 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
     setProgress(0);
     setProgressLabel('Preparing file...');
     setStep(STEPS.PROCESSING);
-    
+
     try {
       const salt = crypto.getRandomValues(new Uint8Array(16));
       const globalNonce = crypto.getRandomValues(new Uint8Array(8));
-      
+
       const keyArray = await argon2id({
         password: password,
         salt: salt,
@@ -96,7 +97,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
         outputType: 'binary'
       });
       const key = await crypto.subtle.importKey('raw', new Uint8Array(keyArray), { name: 'AES-GCM' }, false, ['encrypt']);
-      
+
       const metadata = {
         originalName: selectedSource.isFolder ? selectedSource.name + ".tar" : selectedSource.name,
         encryptedName: null,
@@ -108,7 +109,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
       };
 
       setProgressLabel('Protecting your file...');
-      
+
       const vaultSource: VaultSource = {
         name: selectedSource.name,
         size: selectedSource.size,
@@ -130,7 +131,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
         }
       };
 
-      await createPureVault(
+      const result = await createPureVault(
         vaultSource,
         key,
         globalNonce,
@@ -140,7 +141,13 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
           if (label) setProgressLabel(label);
         }
       );
-      
+
+      if (result.status === 'os_lock') {
+        setOsLockWarning(result.filename || selectedSource.name + '.vault');
+      } else {
+        setOsLockWarning(null);
+      }
+
       setStep(STEPS.DONE);
     } catch (err: any) {
       setError(err.message);
@@ -155,6 +162,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
     setProgress(0);
     setError('');
     setPasswordError('');
+    setOsLockWarning(null);
   };
 
   // Determine Title based on mode
@@ -163,7 +171,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
 
   return (
     <div className={`w-full max-w-2xl mx-auto ${hideHeader ? 'py-2' : 'py-12'} px-4 sm:px-6`}>
-      
+
       {!hideHeader && (
         <div className="text-center mb-10">
           <h1 className="text-4xl font-extrabold text-gray-900 mb-4">{title}</h1>
@@ -172,34 +180,34 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
       )}
 
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-        
+
         {step === STEPS.SELECT && (
           <div className="p-8 md:p-12 text-center">
             <div className="border-2 border-dashed border-[#d3e3fd] rounded-3xl p-12 max-w-2xl mx-auto flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#f4f8fc] group bg-white">
-                <div className="relative w-16 h-16 mb-5">
-                  <div className="absolute inset-0 bg-brand-blue opacity-10 rounded-2xl group-hover:scale-110 group-hover:opacity-20 transition-all duration-300"></div>
-                  <div className="absolute inset-0 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
-                    <FileIcon className="w-8 h-8 text-brand-blue" />
-                  </div>
+              <div className="relative w-16 h-16 mb-5">
+                <div className="absolute inset-0 bg-brand-blue opacity-10 rounded-2xl group-hover:scale-110 group-hover:opacity-20 transition-all duration-300"></div>
+                <div className="absolute inset-0 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
+                  <FileIcon className="w-8 h-8 text-brand-blue" />
                 </div>
-                
-                <h3 className="text-gray-700 font-semibold text-lg mb-2">
-                  Drop your item here, or browse for a{' '}
-                  {(initialMode === 'both' || initialMode === 'file') && (
-                    <button onClick={handleSelectFile} className="text-brand-blue font-bold hover:underline focus:outline-none">file</button>
-                  )}
-                  {initialMode === 'both' && ' or '}
-                  {(initialMode === 'both' || initialMode === 'folder') && (
-                    <button onClick={handleSelectFolder} className="text-brand-blue font-bold hover:underline focus:outline-none">folder</button>
-                  )}
-                </h3>
-                <p className="text-gray-400 text-sm font-medium">Supports: Any file type and size</p>
               </div>
+
+              <h3 className="text-gray-700 font-semibold text-lg mb-2">
+                Drop your item here, or browse for a{' '}
+                {(initialMode === 'both' || initialMode === 'file') && (
+                  <button onClick={handleSelectFile} className="text-brand-blue font-bold hover:underline focus:outline-none">file</button>
+                )}
+                {initialMode === 'both' && ' or '}
+                {(initialMode === 'both' || initialMode === 'folder') && (
+                  <button onClick={handleSelectFolder} className="text-brand-blue font-bold hover:underline focus:outline-none">folder</button>
+                )}
+              </h3>
+              <p className="text-gray-400 text-sm font-medium">Supports: Any file type and size</p>
+            </div>
 
             {error && (
               <p className="mt-4 text-sm text-red-600 font-medium">{error}</p>
             )}
-            
+
             <div className="mt-10 text-sm text-brand-blue font-medium italic opacity-80">
               Files are processed directly on your device. Nothing is uploaded to our servers.
             </div>
@@ -226,18 +234,18 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
             <div className="mb-8">
               <label className="block text-sm font-bold text-gray-900 mb-2">Create a password</label>
               <div className="relative">
-                <input 
-                  type={showPassword ? 'text' : 'password'} 
-                  value={password} 
-                  onChange={(e) => setPassword(e.target.value)} 
-                  placeholder="Enter a strong password" 
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter a strong password"
                   className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-gray-900"
                 />
                 <button onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 text-gray-400 hover:text-gray-700">
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              
+
               <div className="mt-3 flex items-start gap-2 text-sm text-gray-500 bg-blue-50 p-3 rounded-lg border border-blue-100">
                 <AlertCircle className="w-5 h-5 text-brand-blue shrink-0" />
                 <p>Keep this password somewhere safe. It cannot be recovered by FileLocker if lost.</p>
@@ -252,7 +260,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
 
             <div className="mb-8">
               <h4 className="text-sm font-bold text-gray-900 mb-1">Output format</h4>
-              <p className="text-sm text-gray-500">Your protected file will be saved as: <br/><strong className="text-gray-900 bg-gray-100 px-2 py-1 rounded inline-block mt-2 font-mono text-xs">{selectedSource.name}.vault</strong></p>
+              <p className="text-sm text-gray-500">Your protected file will be saved as: <br /><strong className="text-gray-900 bg-gray-100 px-2 py-1 rounded inline-block mt-2 font-mono text-xs">{selectedSource.name}.vault</strong></p>
             </div>
 
             {error && (
@@ -278,7 +286,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
                 <Lock className="w-6 h-6 text-brand-blue" />
               </div>
             </div>
-            
+
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Protecting your {selectedSource.isFolder ? 'folder' : 'file'}</h2>
             <p className="text-gray-500 font-medium truncate max-w-sm mx-auto mb-8">{selectedSource.name}</p>
 
@@ -301,17 +309,53 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
         {/* STEP 4: DONE */}
         {step === STEPS.DONE && selectedSource && (
           <div className="p-8 md:p-12 text-center">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-10 h-10 text-green-600" />
+            <div className={`w-20 h-20 ${osLockWarning ? 'bg-blue-100' : 'bg-green-100'} rounded-full flex items-center justify-center mx-auto mb-6`}>
+              {osLockWarning ? (
+                <AlertCircle className="w-10 h-10 text-brand-blue" />
+              ) : (
+                <CheckCircle2 className="w-10 h-10 text-green-600" />
+              )}
             </div>
-            
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Your protected file is ready</h2>
+
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              {osLockWarning ? 'Almost done! One manual step required' : 'Your protected file is ready'}
+            </h2>
             <p className="text-gray-500 mb-8 max-w-sm mx-auto">Original size: {formatBytes(selectedSource.size)}</p>
 
-            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 inline-block mb-10 text-left w-full max-w-sm">
-              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1 block">Saved As</span>
-              <p className="font-mono text-sm text-gray-900 break-all">{selectedSource.name}.vault</p>
-            </div>
+            {osLockWarning && (
+              <div className="bg-blue-50 border border-blue-200 text-blue-900 rounded-xl p-6 mb-10 text-left max-w-lg mx-auto shadow-sm">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-blue-100 p-2 rounded-full">
+                    <CheckCircle2 className="w-5 h-5 text-brand-blue" />
+                  </div>
+                  <h3 className="font-bold text-lg">Protection Complete</h3>
+                </div>
+                
+                <p className="text-sm mb-4 leading-relaxed opacity-90">
+                  Because this is a very large file, your browser saved it in a temporary format. To finish up, please follow these quick steps:
+                </p>
+                
+                <ol className="list-decimal list-inside space-y-3 text-sm font-medium mb-5 opacity-90">
+                  <li>Open the folder where you chose to save the file.</li>
+                  <li>Locate the file named exactly like this:</li>
+                </ol>
+                
+                <div className="bg-white p-3 rounded-lg border border-blue-100 font-mono text-sm text-center mb-5 break-all shadow-inner text-gray-700">
+                  {osLockWarning}.crswap
+                </div>
+                
+                <p className="text-sm bg-blue-100/50 p-3 rounded-lg border border-blue-100">
+                  <strong className="font-bold">Last step:</strong> Simply rename the file to remove the <code className="bg-white px-1.5 py-0.5 rounded text-brand-blue font-bold text-xs border border-blue-100 mx-1">.crswap</code> extension, and it's ready to use!
+                </p>
+              </div>
+            )}
+
+            {!osLockWarning && (
+              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 inline-block mb-10 text-left w-full max-w-sm">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1 block">Saved As</span>
+                <p className="font-mono text-sm text-gray-900 break-all">{selectedSource.name}.vault</p>
+              </div>
+            )}
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <button onClick={reset} className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-900 font-bold py-3 px-6 rounded-lg transition-colors">

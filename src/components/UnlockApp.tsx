@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { argon2id } from 'hash-wasm';
 import { LockOpen, File as FileIcon, Loader2, CheckCircle2, AlertCircle, Eye, EyeOff, RotateCcw, ShieldAlert, XCircle } from 'lucide-react';
@@ -148,6 +149,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
       let untar: FolderUntar | null = null;
       try {
         if (parsedMeta.isFolder && downloadName.endsWith('.tar')) {
+          window.alert("⚠️ IMPORTANT: BROWSER SECURITY ⚠️\n\nBrowsers block saving directly to your Desktop, Documents, or Downloads folder.\n\nWhen the next window opens, please CREATE A NEW EMPTY FOLDER and select it. FileLocker will place your unlocked folder neatly inside it.");
           // @ts-ignore
           const dirHandle = await window.showDirectoryPicker();
           untar = new FolderUntar(dirHandle);
@@ -208,7 +210,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
       } else {
         await writable.close();
       }
-      
+
       setPassword('');
       setIsDeriving(false);
       setStatus('DONE');
@@ -237,7 +239,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
 
   return (
     <div className={`w-full max-w-2xl mx-auto ${hideHeader ? 'py-2' : 'py-12'} px-4 sm:px-6`}>
-      
+
       {!hideHeader && (
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-3">Unlock a File</h1>
@@ -246,7 +248,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
       )}
 
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-        
+
         {/* STEP 1: SELECT FILE & ENTER PASSWORD */}
         {status === 'IDLE' && (
           <div className="p-8 md:p-16 text-center">
@@ -258,7 +260,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
                     <LockOpen className="w-8 h-8 text-brand-blue" />
                   </div>
                 </div>
-                
+
                 <h3 className="text-gray-700 font-semibold text-lg mb-2">
                   Drop your protected file here, or{' '}
                   <button onClick={selectVault} className="text-brand-blue font-bold hover:underline focus:outline-none">browse</button>
@@ -286,12 +288,12 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
                 <div className="mb-8">
                   <label className="block text-sm font-bold text-gray-900 mb-2">Password</label>
                   <div className="relative">
-                    <input 
-                      type={showPassword ? 'text' : 'password'} 
-                      value={password} 
-                      onChange={(e) => setPassword(e.target.value)} 
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && decryptVault()}
-                      placeholder="Enter the password" 
+                      placeholder="Enter the password"
                       className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-gray-900"
                     />
                     <button onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 text-gray-400 hover:text-gray-700">
@@ -313,7 +315,16 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
                 <button onClick={decryptVault} disabled={!password || isDeriving} className="w-full bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 text-lg disabled:opacity-50 disabled:cursor-not-allowed">
                   {isDeriving ? <><Loader2 className="w-5 h-5 animate-spin" /> Unlocking...</> : <><LockOpen className="w-5 h-5" /> Unlock & Save</>}
                 </button>
-                <p className="text-center text-xs text-gray-400 mt-4">Your browser will ask you where to save the unlocked file.</p>
+                {meta?.isFolder ? (
+                  <div className="mt-5 p-4 bg-blue-50 border border-blue-100 rounded-lg text-sm text-blue-800 text-left">
+                    <strong className="flex items-center gap-2 mb-1"><AlertCircle className="w-4 h-4" /> Important: Browser Security</strong>
+                    <p className="text-blue-700 leading-relaxed">
+                      Browsers block saving directly to root folders, your Desktop, or Downloads. When prompted, <strong>create a new, empty folder</strong> and select it. FileLocker will place your unlocked folder neatly inside it.
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-center text-xs text-gray-400 mt-4">Your browser will ask you where to save the unlocked file.</p>
+                )}
               </div>
             )}
           </div>
@@ -328,7 +339,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
                 <LockOpen className="w-6 h-6 text-brand-blue" />
               </div>
             </div>
-            
+
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Unlocking file</h2>
             <p className="text-gray-500 font-medium truncate max-w-sm mx-auto mb-8">{file?.name}</p>
 
@@ -354,7 +365,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 className="w-10 h-10 text-green-600" />
             </div>
-            
+
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Unlock Complete</h2>
             <p className="text-gray-500 mb-8 max-w-sm mx-auto">Your file has been successfully decrypted and saved to your device.</p>
 
@@ -372,7 +383,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
             <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <XCircle className="w-10 h-10 text-red-600" />
             </div>
-            
+
             <h2 className="text-2xl font-bold text-gray-900 mb-2">System Error</h2>
             <p className="text-gray-500 mb-8 max-w-sm mx-auto">{errorMsg}</p>
 
