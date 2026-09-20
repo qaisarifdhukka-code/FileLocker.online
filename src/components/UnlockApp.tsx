@@ -238,7 +238,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
   };
 
   return (
-    <div className={`w-full max-w-2xl mx-auto ${hideHeader ? 'py-2' : 'py-12'} px-4 sm:px-6`}>
+    <div className={`w-full h-full mx-auto ${hideHeader ? 'py-4' : 'py-12'} px-4 sm:px-6`}>
 
       {!hideHeader && (
         <div className="text-center mb-8">

@@ -170,7 +170,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
   const subtitle = initialMode === 'file' ? 'Add password protection before sharing or storing a file.' : initialMode === 'folder' ? 'Protect an entire folder with one password.' : 'Add a password to a file or folder directly in your browser.';
 
   return (
-    <div className={`w-full max-w-2xl mx-auto ${hideHeader ? 'py-2' : 'py-12'} px-4 sm:px-6`}>
+    <div className={`w-full h-full mx-auto ${hideHeader ? 'py-4' : 'py-12'} px-4 sm:px-6`}>
 
       {!hideHeader && (
         <div className="text-center mb-10">
@@ -201,7 +201,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
                   <button onClick={handleSelectFolder} className="text-brand-blue font-bold hover:underline focus:outline-none">folder</button>
                 )}
               </h3>
-              <p className="text-gray-400 text-sm font-medium">Supports: Any file type and size</p>
+              <p className="text-gray-400 text-sm font-medium">Supports most file types; practical size depends on your browser and device</p>
             </div>
 
             {error && (
@@ -365,7 +365,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
 
             <div className="mt-12 pt-8 border-t border-gray-100">
               <p className="text-sm text-gray-500 mb-2">Need to open this file later?</p>
-              <a href="/unlock-file" className="text-brand-blue font-bold hover:underline">Unlock it here →</a>
+              <a href="/unlock-file/" className="text-brand-blue font-bold hover:underline">Unlock it here →</a>
             </div>
           </div>
         )}

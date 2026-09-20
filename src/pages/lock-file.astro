@@ -6,15 +6,15 @@ const webAppSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "FileLocker — File Protection Tool",
-  "url": "https://filelocker.online/lock-file",
+  "url": "https://filelocker.online/lock-file/",
   "applicationCategory": "SecurityApplication",
-  "operatingSystem": "Any",
+  "operatingSystem": "Browsers with File System Access API support",
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD"
   },
-  "description": "Password protect any file directly in your browser using AES-GCM encryption. No software installation or server uploads required."
+  "description": "Browser-based tool to password protect common files directly on your device without server uploads, software installation, or an account."
 };
 
 const faqSchema = {
@@ -42,7 +42,7 @@ const faqSchema = {
       "name": "What types of files can I password protect?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "FileLocker can protect any file type — documents, PDFs, spreadsheets, images, videos, ZIP archives, and more. There are no restrictions on file format."
+        "text": "FileLocker can protect many common file types, including documents, PDFs, spreadsheets, images, videos, ZIP archives, and other files."
       }
     },
     {
@@ -50,7 +50,7 @@ const faqSchema = {
       "name": "Is there a file size limit?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "FileLocker uses streaming technology to process files in chunks, which means it can handle very large files without crashing your browser. The practical limit is the available storage space on your device."
+        "text": "FileLocker processes files in chunks using browser storage and streaming APIs. Practical limits depend on browser support, available storage, device resources, and the file being processed."
       }
     }
   ]
@@ -59,92 +59,126 @@ const faqSchema = {
 
 <Layout 
   title="Password Protect a File Online | FileLocker"
-  description="Password protect any file directly in your browser. No software to install, no account required, and no file upload to a server."
+  description="Password protect a file online with FileLocker. Encrypt files directly in your browser without uploads, software installation, or an account."
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
 
-  <!-- H1 for SEO -->
-  <div class="w-full bg-bg-light pt-8 pb-2 px-4 text-center">
-    <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900">Password Protect a File</h1>
-    <p class="text-gray-500 text-base mt-2 max-w-xl mx-auto">Select a file, set a password, and download your protected file — processed entirely on your device.</p>
+  <!-- HERO -->
+  <div class="guide-hero" style="padding-bottom:2rem;">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-inner" style="text-align:center; max-width:40rem;">
+      <h1>Password Protect a File Online</h1>
+      <p class="hero-subtitle" style="margin:0 auto;">Select a file, set a password, and download your protected file — processed entirely on your device.</p>
+    </div>
   </div>
 
   <div class="flex-1 bg-bg-light w-full flex items-center justify-center">
-    <ProvisioningApp client:load initialMode="file" hideHeader={true} />
+    <div class="w-full max-w-3xl mx-auto">
+      <ProvisioningApp client:load initialMode="file" hideHeader={true} />
+    </div>
   </div>
 
   <!-- SEO CONTENT -->
-  <section class="w-full bg-white py-16 px-6 border-t border-gray-200">
-    <div class="max-w-4xl mx-auto space-y-12">
+  <section class="w-full bg-[#f8fafc] py-12 px-6 border-t border-gray-200">
+    <div class="max-w-3xl mx-auto">
 
-      <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">How to Password Protect a File</h2>
-        <div class="prose prose-blue text-gray-600 max-w-none">
-          <p>FileLocker lets you add password protection to any file directly in your browser. Your file is processed locally on your device — nothing is uploaded to a server.</p>
-          <ol>
-            <li><strong>Select your file.</strong> Click the upload area and choose the file you want to protect from your device.</li>
-            <li><strong>Set a password.</strong> Enter a strong password. This password will be required to open the file later. Do not forget it — FileLocker cannot recover lost passwords.</li>
-            <li><strong>Download the protected file.</strong> Click to protect and FileLocker will encrypt your file and save it as a <code>.vault</code> file to your device.</li>
-          </ol>
-          <p>The resulting <code>.vault</code> file can be safely emailed, uploaded to cloud storage, or stored on a USB drive. Anyone who wants to open it must use <a href="/unlock-file" class="text-brand-blue hover:underline">FileLocker's unlock tool</a> and the correct password.</p>
+      <div class="content-card animate-fade-in-up">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-bold uppercase tracking-wide text-brand-blue">Three simple steps</span>
+        </div>
+        <h2 class="section-heading">How to Password Protect a File</h2>
+        <div class="prose max-w-none">
+          <p>Password protect a file online by selecting it, creating a password, and saving the protected <code>.vault</code> copy. Processing happens in your browser rather than on a FileLocker server.</p>
+        </div>
+
+        <ol class="steps-grid" style="margin-top:1.5rem;">
+          <li class="step-card">
+            <span class="step-number">1</span>
+            <strong>Select your file</strong>
+            <span>Choose the file you want to protect from your device.</span>
+          </li>
+          <li class="step-card">
+            <span class="step-number">2</span>
+            <strong>Create a password</strong>
+            <span>Use a strong password and keep it safe—FileLocker cannot recover a lost password.</span>
+          </li>
+          <li class="step-card">
+            <span class="step-number">3</span>
+            <strong>Save your .vault file</strong>
+            <span>Save the protected copy, then use the unlock tool and the correct password to restore it later.</span>
+          </li>
+        </ol>
+
+        <div class="callout callout-info" style="margin-top:1.5rem;">
+          <p>You can store or share the resulting <code>.vault</code> file as needed. To open it later, use <a href="/unlock-file/" class="font-semibold text-brand-blue hover:underline">FileLocker's unlock tool</a> and the original password.</p>
         </div>
       </div>
 
-      <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Why Use FileLocker?</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 mb-2">No File Uploads</h3>
-            <p class="text-gray-600 text-sm">Your files are processed entirely within your browser using local JavaScript. Nothing is sent to a server at any point.</p>
+      <div class="content-card animate-fade-in-up animate-delay-1">
+        <h2 class="section-heading">Why Password Protect a File Online with FileLocker?</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#eff6ff;">
+              <svg class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            </div>
+            <h3>No File Uploads</h3>
+            <p>Your files are processed entirely within your browser using local JavaScript. Nothing is sent to a server at any point.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 mb-2">No Software Required</h3>
-            <p class="text-gray-600 text-sm">FileLocker runs directly in your web browser. There is nothing to install and no account to create.</p>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#f0fdf4;">
+              <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            </div>
+            <h3>No Software Required</h3>
+            <p>FileLocker runs directly in your web browser. There is nothing to install and no account to create.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 mb-2">Any File Type</h3>
-            <p class="text-gray-600 text-sm">Protect documents, PDFs, spreadsheets, images, videos, ZIP files, and any other file format.</p>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#faf5ff;">
+              <svg class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
+            </div>
+            <h3>Protect Common File Types</h3>
+            <p>Protect documents, PDFs, spreadsheets, images, videos, ZIP archives, and many other file formats without changing the original file.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 mb-2">Large Files Supported</h3>
-            <p class="text-gray-600 text-sm">FileLocker uses streaming technology so it can handle large files without crashing your browser, including multi-gigabyte videos.</p>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#fefce8;">
+              <svg class="w-6 h-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </div>
+            <h3>Large Files Supported</h3>
+            <p>FileLocker uses streaming and browser storage APIs to reduce memory pressure when processing large files. Actual limits depend on your browser, device, available storage, and the file.</p>
           </div>
         </div>
       </div>
 
-      <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Protect Specific File Types</h2>
-        <div class="prose prose-blue text-gray-600 max-w-none">
-          <p>Looking for guidance on protecting a specific file format? See our format-specific guides:</p>
-          <ul>
-            <li><a href="/guides/password-protect-pdf" class="text-brand-blue hover:underline">How to password protect a PDF file</a></li>
-            <li><a href="/guides/password-protect-zip" class="text-brand-blue hover:underline">How to password protect a ZIP file</a></li>
-            <li><a href="/guides/password-protect-excel" class="text-brand-blue hover:underline">How to password protect an Excel file</a></li>
-            <li><a href="/guides/protect-large-videos" class="text-brand-blue hover:underline">How to protect large video files</a></li>
-          </ul>
-          <p>Need to protect an entire folder? Use the <a href="/lock-folder" class="text-brand-blue hover:underline">folder protection tool</a> to secure all folder contents with a single password.</p>
+      <div class="content-card animate-fade-in-up animate-delay-2">
+        <h2 class="section-heading">Protect Specific File Types</h2>
+        <p class="text-gray-600 mb-4">Follow a focused guide for the file you need to protect. <a href="/lock-folder/" class="text-brand-blue font-semibold hover:underline">Protect a folder instead →</a></p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <a href="/guides/password-protect-pdf/" class="guide-link">Password protect a PDF →</a>
+          <a href="/guides/password-protect-zip/" class="guide-link">Password protect a ZIP file →</a>
+          <a href="/guides/password-protect-excel/" class="guide-link">Password protect an Excel file →</a>
+          <a href="/guides/protect-large-videos/" class="guide-link">Protect large video files →</a>
         </div>
       </div>
 
-      <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
-        <div class="space-y-4">
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 text-lg mb-2">How do I password protect a file?</h3>
-            <p class="text-gray-600">Select your file using the FileLocker tool above, enter a password, and click to protect. FileLocker will encrypt the file locally and save it as a <code>.vault</code> file to your device.</p>
+      <div class="content-card animate-fade-in-up animate-delay-3">
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>How do I password protect a file?</h3>
+            <p>Select your file using the FileLocker tool above, enter a password, and click to protect. FileLocker will encrypt the file locally and save it as a <code>.vault</code> file to your device.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 text-lg mb-2">Is my file uploaded to a server?</h3>
-            <p class="text-gray-600">No. FileLocker processes your file entirely within your browser. Your file is never sent to a server.</p>
+          <div class="faq-item">
+            <h3>Is my file uploaded to a server?</h3>
+            <p>No. FileLocker processes your file entirely within your browser. Your file is never sent to a server.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 text-lg mb-2">What types of files can I password protect?</h3>
-            <p class="text-gray-600">FileLocker can protect any file type — documents, PDFs, spreadsheets, images, videos, ZIP archives, and more.</p>
+          <div class="faq-item">
+            <h3>What types of files can I password protect?</h3>
+            <p>FileLocker can protect many common file types, including documents, PDFs, spreadsheets, images, videos, ZIP archives, and other files.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 text-lg mb-2">Is there a file size limit?</h3>
-            <p class="text-gray-600">FileLocker uses streaming technology to process files in chunks, which means it can handle very large files. The practical limit is the available storage space on your device.</p>
+          <div class="faq-item">
+            <h3>Is there a file size limit?</h3>
+            <p>FileLocker processes files in chunks to reduce memory pressure. Practical limits depend on browser support, available storage, device resources, and the file being processed.</p>
           </div>
         </div>
       </div>

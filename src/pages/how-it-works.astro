@@ -3,70 +3,65 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="How FileLocker Works | Password Protect Files Online" 
-  description="Learn how FileLocker secures your files and folders directly in your browser without ever uploading them to a server."
+  title="How FileLocker Works | Browser-Based File Protection" 
+  description="Learn the FileLocker browser workflow for protecting and opening files. See how local processing, passwords, and .vault files work without a FileLocker upload server."
 >
-  <div class="w-full bg-[#f8fafc] min-h-screen py-16 px-6">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">How FileLocker Works</h1>
-        <p class="text-xl text-gray-500 max-w-2xl mx-auto">
-          We believe true privacy means your files should never leave your device. Here is exactly what happens when you protect a file.
-        </p>
+  <!-- HERO -->
+  <div class="guide-hero">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+    <div class="hero-inner text-center max-w-3xl mx-auto">
+      <h1>How FileLocker Works</h1>
+      <p class="hero-subtitle max-w-xl mx-auto">
+        FileLocker is designed so selected files are processed locally in your browser rather than uploaded to a FileLocker server. Here is what happens when you protect a file.
+      </p>
+    </div>
+  </div>
+
+  <div class="w-full bg-[#f8fafc] py-12 px-6">
+    <div class="max-w-3xl mx-auto">
+
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">How FileLocker Password Protection Works</h2>
+        <p class="text-gray-600 text-lg leading-relaxed mb-8">FileLocker lets you password protect files and folders online while keeping the file-processing work in your browser. The workflow is simple: choose what you want to protect, create a password, encrypt the data, and save the resulting .vault file.</p>
+        
+        <ol class="steps-grid" style="margin-top:2rem;">
+          <li class="step-card">
+            <span class="step-number">1</span>
+            <strong>Select a file or folder</strong>
+            <span>When you click "Upload" or drag a file into FileLocker, we do not send it to a server. Instead, your web browser asks for permission to read the selected file locally on your device.</span>
+          </li>
+          <li class="step-card">
+            <span class="step-number">2</span>
+            <strong>Create a password</strong>
+            <span>The password you enter is used by FileLocker to derive the cryptographic key used by its encryption process. The protected data cannot be decrypted through FileLocker without the correct password.</span>
+          </li>
+          <li class="step-card">
+            <span class="step-number">3</span>
+            <strong>Encrypt and build the .vault file</strong>
+            <span>FileLocker processes your file chunk-by-chunk and writes the scrambled data into a new <code>.vault</code> file. Because this happens directly on your device, this approach can reduce memory pressure compared with loading the entire file at once. Practical limits still depend on your browser, device resources, and available storage.</span>
+          </li>
+          <li class="step-card">
+            <span class="step-number">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+            </span>
+            <strong>Save the protected file</strong>
+            <span>Your browser will prompt you to save the resulting protected file. You can then email it, upload it to cloud storage, or put it on a USB drive. Anyone opening the protected file will need the correct password to decrypt it.</span>
+          </li>
+        </ol>
       </div>
 
-      <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
-        <div class="space-y-12">
-          
-          <div class="flex flex-col md:flex-row gap-8 items-start">
-            <div class="flex-shrink-0 w-16 h-16 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-2xl font-black">1</div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">You select a file or folder</h3>
-              <p class="text-gray-600 text-lg leading-relaxed">
-                When you click "Upload" or drag a file into FileLocker, we do not send it to a server. Instead, your modern web browser simply asks for permission to read the file locally on your hard drive. 
-              </p>
-            </div>
-          </div>
-
-          <div class="flex flex-col md:flex-row gap-8 items-start">
-            <div class="flex-shrink-0 w-16 h-16 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-2xl font-black">2</div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">You create a password</h3>
-              <p class="text-gray-600 text-lg leading-relaxed">
-                We use the password you enter to generate a powerful, mathematical "key" right inside your browser. This key is used to scramble the contents of your file so that it becomes completely unreadable to anyone who doesn't have the password.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex flex-col md:flex-row gap-8 items-start">
-            <div class="flex-shrink-0 w-16 h-16 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-2xl font-black">3</div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">We build your Vault</h3>
-              <p class="text-gray-600 text-lg leading-relaxed">
-                FileLocker processes your file chunk-by-chunk and writes the scrambled data into a new <code class="bg-gray-100 px-2 py-1 rounded text-sm text-brand-blue">.vault</code> file. Because this happens directly on your device, it is incredibly fast and there are no artificial file size limits.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex flex-col md:flex-row gap-8 items-start">
-            <div class="flex-shrink-0 w-16 h-16 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-2xl font-black">
-              <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">You save the result</h3>
-              <p class="text-gray-600 text-lg leading-relaxed">
-                Your browser will prompt you to save the resulting protected file. You can now safely email it, upload it to cloud storage, or put it on a USB drive knowing it is mathematically impossible to open without your password.
-              </p>
-            </div>
-          </div>
-
-        </div>
+      <div class="content-card animate-fade-in-up animate-delay-1">
+        <h2 class="section-heading">How FileLocker Handles Security</h2>
+        <p class="text-gray-600 leading-relaxed mb-4">FileLocker uses password-based key derivation and authenticated encryption to protect the data in the resulting .vault file. Learn more about the encryption design, browser storage, and local processing on the security page.</p>
+        <a href="/security/" class="text-brand-blue font-semibold hover:underline">Read the FileLocker security architecture →</a>
       </div>
 
-      <div class="mt-16 text-center">
-        <a href="/lock-file" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 inline-block text-lg">
-          Protect a File Now
-        </a>
+      <!-- CTA -->
+      <div class="cta-banner mt-8 animate-fade-in-up animate-delay-2">
+        <p class="cta-label">Ready to protect your files?</p>
+        <a href="/lock-file/" class="cta-button">Protect a File Now</a>
       </div>
 
     </div>

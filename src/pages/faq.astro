@@ -10,7 +10,7 @@ const faqSchema = {
       "name": "Are my files uploaded to your servers?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. FileLocker operates 100% within your web browser using client-side JavaScript. Your files never leave your computer, ensuring absolute privacy. You can even disconnect from the internet while the file is processing!"
+        "text": "No. FileLocker processes your selected files locally in your web browser rather than uploading them to a FileLocker server. If the page and required resources are already loaded, processing can continue without an active internet connection."
       }
     },
     {
@@ -26,7 +26,7 @@ const faqSchema = {
       "name": "Is there a limit on file sizes?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Unlike other web tools, FileLocker does not artificially limit your file sizes. Thanks to modern browser streaming APIs (OPFS), FileLocker can process extremely large files (e.g., 10GB+ videos) without crashing your browser. The only limit is the available storage space on your hard drive."
+        "text": "FileLocker is designed to process large files by using browser storage and streaming APIs rather than loading the entire file into memory at once. The practical limit depends on browser support, available storage space, device resources, and the file being processed."
       }
     },
     {
@@ -34,7 +34,7 @@ const faqSchema = {
       "name": "Can I open my protected files on a Mac or Phone?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! Because FileLocker is a web application, it works across Windows, Mac, Linux, iOS, and Android. You can lock a file on your Windows PC, send the .vault file to your iPhone, and unlock it there using Safari."
+        "text": "FileLocker requires a browser that supports the File System Access API. Support varies by browser, operating system, and feature; check compatibility in the browser you plan to use before relying on it to protect or unlock a file."
       }
     },
     {
@@ -50,61 +50,65 @@ const faqSchema = {
 ---
 
 <Layout 
-  title="Frequently Asked Questions | FileLocker" 
-  description="Answers to common questions about FileLocker, file size limits, password recovery, and browser compatibility."
+  title="FileLocker FAQ | File Protection Help & Answers" 
+  description="Find FileLocker answers about .vault files, passwords, local browser processing, security, file-size limits, and file protection support."
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
-  <div class="w-full bg-[#f8fafc] min-h-screen py-16 px-6">
+
+  <!-- HERO -->
+  <div class="guide-hero">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-inner" style="text-align:center; max-width:40rem;">
+      <h1>Frequently Asked Questions</h1>
+      <p class="hero-subtitle" style="margin:0 auto;">
+        Everything you need to know about protecting your files with FileLocker.
+      </p>
+    </div>
+  </div>
+
+  <div class="w-full bg-[#f8fafc] py-12 px-6">
     <div class="max-w-3xl mx-auto">
       
-      <div class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Frequently Asked Questions</h1>
-        <p class="text-xl text-gray-500">
-          Everything you need to know about protecting your files with FileLocker.
-        </p>
-      </div>
-
-      <div class="space-y-6">
-        
-        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Are my files uploaded to your servers?</h3>
-          <p class="text-gray-600 leading-relaxed">
-            No. FileLocker operates 100% within your web browser using client-side JavaScript. Your files never leave your computer, ensuring absolute privacy. You can even disconnect from the internet while the file is processing!
+      <div class="faq-grid">
+        <div class="faq-item animate-fade-in-up">
+          <h3>Are my files uploaded to your servers?</h3>
+          <p>
+            No. FileLocker processes your selected files locally in your web browser rather than uploading them to a FileLocker server. If the page and required resources are already loaded, processing can continue without an active internet connection.
           </p>
         </div>
 
-        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">What happens if I forget my password?</h3>
-          <p class="text-gray-600 leading-relaxed">
-            If you forget your password, <strong class="text-gray-900">your file cannot be recovered</strong>. Because we do not use servers or accounts, we do not have a copy of your password or your file. Please keep your passwords safe.
+        <div class="faq-item animate-fade-in-up animate-delay-1">
+          <h3>What happens if I forget my password?</h3>
+          <p>
+            If you forget your password, <strong>your file cannot be recovered</strong>. Because we do not use servers or accounts, we do not have a copy of your password or your file. Please keep your passwords safe.
           </p>
         </div>
 
-        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Is there a limit on file sizes?</h3>
-          <p class="text-gray-600 leading-relaxed">
-            Unlike other web tools, FileLocker does not artificially limit your file sizes. Thanks to modern browser streaming APIs (OPFS), FileLocker can process extremely large files (e.g., 10GB+ videos) without crashing your browser. The only limit is the available storage space on your hard drive.
+        <div class="faq-item animate-fade-in-up animate-delay-2">
+          <h3>Is there a limit on file sizes?</h3>
+          <p>
+            FileLocker is designed to process large files by using browser storage and streaming APIs rather than loading the entire file into memory at once. The practical limit depends on browser support, available storage space, device resources, and the file being processed.
           </p>
         </div>
 
-        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Can I open my protected files on a Mac or Phone?</h3>
-          <p class="text-gray-600 leading-relaxed">
-            Yes! Because FileLocker is a web application, it works across Windows, Mac, Linux, iOS, and Android. You can lock a file on your Windows PC, send the <code>.vault</code> file to your iPhone, and unlock it there using Safari.
+        <div class="faq-item animate-fade-in-up animate-delay-3">
+          <h3>Can I open my protected files on a Mac or Phone?</h3>
+          <p>
+            FileLocker requires a browser that supports the File System Access API. Support varies by browser, operating system, and feature, so check compatibility in the browser you plan to use before relying on it to protect or unlock a file.
           </p>
         </div>
 
-        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Why is my file saved as a .vault file?</h3>
-          <p class="text-gray-600 leading-relaxed">
+        <div class="faq-item animate-fade-in-up animate-delay-4">
+          <h3>Why is my file saved as a .vault file?</h3>
+          <p>
             The <code>.vault</code> extension is simply our way of identifying that the file has been encrypted by FileLocker. It contains your scrambled file contents plus some cryptographic metadata (like a salt and a nonce) required to unlock it later. When you unlock the file, it will be restored to its original format (e.g., <code>.pdf</code>, <code>.mp4</code>).
           </p>
         </div>
-
       </div>
 
-      <div class="mt-16 text-center">
-        <a href="/lock-file" class="text-brand-blue font-bold hover:underline text-lg">
+      <div class="mt-12 text-center">
+        <a href="/lock-file/" class="text-brand-blue font-bold hover:underline text-lg">
           Ready to protect a file? Get started →
         </a>
       </div>

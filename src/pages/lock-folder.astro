@@ -6,15 +6,15 @@ const webAppSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "FileLocker — Folder Protection Tool",
-  "url": "https://filelocker.online/lock-folder",
+  "url": "https://filelocker.online/lock-folder/",
   "applicationCategory": "SecurityApplication",
-  "operatingSystem": "Any",
+  "operatingSystem": "Browsers with File System Access API support",
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD"
   },
-  "description": "Password protect a folder and all its contents with a single password, processed locally in your browser."
+  "description": "Free browser-based tool to password protect and encrypt entire folders with a single password. Files are processed locally without server uploads or software installation."
 };
 
 const faqSchema = {
@@ -50,7 +50,7 @@ const faqSchema = {
       "name": "Is there a limit on how many files I can protect in a folder?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "FileLocker processes folder contents using a streaming approach, so there is no hard limit on the number of files. The practical limit is the available storage space on your device."
+        "text": "FileLocker processes folder contents using a streaming approach. The practical number of files depends on browser support, available storage, device resources, and the size and number of files in the folder."
       }
     }
   ]
@@ -59,85 +59,115 @@ const faqSchema = {
 
 <Layout 
   title="Password Protect a Folder Online | FileLocker"
-  description="Password protect a folder and all its contents with one password. Processed locally in your browser — no uploads, no installation required."
+  description="Password protect a folder online with FileLocker. Secure an entire folder in your browser without uploading files, installing software, or an account."
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
 
-  <!-- H1 for SEO -->
-  <div class="w-full bg-bg-light pt-8 pb-2 px-4 text-center">
-    <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900">Password Protect a Folder</h1>
-    <p class="text-gray-500 text-base mt-2 max-w-xl mx-auto">Secure all your folder contents with a single password — processed entirely on your device, no uploads required.</p>
+  <!-- HERO -->
+  <div class="guide-hero" style="padding-bottom:2rem;">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-inner" style="text-align:center; max-width:40rem;">
+      <h1>Password Protect a Folder Online</h1>
+      <p class="hero-subtitle" style="margin:0 auto;">Secure all your folder contents with a single password — processed entirely on your device, no uploads required.</p>
+    </div>
   </div>
 
   <div class="flex-1 bg-bg-light w-full flex items-center justify-center">
-    <ProvisioningApp client:load initialMode="folder" hideHeader={true} />
+    <div class="w-full max-w-3xl mx-auto">
+      <ProvisioningApp client:load initialMode="folder" hideHeader={true} />
+    </div>
   </div>
 
   <!-- SEO CONTENT -->
-  <section class="w-full bg-white py-16 px-6 border-t border-gray-200">
-    <div class="max-w-4xl mx-auto space-y-12">
+  <section class="w-full bg-[#f8fafc] py-12 px-6 border-t border-gray-200">
+    <div class="max-w-3xl mx-auto">
 
-      <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">How to Password Protect a Folder</h2>
-        <div class="prose prose-blue text-gray-600 max-w-none">
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">How to Password Protect a Folder</h2>
+        <div class="prose max-w-none">
+          <p>If you need to <strong>password protect a folder online</strong>, FileLocker packages the selected folder contents, encrypts the data in your browser, and creates a protected <code>.vault</code> file.</p>
           <p>FileLocker lets you protect an entire folder and all its contents with a single password. The entire process runs in your browser — your files are never uploaded to a server.</p>
-          <ol>
-            <li><strong>Select your folder.</strong> Click the upload area and choose the folder you want to protect from your device.</li>
-            <li><strong>Set a password.</strong> Enter a strong password. This password will be required to access the folder later.</li>
-            <li><strong>Download the protected file.</strong> FileLocker packages all your folder contents and encrypts them, saving the result as a single <code>.vault</code> file to your device.</li>
+          <ol class="steps-grid" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+            <li class="step-card">
+              <span class="step-number">1</span>
+              <strong>Select your folder</strong>
+              <span>Click the upload area and choose the folder you want to protect from your device.</span>
+            </li>
+            <li class="step-card">
+              <span class="step-number">2</span>
+              <strong>Set a password</strong>
+              <span>Enter a strong password. This password will be required to access the folder later.</span>
+            </li>
+            <li class="step-card">
+              <span class="step-number">3</span>
+              <strong>Download the protected file</strong>
+              <span>FileLocker packages all your folder contents and encrypts them, saving the result as a single <code>.vault</code> file to your device.</span>
+            </li>
           </ol>
-          <p>The resulting <code>.vault</code> file preserves your complete folder structure. Use <a href="/unlock-file" class="text-brand-blue hover:underline">FileLocker's unlock tool</a> with the correct password to restore the original folder and all its files.</p>
+          <p>The resulting <code>.vault</code> file preserves your complete folder structure. Use <a href="/unlock-file/">FileLocker's unlock tool</a> with the correct password to restore the original folder and all its files.</p>
         </div>
       </div>
 
-      <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Why Use FileLocker for Folder Protection?</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 mb-2">No ZIP File Needed</h3>
-            <p class="text-gray-600 text-sm">You do not need to manually create a ZIP archive first. FileLocker handles the packaging automatically when you select a folder.</p>
+      <div class="content-card animate-fade-in-up animate-delay-1">
+        <h2 class="section-heading">Why Password Protect a Folder Online with FileLocker?</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#f0fdf4;">
+              <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            </div>
+            <h3>No ZIP File Needed</h3>
+            <p>You do not need to manually create a ZIP archive first. FileLocker handles the packaging automatically when you select a folder.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 mb-2">Structure Preserved</h3>
-            <p class="text-gray-600 text-sm">When unlocked, the original folder structure and all file names are restored exactly as they were when you protected the folder.</p>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#eff6ff;">
+              <svg class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
+            </div>
+            <h3>Structure Preserved</h3>
+            <p>When unlocked, the original folder structure and all file names are restored exactly as they were when you protected the folder.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 mb-2">No File Uploads</h3>
-            <p class="text-gray-600 text-sm">Even if your folder contains gigabytes of files, everything is processed locally on your device. Nothing is uploaded.</p>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#faf5ff;">
+              <svg class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            </div>
+            <h3>No File Uploads</h3>
+            <p>Even if your folder contains gigabytes of files, everything is processed locally on your device. Nothing is uploaded.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 mb-2">One Password</h3>
-            <p class="text-gray-600 text-sm">Protect your entire folder with a single password, regardless of how many files it contains.</p>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
-        <div class="space-y-4">
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 text-lg mb-2">How do I password protect a folder?</h3>
-            <p class="text-gray-600">Select your folder using the FileLocker tool above, set a password, and click to protect. FileLocker packages all folder contents and encrypts them locally, saving a single <code>.vault</code> file.</p>
-          </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 text-lg mb-2">Do I need to create a ZIP file first?</h3>
-            <p class="text-gray-600">No. FileLocker handles the packaging automatically. When you select a folder, FileLocker streams all its contents through an encryption pipeline and produces a single <code>.vault</code> file, preserving your original folder structure.</p>
-          </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 text-lg mb-2">Will my folder structure be preserved when I unlock?</h3>
-            <p class="text-gray-600">Yes. When you unlock a <code>.vault</code> file created from a folder, FileLocker restores the original folder structure and all file names exactly as they were.</p>
-          </div>
-          <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-            <h3 class="font-bold text-gray-900 text-lg mb-2">Is there a limit on how many files I can protect in a folder?</h3>
-            <p class="text-gray-600">FileLocker processes folder contents using a streaming approach, so there is no hard limit on the number of files. The practical limit is the available storage space on your device.</p>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#fefce8;">
+              <svg class="w-6 h-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+            </div>
+            <h3>One Password</h3>
+            <p>Protect your entire folder with a single password, regardless of how many files it contains.</p>
           </div>
         </div>
       </div>
 
-      <div class="border-t border-gray-100 pt-8">
-        <p class="text-gray-500 text-sm mb-3">Protecting individual files?</p>
-        <a href="/lock-file" class="text-brand-blue font-bold hover:underline">Use the file protection tool →</a>
+      <div class="content-card animate-fade-in-up animate-delay-2">
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>How do I password protect a folder?</h3>
+            <p>Select your folder using the FileLocker tool above, set a password, and click to protect. FileLocker packages all folder contents and encrypts them locally, saving a single <code>.vault</code> file.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Do I need to create a ZIP file first?</h3>
+            <p>No. FileLocker handles the packaging automatically. When you select a folder, FileLocker streams all its contents through an encryption pipeline and produces a single <code>.vault</code> file, preserving your original folder structure.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Will my folder structure be preserved when I unlock?</h3>
+            <p>Yes. When you unlock a <code>.vault</code> file created from a folder, FileLocker restores the original folder structure and all file names exactly as they were.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is there a limit on how many files I can protect in a folder?</h3>
+            <p>FileLocker processes folder contents using a streaming approach. The practical number of files depends on browser support, available storage, device resources, and the size and number of files in the folder.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <p>Protecting individual files? <a href="/lock-file/" class="font-semibold text-brand-blue hover:underline">Use the file protection tool →</a></p>
       </div>
 
     </div>
