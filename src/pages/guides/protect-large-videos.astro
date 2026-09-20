@@ -1,32 +1,26 @@
-﻿---
+---
 import Layout from '../../layouts/Layout.astro';
 
 const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
   "name": "How to Password Protect Large Video Files",
-  "description": "Encrypt and password protect large video files of any size directly in your browser using FileLocker's streaming technology.",
+  "description": "Learn how to password protect large video files in your browser using FileLocker's streaming and browser-storage approach.",
   "step": [
-    {
-      "@type": "HowToStep",
-      "name": "Open the FileLocker Tool",
-      "text": "Go to the free File Protection tool at filelocker.online/lock-file."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Select your Video File",
-      "text": "Click to upload and select your video file (e.g., .mp4, .mov, .mkv). Nothing is uploaded over the internet."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Create a Password",
-      "text": "Enter a strong password. This password will be required to open the video later."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Save the Protected File",
-      "text": "Click to protect. FileLocker will process the video and save it as a .vault file to your device."
-    }
+    { "@type": "HowToStep", "name": "Open the FileLocker Tool", "text": "Go to the free File Protection tool at filelocker.online/lock-file." },
+    { "@type": "HowToStep", "name": "Select your Video File", "text": "Click to upload and select your video file (e.g., .mp4, .mov, .mkv). Nothing is uploaded over the internet." },
+    { "@type": "HowToStep", "name": "Create a Password", "text": "Enter a strong password. This password will be required to open the video later." },
+    { "@type": "HowToStep", "name": "Save the Protected File", "text": "Click to protect. FileLocker will process the video and save it as a .vault file to your device." }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://filelocker.online/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Protect Large Videos", "item": "https://filelocker.online/guides/protect-large-videos/" }
   ]
 };
 
@@ -37,141 +31,144 @@ const faqSchema = {
     {
       "@type": "Question",
       "name": "What video formats does FileLocker support?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "FileLocker can protect any file type, including .mp4, .mov, .mkv, .avi, and other video formats. Because it encrypts the file as a raw byte stream, the specific video container format does not matter."
-      }
+      "acceptedAnswer": { "@type": "Answer", "text": "FileLocker can protect common video formats including .mp4, .mov, .mkv, and .avi. It encrypts file data rather than relying on a particular media format." }
     },
     {
       "@type": "Question",
-      "name": "Can FileLocker handle very large video files without crashing?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. FileLocker is specifically engineered to handle large files using streaming technology and the browser's Origin Private File System (OPFS). It processes the video in small chunks, which means it will not crash your browser regardless of file size."
-      }
+      "name": "Can FileLocker handle very large video files?",
+      "acceptedAnswer": { "@type": "Answer", "text": "FileLocker processes video in smaller chunks instead of requiring the entire source file to be loaded into memory at once. Practical limits still depend on browser support, available storage, device resources, and the file being processed." }
     },
     {
       "@type": "Question",
       "name": "Is my video uploaded to a server?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. FileLocker processes your video entirely on your device. Because there are no network uploads, the protection speed is limited only by your local drive speed."
-      }
+      "acceptedAnswer": { "@type": "Answer", "text": "No. FileLocker processes your video entirely on your device. Because there are no network uploads, processing speed also depends on your browser, device resources, and local storage performance." }
     },
     {
       "@type": "Question",
       "name": "How do I share a protected video?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "After protecting your video, you will have a .vault file. You can upload this file to Google Drive, Dropbox, or a USB drive. The recipient needs to use FileLocker's unlock tool and the correct password to restore the original video."
-      }
+      "acceptedAnswer": { "@type": "Answer", "text": "After protecting your video, you will have a .vault file. You can upload this file to Google Drive, Dropbox, or a USB drive. The recipient needs to use FileLocker's unlock tool and the correct password to restore the original video." }
     }
   ]
 };
 ---
 
 <Layout 
-  title="How to Password Protect Large Video Files | FileLocker"
-  description="Learn how to encrypt and password protect massive video files of any size directly in your browser without uploading them. No crashes, no size limits."
+  title="Password Protect Large Video Files Online | FileLocker"
+  description="Learn how to protect large video files online with FileLocker. Secure and encrypt videos in your browser without uploads, software, accounts, or downloads."
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(howToSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
 
-  <div class="w-full bg-[#f8fafc] min-h-screen py-16 px-6">
-    <div class="max-w-3xl mx-auto">
-      
-      <!-- Breadcrumbs -->
-      <nav class="flex text-sm text-gray-500 mb-8 font-medium">
-        <a href="/guides" class="hover:text-brand-blue">Guides</a>
-        <span class="mx-2">/</span>
-        <span class="text-gray-900">Protect Large Videos</span>
+  <!-- HERO -->
+  <div class="guide-hero">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+    <div class="hero-inner">
+      <nav class="hero-breadcrumb">
+        <a href="/guides/">Guides</a>
+        <span class="separator">/</span>
+        <span class="current">Protect Large Videos</span>
       </nav>
+      <h1>How to Password Protect Large Video Files Online</h1>
+      <p class="hero-subtitle">
+        Protecting a 10GB 4K video can be challenging for browser tools that try to load the entire file into memory. FileLocker uses browser storage and streaming APIs to process the video in smaller chunks instead.
+      </p>
+    </div>
+  </div>
 
-      <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
-        
-        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 leading-tight">How to Protect Large Video Files</h1>
-        
-        <div class="prose prose-lg max-w-none text-gray-600">
-          <p class="lead text-xl text-gray-500 mb-8">
-            Protecting small documents is easy, but what happens when you need to secure a 10GB 4K video recording before sharing it? Most online tools will immediately crash your browser because they try to load the entire massive file into your computer's RAM.
-          </p>
+  <!-- MAIN CONTENT -->
+  <div class="w-full bg-[#f8fafc] py-12 px-6">
+    <div class="max-w-3xl mx-auto">
 
+      <div class="content-card animate-fade-in-up">
+        <div class="prose max-w-none">
           <p>
-            FileLocker is different. It is specifically engineered to handle <strong>large files of any size</strong> using modern streaming technology. It processes your video in tiny, manageable chunks, meaning it will never crash your browser or slow down your PC, no matter how large the file is.
+            FileLocker uses modern streaming technology and browser storage to process <strong>large files in smaller chunks</strong>. This can reduce memory pressure compared with loading the entire file into memory at once, although actual limits depend on the browser, device, available storage, and file.
           </p>
 
-          <div class="bg-purple-50 border border-purple-100 rounded-2xl p-6 my-8">
-            <h3 class="text-lg font-bold text-gray-900 mt-0 mb-2 flex items-center gap-2">
-              <svg class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-              Lightning Fast
-            </h3>
-            <p class="m-0 text-sm">
-              Because FileLocker doesn't upload your video to a server over the internet, it works at the native read/write speed of your hard drive. A 1GB video can be secured in a matter of seconds.
+          <div class="callout callout-purple">
+            <div class="callout-title">
+              <svg class="callout-icon text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              Local Processing
+            </div>
+            <p>
+              Because FileLocker doesn't upload your video to a server over the internet, it works at the native read/write speed of your hard drive. Processing time depends on the file size, storage speed, browser, and device resources. Local processing avoids the need to upload the video to a remote server.
             </p>
           </div>
-
-          <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-6">Step-by-Step Guide</h2>
-          
-          <ol class="space-y-6 list-decimal list-outside ml-6 font-medium text-gray-900">
-            <li>
-              <strong>Open the FileLocker Tool</strong><br/>
-              <span class="text-gray-600 font-normal">Go to our free <a href="/lock-file" class="text-brand-blue hover:underline">File Protection tool</a>.</span>
-            </li>
-            <li>
-              <strong>Select your Video (.mp4, .mov, .mkv)</strong><br/>
-              <span class="text-gray-600 font-normal">Click "Upload from PC or Mobile" and select your large video file. Don't worry, nothing is actually uploaded over the internet.</span>
-            </li>
-            <li>
-              <strong>Create a Password</strong><br/>
-              <span class="text-gray-600 font-normal">Enter a strong password. This password will be required to watch the video later.</span>
-            </li>
-            <li>
-              <strong>Save the .vault File</strong><br/>
-              <span class="text-gray-600 font-normal">Click "Lock &amp; Save File". FileLocker will process the video stream and output a secure <code>.vault</code> file. You can now upload this file to Google Drive, Dropbox, or a USB drive securely.</span>
-            </li>
-          </ol>
-
-          <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-6">Unlocking the Video</h2>
-          <p>
-            When someone needs to watch the video, they must go to the <a href="/unlock-file" class="text-brand-blue hover:underline">Unlock Tool</a> and enter the password. FileLocker will stream the decryption process and restore the original video file in its original format and quality.
-          </p>
-
-          <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-6">What Video Formats Does FileLocker Support?</h2>
-          <p>
-            FileLocker can protect any video file type, including <code>.mp4</code>, <code>.mov</code>, <code>.mkv</code>, <code>.avi</code>, and more. Because FileLocker encrypts the file as a raw byte stream, the specific video container format does not matter â€” any file type works.
-          </p>
-
         </div>
+      </div>
 
-        <div class="mt-12 space-y-4">
-          <h2 class="text-2xl font-bold text-gray-900">Frequently Asked Questions</h2>
-          <div class="space-y-4 mt-6">
-            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-              <h3 class="font-bold text-gray-900 text-lg mb-2">What video formats does FileLocker support?</h3>
-              <p class="text-gray-600">FileLocker can protect any file type, including <code>.mp4</code>, <code>.mov</code>, <code>.mkv</code>, <code>.avi</code>, and other video formats. Because it encrypts the file as a raw byte stream, the specific format does not matter.</p>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-              <h3 class="font-bold text-gray-900 text-lg mb-2">Can FileLocker handle very large video files without crashing?</h3>
-              <p class="text-gray-600">Yes. FileLocker uses streaming technology and the browser's Origin Private File System (OPFS) to process video in small chunks. It will not crash your browser regardless of file size.</p>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-              <h3 class="font-bold text-gray-900 text-lg mb-2">Is my video uploaded to a server?</h3>
-              <p class="text-gray-600">No. FileLocker processes your video entirely on your device. Because there are no network uploads, the protection speed is limited only by your local drive speed.</p>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-              <h3 class="font-bold text-gray-900 text-lg mb-2">How do I share a protected video?</h3>
-              <p class="text-gray-600">After protecting your video, you will have a <code>.vault</code> file. Upload it to Google Drive, Dropbox, or a USB drive. The recipient opens it using FileLocker's unlock tool with the correct password.</p>
-            </div>
+      <div class="content-card animate-fade-in-up animate-delay-1">
+        <h2 class="section-heading">How to Password Protect a Large Video File Step by Step</h2>
+        
+        <ol class="steps-grid">
+          <li class="step-card">
+            <span class="step-number">1</span>
+            <strong>Open the FileLocker Tool</strong>
+            <span>Go to our free <a href="/lock-file/" class="text-brand-blue hover:underline">File Protection tool</a>.</span>
+          </li>
+          <li class="step-card">
+            <span class="step-number">2</span>
+            <strong>Select your Video (.mp4, .mov, .mkv)</strong>
+            <span>Choose your large video file. The selected video is processed in your browser rather than uploaded to a FileLocker processing server.</span>
+          </li>
+          <li class="step-card">
+            <span class="step-number">3</span>
+            <strong>Create a Password</strong>
+            <span>Enter a strong password. This password will be required to watch the video later.</span>
+          </li>
+          <li class="step-card">
+            <span class="step-number">4</span>
+            <strong>Save the .vault File</strong>
+            <span>Click "Lock &amp; Save File". FileLocker will process the video stream and output a secure <code>.vault</code> file. You can now upload this file to Google Drive, Dropbox, or a USB drive securely.</span>
+          </li>
+        </ol>
+      </div>
+
+      <div class="content-card animate-fade-in-up animate-delay-2">
+        <div class="prose max-w-none">
+          <h2>How to Unlock a Protected Video File</h2>
+          <p>
+            When someone needs to watch the video, they must go to the <a href="/unlock-file/">Unlock Tool</a> and enter the password. FileLocker processes the protected data in your browser and restores the original video file when the correct password is supplied.
+          </p>
+
+          <h2>What Video File Formats Can You Password Protect?</h2>
+          <p>
+            FileLocker can protect common video formats including <code>.mp4</code>, <code>.mov</code>, <code>.mkv</code>, and <code>.avi</code>. It encrypts file data rather than relying on a specific document or media format.
+          </p>
+        </div>
+      </div>
+
+      <div class="content-card animate-fade-in-up animate-delay-3">
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>What video formats does FileLocker support?</h3>
+            <p>FileLocker can protect common video formats including <code>.mp4</code>, <code>.mov</code>, <code>.mkv</code>, and <code>.avi</code>. The file data is encrypted without depending on a particular media format.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can FileLocker handle very large video files?</h3>
+            <p>FileLocker processes video in smaller chunks instead of requiring the entire source file to be held in memory at once. Actual limits depend on browser support, available storage, device resources, and the file.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is my video uploaded to a server?</h3>
+            <p>No. FileLocker processes your video entirely on your device. Because there are no network uploads, processing speed also depends on your browser, device resources, and local storage performance.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I share a protected video?</h3>
+            <p>After protecting your video, you will have a <code>.vault</code> file. Upload it to Google Drive, Dropbox, or a USB drive. The recipient opens it using FileLocker's unlock tool with the correct password.</p>
           </div>
         </div>
-
-        <div class="mt-12 text-center border-t border-gray-100 pt-10">
-          <a href="/lock-file" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 inline-block text-lg">
-            Protect a Video Now
-          </a>
-        </div>
-
       </div>
+
+      <!-- CTA -->
+      <div class="cta-banner mt-8 animate-fade-in-up">
+        <p class="cta-label">Ready to secure your video?</p>
+        <a href="/lock-file/" class="cta-button">Protect a Video Now</a>
+      </div>
+
     </div>
   </div>
 </Layout>

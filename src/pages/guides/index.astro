@@ -1,71 +1,89 @@
-﻿---
+---
 import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="Guides & Tutorials | FileLocker"
-  description="Step-by-step guides on how to password protect PDFs, ZIP files, Excel spreadsheets, large video files, and more using FileLocker."
+  title="File Protection Guides | How to Password Protect Files"
+  description="Learn how to password protect PDFs, ZIP files, Excel files, and large videos with FileLocker through practical step-by-step guides."
 >
-  <div class="w-full bg-[#f8fafc] min-h-screen py-16 px-6">
-    <div class="max-w-6xl mx-auto">
-      
-      <div class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Guides & Tutorials</h1>
-        <p class="text-xl text-gray-500 max-w-2xl mx-auto">
-          Step-by-step instructions on how to secure different types of files using FileLocker.
-        </p>
-      </div>
+  <!-- HERO -->
+  <div class="guide-hero">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+    <div class="hero-inner" style="max-width:64rem; text-align:center;">
+      <h1 style="margin-bottom:1rem;">File Protection Guides</h1>
+      <p class="hero-subtitle" style="max-width:40rem; margin:0 auto;">
+        Learn how to password protect a PDF, ZIP archive, Excel spreadsheet, or large video file. These practical guides explain the steps, file-handling options, and how FileLocker processes protected data in your browser.
+      </p>
+    </div>
+  </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <!-- GUIDE CARDS -->
+  <div class="w-full bg-[#f8fafc] py-12 px-6">
+    <div class="max-w-5xl mx-auto">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         
         <!-- PDF Guide -->
-        <a href="/guides/password-protect-pdf" class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
-          <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-6">
+        <a href="/guides/password-protect-pdf/" class="guide-index-card card-red animate-fade-in-up">
+          <div class="card-icon" style="background:#fef2f2;">
             <svg class="w-7 h-7 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
           </div>
-          <div class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">How to Password Protect a PDF File</div>
-          <p class="text-gray-500 mb-8 flex-1">Secure sensitive PDF documents for free without an Adobe Acrobat subscription.</p>
-          <div class="font-bold text-brand-blue flex items-center gap-2">
-            Read Guide <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          <h2>How to Password Protect a PDF File</h2>
+          <p>Learn how to protect PDF documents in your browser and create a FileLocker .vault file.</p>
+          <div class="card-link">
+            Read Guide <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </div>
         </a>
 
         <!-- ZIP Guide -->
-        <a href="/guides/password-protect-zip" class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
-          <div class="w-14 h-14 bg-yellow-50 rounded-2xl flex items-center justify-center mb-6">
+        <a href="/guides/password-protect-zip/" class="guide-index-card card-yellow animate-fade-in-up animate-delay-1">
+          <div class="card-icon" style="background:#fefce8;">
             <svg class="w-7 h-7 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
           </div>
-          <div class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">How to Password Protect a ZIP File</div>
-          <p class="text-gray-500 mb-8 flex-1">Learn how to password protect a ZIP file using 7-Zip, Windows, macOS, or FileLocker.</p>
-          <div class="font-bold text-brand-blue flex items-center gap-2">
-            Read Guide <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          <h2>How to Password Protect a ZIP File</h2>
+          <p>Learn how to password protect a ZIP file using 7-Zip, Windows, macOS, or FileLocker.</p>
+          <div class="card-link">
+            Read Guide <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </div>
         </a>
 
         <!-- Excel Guide -->
-        <a href="/guides/password-protect-excel" class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
-          <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mb-6">
+        <a href="/guides/password-protect-excel/" class="guide-index-card card-green animate-fade-in-up animate-delay-2">
+          <div class="card-icon" style="background:#ecfdf5;">
             <svg class="w-7 h-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
           </div>
-          <div class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">How to Password Protect an Excel File</div>
-          <p class="text-gray-500 mb-8 flex-1">Protect Excel spreadsheets using Microsoft Excel's built-in encryption or FileLocker.</p>
-          <div class="font-bold text-brand-blue flex items-center gap-2">
-            Read Guide <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          <h2>How to Password Protect an Excel File</h2>
+          <p>Protect Excel spreadsheets using Microsoft Excel's built-in encryption or FileLocker.</p>
+          <div class="card-link">
+            Read Guide <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </div>
         </a>
 
         <!-- Large Videos Guide -->
-        <a href="/guides/protect-large-videos" class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
-          <div class="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-6">
+        <a href="/guides/protect-large-videos/" class="guide-index-card card-purple animate-fade-in-up animate-delay-3">
+          <div class="card-icon" style="background:#faf5ff;">
             <svg class="w-7 h-7 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
           </div>
-          <div class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">How to Protect Large Video Files</div>
-          <p class="text-gray-500 mb-8 flex-1">Encrypt massive 10GB+ video files without crashing your browser or waiting for uploads.</p>
-          <div class="font-bold text-brand-blue flex items-center gap-2">
-            Read Guide <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          <h2>How to Password Protect Large Video Files</h2>
+          <p>Learn how FileLocker processes large video files in your browser without server uploads.</p>
+          <div class="card-link">
+            Read Guide <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </div>
         </a>
 
+      </div>
+
+      <!-- BOTTOM CTA -->
+      <div class="cta-banner mt-12 animate-fade-in-up animate-delay-4">
+        <h2 class="text-white text-2xl md:text-3xl font-extrabold mb-2 relative z-10">Ready to Password Protect a File or Folder?</h2>
+        <p class="cta-label" style="margin-bottom:1.5rem;">Use FileLocker to password protect a file or an entire folder directly in your browser, then use the unlock tool when you need to open a protected <code style="background:rgba(255,255,255,0.15);padding:0.15rem 0.4rem;border-radius:0.25rem;color:#fff;">.vault</code> file.</p>
+        <div class="flex flex-wrap justify-center gap-3 relative z-10">
+          <a href="/lock-file/" class="cta-button">Password Protect a File</a>
+          <a href="/lock-folder/" class="cta-button" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4);">Password Protect a Folder</a>
+          <a href="/unlock-file/" class="cta-button" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4);">Open a Protected File</a>
+        </div>
       </div>
 
     </div>

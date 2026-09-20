@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -61,3 +61,888 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #f8fafc; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+/* ═══════════════════════════════════════════════════
+   GUIDE HERO BANNER
+   Gradient mesh hero for guide/info pages
+   ═══════════════════════════════════════════════════ */
+.guide-hero {
+  background: #2563eb;
+  position: relative;
+  overflow: hidden;
+  padding: 4.5rem 1.5rem 5rem;
+}
+
+.guide-hero + .w-full {
+  padding-top: 5rem !important;
+  padding-bottom: 5rem !important;
+}
+
+.guide-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 300px;
+  background: #ffffff;
+  opacity: 0.15;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.guide-hero .hero-inner {
+  max-width: 48rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.guide-hero h1 {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .guide-hero h1 {
+    font-size: 2.75rem;
+  }
+  .guide-hero {
+    padding: 5rem 1.5rem 6rem;
+  }
+}
+
+.guide-hero .hero-subtitle {
+  color: rgba(255,255,255,0.85);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 36rem;
+}
+
+.guide-hero .hero-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.guide-hero .hero-breadcrumb a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.guide-hero .hero-breadcrumb a:hover {
+  color: #ffffff;
+}
+
+.guide-hero .hero-breadcrumb .separator {
+  color: rgba(255,255,255,0.4);
+}
+
+.guide-hero .hero-breadcrumb .current {
+  color: rgba(255,255,255,0.9);
+}
+
+/* Floating decorative shapes in hero */
+.guide-hero .hero-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.08;
+  background: #ffffff;
+  pointer-events: none;
+}
+
+.guide-hero .hero-shape-1 {
+  width: 200px; height: 200px;
+  top: -40px; right: -30px;
+}
+
+.guide-hero .hero-shape-2 {
+  width: 120px; height: 120px;
+  bottom: 20px; left: 5%;
+}
+
+.guide-hero .hero-shape-3 {
+  width: 80px; height: 80px;
+  top: 30%; right: 15%;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   CONTENT CARD — Main white card container
+   ═══════════════════════════════════════════════════ */
+.content-card {
+  background: #ffffff;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
+  transition: box-shadow 0.3s;
+}
+
+@media (min-width: 768px) {
+  .content-card {
+    padding: 3rem;
+  }
+}
+
+.content-card + .content-card {
+  margin-top: 2rem;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   STEP CARDS — Numbered step indicators
+   ═══════════════════════════════════════════════════ */
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin: 3.5rem auto;
+  padding: 0;
+  max-width: 64rem;
+  list-style: none;
+  counter-reset: step-counter;
+}
+
+@media (min-width: 768px) {
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps-grid > *:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+.step-card {
+  position: relative;
+  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  counter-increment: step-counter;
+}
+
+.step-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.step-card .step-number {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 9999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 1.75rem;
+  font-weight: 800;
+  box-shadow: 0 4px 20px rgba(37,99,235,0.3);
+  margin: 0 auto 2rem auto;
+  flex-shrink: 0;
+}
+
+.step-card .step-number::after {
+  content: "STEP " counter(step-counter);
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  color: #2563eb;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.step-card h3,
+.step-card strong {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
+
+.step-card span,
+.step-card p {
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   CALLOUT BOXES — Info, Warning, Tip
+   ═══════════════════════════════════════════════════ */
+.callout {
+  position: relative;
+  padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+  border-radius: 1rem;
+  margin: 2rem 0;
+  border-left: 4px solid;
+}
+
+.callout-info {
+  background: linear-gradient(135deg, #eff6ff, #f0f9ff);
+  border-left-color: #2563eb;
+}
+
+.callout-warning {
+  background: linear-gradient(135deg, #fefce8, #fffbeb);
+  border-left-color: #f59e0b;
+}
+
+.callout-success {
+  background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+  border-left-color: #10b981;
+}
+
+.callout-purple {
+  background: linear-gradient(135deg, #faf5ff, #f5f3ff);
+  border-left-color: #7c3aed;
+}
+
+.callout .callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  color: #111827;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.callout .callout-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.callout p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   FAQ ITEMS — Enhanced static cards
+   ═══════════════════════════════════════════════════ */
+.faq-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.faq-item:hover {
+  border-color: #bfdbfe;
+  box-shadow: 0 4px 16px rgba(37,99,235,0.06);
+}
+
+.faq-item h3 {
+  font-weight: 700;
+  color: #111827;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.faq-item h3::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.5rem;
+  border-radius: 50%;
+  background: #2563eb;
+  flex-shrink: 0;
+}
+
+.faq-item p {
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   STYLED TABLES
+   ═══════════════════════════════════════════════════ */
+.styled-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+  margin: 1.5rem 0;
+}
+
+.styled-table thead tr {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+}
+
+.styled-table thead th {
+  text-align: left;
+  padding: 0.875rem 1rem;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.styled-table tbody td {
+  padding: 0.875rem 1rem;
+  color: #374151;
+  border-top: 1px solid #f3f4f6;
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.styled-table tbody tr {
+  transition: background 0.2s;
+}
+
+.styled-table tbody tr:hover {
+  background: #eff6ff;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   FEATURE CARDS — 2x2 or 4-col grids
+   ═══════════════════════════════════════════════════ */
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.feature-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  background: #ffffff;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border-color: #bfdbfe;
+}
+
+.feature-card .feature-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-weight: 700;
+  color: #111827;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.feature-card p {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   GUIDE INDEX CARDS — For guides listing page
+   ═══════════════════════════════════════════════════ */
+.guide-index-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.guide-index-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 1.25rem 1.25rem 0 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.guide-index-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  border-color: #bfdbfe;
+}
+
+.guide-index-card:hover::before {
+  opacity: 1;
+}
+
+.guide-index-card.card-red::before { background: linear-gradient(90deg, #ef4444, #f87171); }
+.guide-index-card.card-yellow::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.guide-index-card.card-green::before { background: linear-gradient(90deg, #10b981, #34d399); }
+.guide-index-card.card-purple::before { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+
+.guide-index-card .card-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.guide-index-card h2 {
+  font-weight: 800;
+  color: #111827;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  transition: color 0.2s;
+}
+
+.guide-index-card:hover h2 {
+  color: #2563eb;
+}
+
+.guide-index-card p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 1.25rem;
+}
+
+.guide-index-card .card-link {
+  font-weight: 700;
+  color: #2563eb;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.guide-index-card .card-link svg {
+  transition: transform 0.2s;
+}
+
+.guide-index-card:hover .card-link svg {
+  transform: translateX(4px);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   CTA BANNER — Bottom page call-to-action
+   ═══════════════════════════════════════════════════ */
+.cta-banner {
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+  border-radius: 1.5rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 400px 200px at 20% 80%, rgba(255,255,255,0.08), transparent),
+    radial-gradient(ellipse 300px 200px at 80% 20%, rgba(255,255,255,0.06), transparent);
+  pointer-events: none;
+}
+
+.cta-banner .cta-label {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.cta-banner .cta-button {
+  display: inline-block;
+  background: #ffffff;
+  color: #2563eb;
+  font-weight: 800;
+  padding: 0.875rem 2.5rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: 1.05rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-banner .cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.cta-banner .cta-button:active {
+  transform: scale(0.97);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   SECTION HEADING — For content sections
+   ═══════════════════════════════════════════════════ */
+.section-heading {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 3rem;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #2563eb, #60a5fa);
+}
+
+.section-heading-center {
+  text-align: center;
+}
+
+.section-heading-center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   GUIDE LINK CARDS — Smaller link-style cards
+   ═══════════════════════════════════════════════════ */
+.guide-link {
+  display: block;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  color: #374151;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.guide-link:hover {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #2563eb;
+  transform: translateX(4px);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   INFO PAGE SECTIONS — For privacy, security, etc.
+   ═══════════════════════════════════════════════════ */
+.info-section {
+  padding: 2rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.info-section:last-child {
+  border-bottom: none;
+}
+
+.info-section .info-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.info-section h2 {
+  font-weight: 800;
+  color: #111827;
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.info-section p {
+  color: #4b5563;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   TIMELINE STEPS — For how-it-works page
+   ═══════════════════════════════════════════════════ */
+.timeline {
+  position: relative;
+  padding-left: 3.5rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 1.375rem;
+  top: 2rem;
+  bottom: 2rem;
+  width: 2px;
+  background: linear-gradient(to bottom, #2563eb, #93c5fd, #dbeafe);
+  border-radius: 1px;
+}
+
+.timeline-step {
+  position: relative;
+  padding-bottom: 2.5rem;
+}
+
+.timeline-step:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-step .timeline-dot {
+  position: absolute;
+  left: -3.5rem;
+  top: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  z-index: 1;
+  box-shadow: 0 3px 12px rgba(37,99,235,0.2);
+}
+
+.timeline-step .timeline-dot.dot-blue {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+}
+
+.timeline-step .timeline-dot.dot-green {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+}
+
+.timeline-step h3 {
+  font-weight: 800;
+  color: #111827;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-step p {
+  color: #4b5563;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   ENHANCED PROSE — Better article typography
+   ═══════════════════════════════════════════════════ */
+.prose {
+  color: #4b5563;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.prose > * + * {
+  margin-top: 1.25rem;
+}
+
+.prose p {
+  margin-bottom: 0;
+}
+
+.prose h2 {
+  color: #111827;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.prose h3 {
+  color: #111827;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.prose a:hover {
+  border-bottom-color: #2563eb;
+}
+
+.prose ol {
+  padding-left: 1.5rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  list-style-type: decimal;
+}
+
+.prose ol li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.prose ol li::marker {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.prose ul {
+  margin: 1.25rem 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.prose ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2563eb;
+}
+
+.prose li + li {
+  margin-top: 0.45rem;
+}
+
+.prose code {
+  border-radius: 0.375rem;
+  background: #f3f4f6;
+  padding: 0.15rem 0.4rem;
+  color: #1e40af;
+  font-size: 0.875em;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+}
+
+.prose strong {
+  color: #111827;
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .prose ol {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+.animate-delay-1 { animation-delay: 0.1s; }
+.animate-delay-2 { animation-delay: 0.2s; }
+.animate-delay-3 { animation-delay: 0.3s; }
+.animate-delay-4 { animation-delay: 0.4s; }

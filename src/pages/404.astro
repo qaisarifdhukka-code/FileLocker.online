@@ -3,19 +3,26 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Page Not Found | FileLocker" description="The page you are looking for does not exist.">
-  <div class="flex flex-col items-center justify-center py-32 px-6 text-center min-h-[60vh]">
-    <div class="w-24 h-24 bg-brand-blue/10 rounded-full flex items-center justify-center mb-8">
-      <svg class="w-12 h-12 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
+  <Fragment slot="head"><meta name="robots" content="noindex, follow" /></Fragment>
+  
+  <div class="guide-hero" style="min-height:70vh; display:flex; align-items:center; justify-content:center;">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+    <div class="hero-inner" style="text-align:center;">
+      <div class="w-20 h-20 bg-white/10 backdrop-blur rounded-full flex items-center justify-center mx-auto mb-6" style="animation: fadeInUp 0.5s ease-out both;">
+        <svg class="w-10 h-10 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h1 style="font-size:5rem; margin-bottom:0.5rem; animation: fadeInUp 0.6s ease-out both;">404</h1>
+      <h2 class="text-2xl font-bold text-white/90 mb-4" style="animation: fadeInUp 0.7s ease-out both;">Page Not Found</h2>
+      <p class="text-white/70 text-lg max-w-lg mx-auto mb-8" style="animation: fadeInUp 0.8s ease-out both;">
+        Oops! It looks like this page was moved or doesn't exist. You can return to FileLocker and choose the tool you need.
+      </p>
+      <a href="/" class="cta-button" style="animation: fadeInUp 0.9s ease-out both;">
+        Go back to the tool
+      </a>
     </div>
-    <h1 class="text-6xl font-extrabold text-gray-900 mb-4">404</h1>
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">Page Not Found</h2>
-    <p class="text-lg text-gray-500 max-w-lg mb-10">
-      Oops! It looks like this page was moved or doesn't exist. Don't worry, your files are still safe.
-    </p>
-    <a href="/" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 px-10 rounded-xl shadow-lg transition-transform hover:-translate-y-1 transform active:scale-95 text-lg">
-      Go back to the tool
-    </a>
   </div>
 </Layout>
