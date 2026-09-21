@@ -261,10 +261,10 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
                   </div>
                 </div>
 
-                <h3 className="text-gray-700 font-semibold text-lg mb-2">
+                <p className="text-gray-700 font-semibold text-lg mb-2">
                   Drop your protected file here, or{' '}
                   <button onClick={selectVault} className="text-brand-blue font-bold hover:underline focus:outline-none">browse</button>
-                </h3>
+                </p>
                 <p className="text-gray-400 text-sm font-medium">Supports: .vault files</p>
 
                 {errorMsg && (
