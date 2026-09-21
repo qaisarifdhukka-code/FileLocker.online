@@ -191,7 +191,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
                 </div>
               </div>
 
-              <h3 className="text-gray-700 font-semibold text-lg mb-2">
+              <p className="text-gray-700 font-semibold text-lg mb-2">
                 Drop your item here, or browse for a{' '}
                 {(initialMode === 'both' || initialMode === 'file') && (
                   <button onClick={handleSelectFile} className="text-brand-blue font-bold hover:underline focus:outline-none">file</button>
@@ -200,7 +200,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
                 {(initialMode === 'both' || initialMode === 'folder') && (
                   <button onClick={handleSelectFolder} className="text-brand-blue font-bold hover:underline focus:outline-none">folder</button>
                 )}
-              </h3>
+              </p>
               <p className="text-gray-400 text-sm font-medium">Supports most file types; practical size depends on your browser and device</p>
             </div>
 
