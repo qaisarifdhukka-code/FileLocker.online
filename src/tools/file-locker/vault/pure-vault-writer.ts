@@ -46,13 +46,67 @@ export async function createPureVault(
     const safeFilename = `${baseName}-${dateStr}-${randHex}.vault`;
 
     stage = 'Opening save picker';
-    // @ts-ignore
-    fileHandle = await window.showSaveFilePicker({
-      suggestedName: safeFilename
-    });
+    let fallbackChunks: Uint8Array[] = [];
+    let isFallback = false;
+    
+    try {
+      if (!window.showSaveFilePicker) throw new Error('fallback');
+      // @ts-ignore
+      fileHandle = await window.showSaveFilePicker({
+        suggestedName: safeFilename
+      });
+      stage = 'Creating writable stream';
+      writable = await fileHandle.createWritable();
+    } catch (e: any) {
+      if (e.message === 'fallback' || e.name === 'TypeError') {
+        isFallback = true;
+        
+        // OPFS Fallback to support massive files without OOM
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js');
+        }
+        
+        // --- QUOTA CHECK ---
+        if (navigator.storage && navigator.storage.estimate) {
+          const estimate = await navigator.storage.estimate();
+          const requiredBytes = totalSize + (100 * 1024 * 1024); // 100MB safety overhead
+          if (estimate.quota !== undefined && estimate.usage !== undefined) {
+            const available = estimate.quota - estimate.usage;
+            if (available < requiredBytes) {
+              throw new Error(`Your browser's privacy shields (e.g. Brave Shields) have blocked direct saving, and the secure sandbox doesn't have enough space for this ${(totalSize/1e9).toFixed(2)}GB file. Please turn off Shields for this site, or use Chrome/Edge.`);
+            }
+          }
+        }
+        // -------------------
 
-    stage = 'Creating writable stream';
-    writable = await fileHandle.createWritable();
+        const opfsRoot = await navigator.storage.getDirectory();
+        
+        // Clean up old files to avoid taking too much quota
+        try { await opfsRoot.removeEntry(safeFilename); } catch(e){}
+
+        const opfsHandle = await opfsRoot.getFileHandle(safeFilename, { create: true });
+        const opfsWritable = await opfsHandle.createWritable();
+
+        writable = {
+          write: async (chunk: Uint8Array) => { await opfsWritable.write(chunk); },
+          close: async () => {
+            await opfsWritable.close();
+            const a = document.createElement('a');
+            a.href = `/__filelocker_download__/${encodeURIComponent(safeFilename)}`;
+            a.download = safeFilename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          },
+          abort: async () => { 
+            await opfsWritable.abort(); 
+            await opfsRoot.removeEntry(safeFilename);
+          }
+        };
+      } else {
+        throw e;
+      }
+    }
 
     // --- PHASE 3: Added Metadata Header ---
     stage = 'Encoding metadata';

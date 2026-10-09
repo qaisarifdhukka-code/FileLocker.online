@@ -69,20 +69,28 @@ const faqSchema = {
     <div class="hero-shape hero-shape-1"></div>
     <div class="hero-shape hero-shape-2"></div>
     <div class="hero-inner" style="text-align:center; max-width:40rem;">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-brand-blue text-xs font-bold uppercase tracking-wider mb-5">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.757-2.243-5-5-5S7 3.243 7 6H9c0-1.654 1.346-3 3-3s3 1.346 3 3v2H6c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V10c0-1.103-.897-2-2-2zm-6 9a2 2 0 110-4 2 2 0 010 4z"/></svg>
+        Free · No uploads · No account
+      </span>
       <h1>Unlock Password-Protected Files Online</h1>
-      <p class="hero-subtitle" style="margin:0 auto;">Open a FileLocker-protected <code style="background:rgba(255,255,255,0.15);padding:0.1rem 0.35rem;border-radius:0.25rem;">.vault</code> file directly in your browser — no uploads, no software required.</p>
+      <p class="hero-subtitle" style="margin:0 auto;">Open a FileLocker-protected <code style="background:rgba(37,99,235,0.08);color:#2563eb;padding:0.1rem 0.4rem;border-radius:0.35rem;font-size:0.9em;">.vault</code> file directly in your browser — no uploads, no software required.</p>
     </div>
   </div>
 
-  <div class="flex-1 bg-bg-light w-full flex items-center justify-center">
-    <div class="w-full max-w-3xl mx-auto">
+  <div class="w-full bg-white border-b border-gray-100 py-8 px-4 sm:px-6 flex items-center justify-center">
+    <div class="w-full max-w-2xl mx-auto bg-white rounded-[2rem] border border-gray-100 shadow-[0_8px_40px_rgba(0,0,0,0.07)] overflow-hidden">
       <UnlockApp client:load hideHeader={true} />
+      <div class="text-center py-3.5 bg-gray-50 border-t border-gray-100 text-[12px] text-gray-400 font-medium flex items-center justify-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        Your files are processed locally. Nothing is uploaded.
+      </div>
     </div>
   </div>
 
   <!-- SEO CONTENT -->
-  <section class="w-full bg-[#f8fafc] py-12 px-6 border-t border-gray-200">
-    <div class="max-w-3xl mx-auto">
+  <section class="w-full bg-white py-12 px-6">
+    <div class="max-w-5xl mx-auto">
 
       <div class="content-card animate-fade-in-up">
         <h2 class="section-heading">How to Open a Password Protected File</h2>

@@ -20,6 +20,7 @@ type AppSource = {
   isFolder: boolean;
   file?: File;
   dirHandle?: any;
+  fileList?: { file: File; path: string }[]; // Fallback for folders
 };
 
 type ProvisioningMode = 'file' | 'folder' | 'both';
@@ -43,6 +44,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
 
   const handleSelectFile = async () => {
     try {
+      if (!window.showOpenFilePicker) throw new Error('fallback');
       // @ts-ignore
       const [handle] = await window.showOpenFilePicker({
         types: [{ description: 'All Files', accept: { '*/*': [] } }]
@@ -51,12 +53,24 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
       setSelectedSource({ file, name: file.name, size: file.size, isFolder: false });
       setStep(STEPS.CONFIGURE);
     } catch (e: any) {
-      if (e.name !== 'AbortError') setError(e.message);
+      if (e.message === 'fallback' || e.name === 'TypeError') {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = (e: any) => {
+          const file = e.target.files[0];
+          if (file) {
+            setSelectedSource({ file, name: file.name, size: file.size, isFolder: false });
+            setStep(STEPS.CONFIGURE);
+          }
+        };
+        input.click();
+      } else if (e.name !== 'AbortError') setError(e.message);
     }
   };
 
   const handleSelectFolder = async () => {
     try {
+      if (!window.showDirectoryPicker) throw new Error('fallback');
       // @ts-ignore
       const dirHandle = await window.showDirectoryPicker();
       let totalSize = 0;
@@ -67,7 +81,29 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
       setSelectedSource({ dirHandle, name: dirHandle.name, size: totalSize, isFolder: true });
       setStep(STEPS.CONFIGURE);
     } catch (e: any) {
-      if (e.name !== 'AbortError') setError(e.message);
+      if (e.message === 'fallback' || e.name === 'TypeError') {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.webkitdirectory = true;
+        input.onchange = (e: any) => {
+          const rawFiles = Array.from(e.target.files as FileList);
+          if (rawFiles.length > 0) {
+            let totalSize = 0;
+            const fileList = rawFiles.map(f => {
+              totalSize += f.size;
+              // @ts-ignore fallback path
+              const path = f.webkitRelativePath || f.name;
+              return { file: f, path };
+            });
+            // Extract the root folder name from the first file's relative path
+            // @ts-ignore
+            const folderName = rawFiles[0].webkitRelativePath ? rawFiles[0].webkitRelativePath.split('/')[0] : 'Folder';
+            setSelectedSource({ fileList, name: folderName, size: totalSize, isFolder: true });
+            setStep(STEPS.CONFIGURE);
+          }
+        };
+        input.click();
+      } else if (e.name !== 'AbortError') setError(e.message);
     }
   };
 
@@ -118,6 +154,9 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
           if (selectedSource.isFolder && selectedSource.dirHandle) {
             const files = await getFilesRecursively(selectedSource.dirHandle);
             const tarStream = createTarStream(files);
+            yield* bufferStream(tarStream, 10 * 1024 * 1024);
+          } else if (selectedSource.isFolder && selectedSource.fileList) {
+            const tarStream = createTarStream(selectedSource.fileList);
             yield* bufferStream(tarStream, 10 * 1024 * 1024);
           } else if (selectedSource.file) {
             let offset = 0;
@@ -170,7 +209,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
   const subtitle = initialMode === 'file' ? 'Add password protection before sharing or storing a file.' : initialMode === 'folder' ? 'Protect an entire folder with one password.' : 'Add a password to a file or folder directly in your browser.';
 
   return (
-    <div className={`w-full h-full mx-auto ${hideHeader ? 'py-4' : 'py-12'} px-4 sm:px-6`}>
+    <div className={`w-full h-full mx-auto ${hideHeader ? '' : 'py-12 px-4 sm:px-6'}`}>
 
       {!hideHeader && (
         <div className="text-center mb-10">
@@ -179,29 +218,30 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className={hideHeader ? "w-full h-full flex flex-col" : "bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden"}>
 
         {step === STEPS.SELECT && (
-          <div className="p-8 md:p-12 text-center">
-            <div className="border-2 border-dashed border-[#d3e3fd] rounded-3xl p-12 max-w-2xl mx-auto flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#f4f8fc] group bg-white">
-              <div className="relative w-16 h-16 mb-5">
-                <div className="absolute inset-0 bg-brand-blue opacity-10 rounded-2xl group-hover:scale-110 group-hover:opacity-20 transition-all duration-300"></div>
-                <div className="absolute inset-0 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
-                  <FileIcon className="w-8 h-8 text-brand-blue" />
-                </div>
+          <div className="p-4 sm:p-8 md:p-12 text-center">
+            <div className="relative border-2 border-dashed border-blue-200/60 bg-gradient-to-b from-blue-50/50 to-white rounded-[1.5rem] md:rounded-[2rem] p-6 sm:p-8 md:p-12 max-w-2xl mx-auto flex flex-col items-center justify-center transition-all duration-300 hover:border-blue-400/50 hover:shadow-[0_10px_40px_rgba(59,130,246,0.1)] group overflow-hidden">
+              <div className="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <div className="relative z-10 w-16 h-16 md:w-20 md:h-20 mb-4 md:mb-6 flex items-center justify-center">
+                <div className="absolute inset-0 bg-blue-100 rounded-full scale-50 group-hover:scale-100 opacity-50 group-hover:opacity-100 transition-all duration-500 ease-out"></div>
+                <div className="absolute inset-0 bg-blue-50 rounded-full scale-100 group-hover:scale-150 opacity-100 group-hover:opacity-0 transition-all duration-700 ease-out"></div>
+                <FileIcon className="w-8 h-8 md:w-10 md:h-10 text-brand-blue relative z-10 group-hover:-translate-y-1 transition-transform duration-300" />
               </div>
 
-              <p className="text-gray-700 font-semibold text-lg mb-2">
+              <p className="text-gray-900 font-bold text-lg md:text-xl mb-3 relative z-10">
                 Drop your item here, or browse for a{' '}
                 {(initialMode === 'both' || initialMode === 'file') && (
-                  <button onClick={handleSelectFile} className="text-brand-blue font-bold hover:underline focus:outline-none">file</button>
+                  <button onClick={handleSelectFile} className="text-brand-blue hover:text-blue-700 focus:outline-none transition-colors underline decoration-blue-300 decoration-2 underline-offset-4">file</button>
                 )}
                 {initialMode === 'both' && ' or '}
                 {(initialMode === 'both' || initialMode === 'folder') && (
-                  <button onClick={handleSelectFolder} className="text-brand-blue font-bold hover:underline focus:outline-none">folder</button>
+                  <button onClick={handleSelectFolder} className="text-brand-blue hover:text-blue-700 focus:outline-none transition-colors underline decoration-blue-300 decoration-2 underline-offset-4">folder</button>
                 )}
               </p>
-              <p className="text-gray-400 text-sm font-medium">Supports most file types; practical size depends on your browser and device</p>
+              <p className="text-gray-500 text-sm font-medium relative z-10">Supports most file types; practical size depends on your browser and device</p>
             </div>
 
             {error && (
@@ -264,9 +304,28 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
             </div>
 
             {error && (
-              <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg flex items-start gap-3 border border-red-100">
-                <AlertCircle className="w-5 h-5 shrink-0" />
-                <p className="text-sm font-medium">{error}</p>
+              <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg flex items-start gap-3 border border-red-100 text-left">
+                <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                <div className="text-sm font-medium leading-relaxed w-full">
+                  {error.includes('Please turn off Shields') ? (
+                    <>
+                      <strong className="block mb-1 text-red-800 text-base">File too large for your browser's secure sandbox</strong>
+                      <p className="mb-3">{error.split('Please turn off Shields')[0]}</p>
+                      <div className="bg-white rounded border border-red-200 shadow-sm text-red-900 flex flex-col divide-y divide-red-100">
+                        <div className="p-3 flex flex-col gap-1">
+                          <span className="text-red-800 text-[10px] font-bold tracking-wider uppercase">Option 1 (Recommended)</span>
+                          <span>Use <strong className="font-extrabold underline decoration-red-400 underline-offset-2">Google Chrome</strong> or <strong className="font-extrabold underline decoration-red-400 underline-offset-2">Microsoft Edge</strong></span>
+                        </div>
+                        <div className="p-3 flex flex-col gap-1">
+                          <span className="text-red-800 text-[10px] font-bold tracking-wider uppercase">Option 2</span>
+                          <span>Turn off your browser's "Shields" for this site.</span>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    error
+                  )}
+                </div>
               </div>
             )}
 

@@ -30,12 +30,29 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
 
   const selectVault = async () => {
     try {
+      if (!window.showOpenFilePicker) throw new Error('fallback');
       // @ts-ignore
       const [fh] = await window.showOpenFilePicker({
         types: [{ description: 'Vault Files', accept: { '*/*': ['.vault'] } }]
       });
       const selected = await fh.getFile();
+      processVaultFile(selected);
+    } catch (err: any) {
+      if (err.message === 'fallback' || err.name === 'TypeError') {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.vault';
+        input.onchange = async (e: any) => {
+          const selected = e.target.files[0];
+          if (selected) processVaultFile(selected);
+        };
+        input.click();
+      } else if (err.name !== 'AbortError') setErrorMsg(err.message);
+    }
+  };
 
+  const processVaultFile = async (selected: File) => {
+    try {
       const fixedBuf = await selected.slice(0, HEADER_BASE + META_LEN_SIZE).arrayBuffer();
       const fixedArr = new Uint8Array(fixedBuf);
 
@@ -54,7 +71,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
       setMeta({ ...parsedMeta, dataStart });
       setErrorMsg('');
     } catch (err: any) {
-      if (err.name !== 'AbortError') setErrorMsg(err.message);
+      setErrorMsg(err.message);
     }
   };
 
@@ -147,21 +164,67 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
 
       let writable;
       let untar: FolderUntar | null = null;
+      let fallbackChunks: Uint8Array[] = [];
+      let isFallback = false;
+
       try {
         if (parsedMeta.isFolder && downloadName.endsWith('.tar')) {
+          if (!window.showDirectoryPicker) throw new Error('fallback_folder');
           window.alert("⚠️ IMPORTANT: BROWSER SECURITY ⚠️\n\nBrowsers block saving directly to your Desktop, Documents, or Downloads folder.\n\nWhen the next window opens, please CREATE A NEW EMPTY FOLDER and select it. FileLocker will place your unlocked folder neatly inside it.");
           // @ts-ignore
           const dirHandle = await window.showDirectoryPicker();
           untar = new FolderUntar(dirHandle);
         } else {
+          if (!window.showSaveFilePicker) throw new Error('fallback_file');
           // @ts-ignore
           const saveFh = await window.showSaveFilePicker({ suggestedName: downloadName });
           // @ts-ignore
           writable = await saveFh.createWritable();
         }
-      } catch (e) {
-        reset();
-        return;
+      } catch (e: any) {
+        if (e.message === 'fallback_file' || e.message === 'fallback_folder' || e.name === 'TypeError') {
+          isFallback = true;
+          
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+          }
+          
+          // --- QUOTA CHECK ---
+          if (navigator.storage && navigator.storage.estimate) {
+            const estimate = await navigator.storage.estimate();
+            // Estimating required bytes. We use the original fileSize from meta or an approximation
+            const requiredBytes = (parsedMeta.fileSize || file.size) + (100 * 1024 * 1024);
+            if (estimate.quota !== undefined && estimate.usage !== undefined) {
+              const available = estimate.quota - estimate.usage;
+              if (available < requiredBytes) {
+                throw new Error(`Your browser's privacy shields (e.g. Brave Shields) have blocked direct saving, and the secure sandbox doesn't have enough space for this file. Please turn off Shields for this site, or use Chrome/Edge.`);
+              }
+            }
+          }
+          // -------------------
+
+          const opfsRoot = await navigator.storage.getDirectory();
+          
+          try { await opfsRoot.removeEntry(downloadName); } catch(err){}
+          const opfsHandle = await opfsRoot.getFileHandle(downloadName, { create: true });
+          const opfsWritable = await opfsHandle.createWritable();
+
+          writable = {
+            write: async (chunk: Uint8Array) => { await opfsWritable.write(chunk); },
+            close: async () => {
+              await opfsWritable.close();
+              const a = document.createElement('a');
+              a.href = `/__filelocker_download__/${encodeURIComponent(downloadName)}`;
+              a.download = downloadName; // Download the raw file or .tar file
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+            }
+          };
+        } else {
+          reset();
+          return;
+        }
       }
 
       if (untar) {
@@ -306,9 +369,28 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
                 </div>
 
                 {errorMsg && (
-                  <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg flex items-start gap-3 border border-red-100">
-                    <AlertCircle className="w-5 h-5 shrink-0" />
-                    <p className="text-sm font-medium">{errorMsg}</p>
+                  <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg flex items-start gap-3 border border-red-100 text-left">
+                    <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                    <div className="text-sm font-medium leading-relaxed w-full">
+                      {errorMsg.includes('Please turn off Shields') ? (
+                        <>
+                          <strong className="block mb-1 text-red-800 text-base">File too large for your browser's secure sandbox</strong>
+                          <p className="mb-3">{errorMsg.split('Please turn off Shields')[0]}</p>
+                          <div className="bg-white rounded border border-red-200 shadow-sm text-red-900 flex flex-col divide-y divide-red-100">
+                            <div className="p-3 flex flex-col gap-1">
+                              <span className="text-red-800 text-[10px] font-bold tracking-wider uppercase">Option 1 (Recommended)</span>
+                              <span>Use <strong className="font-extrabold underline decoration-red-400 underline-offset-2">Google Chrome</strong> or <strong className="font-extrabold underline decoration-red-400 underline-offset-2">Microsoft Edge</strong></span>
+                            </div>
+                            <div className="p-3 flex flex-col gap-1">
+                              <span className="text-red-800 text-[10px] font-bold tracking-wider uppercase">Option 2</span>
+                              <span>Turn off your browser's "Shields" for this site.</span>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        errorMsg
+                      )}
+                    </div>
                   </div>
                 )}
 
@@ -385,7 +467,26 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
             </div>
 
             <h2 className="text-2xl font-bold text-gray-900 mb-2">System Error</h2>
-            <p className="text-gray-500 mb-8 max-w-sm mx-auto">{errorMsg}</p>
+            <div className="text-gray-500 mb-8 max-w-sm mx-auto text-left">
+              {errorMsg.includes('Please turn off Shields') ? (
+                <div className="bg-red-50 text-red-700 p-4 rounded-lg border border-red-100 text-sm">
+                  <strong className="block mb-2 text-red-800 text-base text-center">File too large for your browser</strong>
+                  <p className="mb-4 text-center">{errorMsg.split('Please turn off Shields')[0]}</p>
+                  <div className="bg-white rounded border border-red-200 shadow-sm text-red-900 flex flex-col divide-y divide-red-100">
+                    <div className="p-3 flex flex-col gap-1 text-center">
+                      <span className="text-red-800 text-[10px] font-bold tracking-wider uppercase">Option 1 (Recommended)</span>
+                      <span>Use <strong className="font-extrabold underline decoration-red-400 underline-offset-2">Google Chrome</strong> or <strong className="font-extrabold underline decoration-red-400 underline-offset-2">Microsoft Edge</strong></span>
+                    </div>
+                    <div className="p-3 flex flex-col gap-1 text-center">
+                      <span className="text-red-800 text-[10px] font-bold tracking-wider uppercase">Option 2</span>
+                      <span>Turn off your browser's "Shields" for this site.</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <p>{errorMsg}</p>
+              )}
+            </div>
 
             <button onClick={() => { setStatus('IDLE'); setIsDeriving(false); }} className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-900 font-bold py-3 px-6 rounded-lg transition-colors">
               Try Again

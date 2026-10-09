@@ -5,23 +5,25 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Page Not Found | FileLocker" description="The page you are looking for does not exist.">
   <Fragment slot="head"><meta name="robots" content="noindex, follow" /></Fragment>
   
-  <div class="guide-hero" style="min-height:70vh; display:flex; align-items:center; justify-content:center;">
-    <div class="hero-shape hero-shape-1"></div>
-    <div class="hero-shape hero-shape-2"></div>
-    <div class="hero-shape hero-shape-3"></div>
-    <div class="hero-inner" style="text-align:center;">
-      <div class="w-20 h-20 bg-white/10 backdrop-blur rounded-full flex items-center justify-center mx-auto mb-6" style="animation: fadeInUp 0.5s ease-out both;">
-        <svg class="w-10 h-10 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  <div class="min-h-[75vh] flex flex-col items-center justify-center px-6 bg-white relative overflow-hidden">
+    <!-- Background shapes -->
+    <div class="absolute top-0 right-0 w-[350px] h-[350px] pointer-events-none" style="background: linear-gradient(135deg, rgba(219,234,254,0.5), rgba(196,181,253,0.3)); border-radius: 45% 55% 65% 35% / 40% 50% 65% 55%; transform: rotate(-10deg) translate(100px, -100px);"></div>
+    <div class="absolute bottom-0 left-0 w-[250px] h-[270px] pointer-events-none" style="background: linear-gradient(135deg, rgba(254,235,200,0.4), rgba(253,186,116,0.15)); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(8deg) translate(-80px, 80px);"></div>
+    
+    <div class="relative z-10 text-center max-w-lg mx-auto">
+      <div class="w-20 h-20 bg-blue-50 border border-blue-100 rounded-[1.5rem] flex items-center justify-center mx-auto mb-8 shadow-[0_8px_30px_rgba(37,99,235,0.12)]">
+        <svg class="w-10 h-10 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </div>
-      <h1 style="font-size:5rem; margin-bottom:0.5rem; animation: fadeInUp 0.6s ease-out both;">404</h1>
-      <h2 class="text-2xl font-bold text-white/90 mb-4" style="animation: fadeInUp 0.7s ease-out both;">Page Not Found</h2>
-      <p class="text-white/70 text-lg max-w-lg mx-auto mb-8" style="animation: fadeInUp 0.8s ease-out both;">
-        Oops! It looks like this page was moved or doesn't exist. You can return to FileLocker and choose the tool you need.
+      <p class="text-brand-blue font-bold text-sm uppercase tracking-widest mb-3">404 — Page Not Found</p>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight leading-tight">This page<br>doesn't exist.</h1>
+      <p class="text-gray-500 text-lg max-w-sm mx-auto mb-10 leading-relaxed">
+        Oops! This page was moved or doesn't exist. You can return to FileLocker and choose the tool you need.
       </p>
-      <a href="/" class="cta-button" style="animation: fadeInUp 0.9s ease-out both;">
+      <a href="/" class="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-3.5 px-8 rounded-full shadow-lg shadow-blue-500/25 transition-transform hover:-translate-y-0.5 text-base">
         Go back to the tool
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
       </a>
     </div>
   </div>

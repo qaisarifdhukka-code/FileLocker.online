@@ -64,32 +64,31 @@ body {
 
 /* ═══════════════════════════════════════════════════
    GUIDE HERO BANNER
-   Gradient mesh hero for guide/info pages
+   Premium clean hero for guide/info pages
    ═══════════════════════════════════════════════════ */
 .guide-hero {
-  background: #2563eb;
+  background: #ffffff;
   position: relative;
   overflow: hidden;
-  padding: 4.5rem 1.5rem 5rem;
+  padding: 4rem 1.5rem 5rem;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .guide-hero + .w-full {
-  padding-top: 5rem !important;
-  padding-bottom: 5rem !important;
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
 }
 
+/* Subtle radial glow in the background */
 .guide-hero::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: -100px;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: 300px;
-  background: #ffffff;
-  opacity: 0.15;
-  border-radius: 50%;
-  filter: blur(80px);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(37,99,235,0.07) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -101,12 +100,12 @@ body {
 }
 
 .guide-hero h1 {
-  color: #ffffff;
+  color: #0f172a;
   font-size: 2rem;
   font-weight: 800;
-  line-height: 1.25;
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
 }
 
 @media (min-width: 768px) {
@@ -119,7 +118,7 @@ body {
 }
 
 .guide-hero .hero-subtitle {
-  color: rgba(255,255,255,0.85);
+  color: #64748b;
   font-size: 1.1rem;
   line-height: 1.7;
   max-width: 36rem;
@@ -135,45 +134,50 @@ body {
 }
 
 .guide-hero .hero-breadcrumb a {
-  color: rgba(255,255,255,0.7);
+  color: #94a3b8;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .guide-hero .hero-breadcrumb a:hover {
-  color: #ffffff;
+  color: #2563eb;
 }
 
 .guide-hero .hero-breadcrumb .separator {
-  color: rgba(255,255,255,0.4);
+  color: #cbd5e1;
 }
 
 .guide-hero .hero-breadcrumb .current {
-  color: rgba(255,255,255,0.9);
+  color: #2563eb;
 }
 
 /* Floating decorative shapes in hero */
 .guide-hero .hero-shape {
   position: absolute;
   border-radius: 50%;
-  opacity: 0.08;
-  background: #ffffff;
   pointer-events: none;
 }
 
 .guide-hero .hero-shape-1 {
-  width: 200px; height: 200px;
-  top: -40px; right: -30px;
+  width: 300px; height: 300px;
+  top: -80px; right: -60px;
+  background: linear-gradient(135deg, rgba(219,234,254,0.6), rgba(196,181,253,0.4));
+  border-radius: 45% 55% 65% 35% / 40% 50% 65% 55%;
+  transform: rotate(-10deg);
 }
 
 .guide-hero .hero-shape-2 {
-  width: 120px; height: 120px;
-  bottom: 20px; left: 5%;
+  width: 200px; height: 220px;
+  bottom: -30px; left: 2%;
+  background: linear-gradient(135deg, rgba(254,235,200,0.5), rgba(253,186,116,0.2));
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  transform: rotate(8deg);
 }
 
 .guide-hero .hero-shape-3 {
-  width: 80px; height: 80px;
-  top: 30%; right: 15%;
+  width: 70px; height: 70px;
+  top: 25%; right: 12%;
+  background: linear-gradient(135deg, rgba(196,181,253,0.6), rgba(167,139,250,0.3));
 }
 
 
@@ -182,102 +186,145 @@ body {
    ═══════════════════════════════════════════════════ */
 .content-card {
   background: #ffffff;
-  border-radius: 1.5rem;
+  border-radius: 1.75rem;
   padding: 2rem;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
   transition: box-shadow 0.3s;
 }
 
 @media (min-width: 768px) {
   .content-card {
-    padding: 3rem;
+    padding: 2.5rem 3rem;
   }
 }
 
 .content-card + .content-card {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 
 /* ═══════════════════════════════════════════════════
-   STEP CARDS — Numbered step indicators
+   STEP CARDS — Numbered step indicators (Horizontal Design)
    ═══════════════════════════════════════════════════ */
 .steps-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 3rem;
-  margin: 3.5rem auto;
+  gap: 1.5rem;
+  margin: 3.5rem auto 2.5rem;
   padding: 0;
   max-width: 64rem;
   list-style: none;
   counter-reset: step-counter;
+  position: relative;
 }
 
 @media (min-width: 768px) {
   .steps-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
   }
-
-  .steps-grid > *:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
+  
+  /* Connecting dashed line behind the cards */
+  .steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    border-top: 1px dashed #cbd5e1;
+    z-index: 0;
   }
 }
 
 .step-card {
   position: relative;
-  height: 100%;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: flex-start !important;
   text-align: center !important;
-  padding: 0 !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  padding: 2.5rem 1.5rem 2rem !important; 
+  background: #ffffff !important;
+  border: 1px solid #f1f5f9 !important;
+  border-radius: 1.25rem !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03) !important;
   counter-increment: step-counter;
+  transition: transform 0.25s, box-shadow 0.25s !important;
+  z-index: 1; /* Above the dashed line */
 }
 
 .step-card:hover {
-  transform: none;
-  box-shadow: none;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 30px rgba(37,99,235,0.08) !important;
 }
 
+/* Number badge top-left */
 .step-card .step-number {
-  position: relative !important;
+  position: absolute !important;
+  top: 1.25rem;
+  left: 1.25rem;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 9999px;
-  background: #2563eb;
-  color: #ffffff;
-  font-size: 1.75rem;
-  font-weight: 800;
-  box-shadow: 0 4px 20px rgba(37,99,235,0.3);
-  margin: 0 auto 2rem auto;
-  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: transparent !important; /* Hide original text */
+  border: none;
+  box-shadow: none;
+  margin: 0;
 }
 
-.step-card .step-number::after {
-  content: "STEP " counter(step-counter);
-  position: absolute;
-  bottom: -0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
+/* Format as 01, 02, 03 */
+.step-card .step-number::before {
+  content: "0" counter(step-counter);
   color: #2563eb;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 800;
-  padding: 0.2rem 0.6rem;
-  border-radius: 9999px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  border: 1px solid #e5e7eb;
+  position: absolute;
+}
+.step-card .step-number::after {
+  display: none !important;
+}
+
+/* The custom icons (via CSS to auto-apply to all guides) */
+.step-card::before {
+  content: '';
+  display: block;
+  margin: 0.5rem auto 1.5rem auto;
+  border-radius: 1rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 35%;
+}
+
+/* Step 1: Red File */
+.step-card:nth-child(1)::before {
+  width: 4.5rem;
+  height: 4.5rem;
+  background-color: #fff1f2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ef4444'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v6h6v10H6zm2-8h8v2H8v-2zm0 4h5v2H8v-2z'/%3E%3C/svg%3E");
+}
+
+/* Step 2: Password Box */
+.step-card:nth-child(2)::before {
+  width: 8rem;
+  height: 4.5rem;
+  background-color: #f8fafc;
+  background-size: auto 35%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40' fill='%231e293b'%3E%3Cpath d='M26 18h-2v-4c0-3.3-2.7-6-6-6s-6 2.7-6 6v4H10c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V20c0-1.1-.9-2-2-2zm-8 7.5V28h-4v-2.5c-.6-.3-1-1-1-1.5 0-1.1.9-2 2-2s2 .9 2 2c0 .6-.4 1.2-1 1.5zM14 18v-4c0-2.2 1.8-4 4-4s4 1.8 4 4v4h-8z' fill='%2394a3b8'/%3E%3Ccircle cx='45' cy='24' r='3.5'/%3E%3Ccircle cx='58' cy='24' r='3.5'/%3E%3Ccircle cx='71' cy='24' r='3.5'/%3E%3Ccircle cx='84' cy='24' r='3.5'/%3E%3Ccircle cx='97' cy='24' r='3.5'/%3E%3Ccircle cx='110' cy='24' r='3.5'/%3E%3C/svg%3E");
+}
+
+/* Step 3: Green File */
+.step-card:nth-child(3)::before {
+  width: 4.5rem;
+  height: 4.5rem;
+  background-color: #f0fdf4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2322c55e'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v6h6v10H6z'/%3E%3C/svg%3E");
 }
 
 .step-card h3,
@@ -285,17 +332,19 @@ body {
   display: block;
   font-size: 1.15rem;
   font-weight: 800;
-  color: #111827;
-  margin-bottom: 0.75rem;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
   width: 100%;
 }
 
-.step-card span,
+.step-card span:not(.step-number),
 .step-card p {
-  color: #6b7280;
-  font-size: 0.95rem;
+  color: #64748b;
+  font-size: 0.9rem;
   line-height: 1.6;
+  margin: 0;
 }
+
 
 
 /* ═══════════════════════════════════════════════════
@@ -364,21 +413,23 @@ body {
 
 .faq-item {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  padding: 1.5rem;
+  border: 1px solid #f1f5f9;
+  border-radius: 1.25rem;
+  padding: 1.5rem 1.75rem;
   transition: border-color 0.25s, box-shadow 0.25s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
 
 .faq-item:hover {
   border-color: #bfdbfe;
-  box-shadow: 0 4px 16px rgba(37,99,235,0.06);
+  box-shadow: 0 8px 24px rgba(37,99,235,0.07);
+  transform: translateY(-1px);
 }
 
 .faq-item h3 {
   font-weight: 700;
   color: #111827;
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin-bottom: 0.5rem;
   display: flex;
   align-items: flex-start;
@@ -388,9 +439,9 @@ body {
 .faq-item h3::before {
   content: '';
   display: block;
-  width: 6px;
-  height: 6px;
-  margin-top: 0.5rem;
+  width: 7px;
+  height: 7px;
+  margin-top: 0.4rem;
   border-radius: 50%;
   background: #2563eb;
   flex-shrink: 0;
@@ -398,8 +449,8 @@ body {
 
 .faq-item p {
   color: #6b7280;
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: 0.9rem;
+  line-height: 1.75;
   margin: 0;
   padding-left: 1.5rem;
 }
@@ -468,16 +519,17 @@ body {
 }
 
 .feature-card {
-  border: 1px solid #e2e8f0;
-  border-radius: 1.25rem;
-  padding: 1.5rem;
+  border: 1px solid #f1f5f9;
+  border-radius: 1.5rem;
+  padding: 1.75rem;
   background: #ffffff;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
 
 .feature-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(37,99,235,0.08);
   border-color: #bfdbfe;
 }
 
@@ -691,21 +743,24 @@ body {
    ═══════════════════════════════════════════════════ */
 .guide-link {
   display: block;
-  padding: 1.25rem 1.5rem;
-  border: 1px solid #e2e8f0;
+  padding: 1.1rem 1.5rem;
+  border: 1px solid #f1f5f9;
   border-radius: 1rem;
   background: #ffffff;
   text-decoration: none;
   font-weight: 600;
   color: #374151;
-  transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
 .guide-link:hover {
   border-color: #bfdbfe;
   background: #eff6ff;
   color: #2563eb;
-  transform: translateX(4px);
+  transform: translateX(5px);
+  box-shadow: 0 4px 14px rgba(37,99,235,0.1);
 }
 
 
