@@ -55,13 +55,48 @@ const faqSchema = {
     }
   ]
 };
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Unlock a Password-Protected .vault File",
+  "description": "Learn how to decrypt and open FileLocker-protected files in your browser with the original password.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Select Your .vault File",
+      "text": "Choose the encrypted .vault file from your computer or phone. The file remains entirely on your device."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Enter the Password",
+      "text": "Type the exact password set when the file was encrypted."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Download the Decrypted Original File",
+      "text": "Click Unlock File. FileLocker verifies the authenticated AES-GCM tag and restores your original file instantly."
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 3, "name": "Unlock File", "item": "https://filelocker.online/unlock-file/" }
+  ]
+};
 ---
 
 <Layout 
-  title="Unlock Password-Protected Files Online | FileLocker"
-  description="Unlock password-protected .vault files online with FileLocker. Open protected files in your browser without uploads, software, or an account."
+  title="Unlock Password-Protected Files Online Free | FileLocker"
+  description="Unlock and decrypt password-protected .vault files online with FileLocker. 100% private in your browser—zero uploads, no accounts, and no software."
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(howToSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
 
   <!-- HERO -->
@@ -151,8 +186,12 @@ const faqSchema = {
 
       <!-- CTA -->
       <div class="cta-banner mt-8 animate-fade-in-up animate-delay-3">
-        <p class="cta-label">Need to protect a file instead?</p>
-        <a href="/lock-file/" class="cta-button">Password Protect a File</a>
+        <p class="cta-label">Need to password protect a file or folder?</p>
+        <div class="flex flex-wrap justify-center gap-3 relative z-10">
+          <a href="/lock-file/" class="cta-button">Password Protect a File</a>
+          <a href="/lock-folder/" class="cta-button" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4);">Password Protect a Folder</a>
+        </div>
+        <p class="text-xs text-white/80 mt-4 relative z-10">Or read our complete tutorial: <a href="/guides/how-to-password-protect-files/" class="underline font-semibold text-white hover:text-blue-100">How to Password Protect Any File Online →</a></p>
       </div>
 
     </div>

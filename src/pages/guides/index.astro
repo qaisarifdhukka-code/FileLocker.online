@@ -1,11 +1,21 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://filelocker.online/guides/" }
+  ]
+};
 ---
 
 <Layout 
   title="File Protection Guides | How to Password Protect Files"
-  description="Learn how to password protect PDFs, ZIP files, Excel files, and large videos with FileLocker through practical step-by-step guides."
+  description="Step-by-step guides on password protecting files, folders, PDFs, Word docs, spreadsheets, and photo archives with client-side zero-knowledge encryption."
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
   <!-- HERO -->
   <div class="guide-hero">
     <div class="hero-shape hero-shape-1"></div>
@@ -25,6 +35,36 @@ import Layout from '../../layouts/Layout.astro';
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         
+        <!-- Master Guide -->
+        <a href="/guides/how-to-password-protect-files/" class="guide-index-card card-blue animate-fade-in-up md:col-span-2 bg-gradient-to-r from-blue-50/50 to-indigo-50/30">
+          <div class="card-icon" style="background:#eff6ff;">
+            <svg class="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+          </div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded-full">Master Guide</span>
+          </div>
+          <h2>How to Password Protect Any File Online</h2>
+          <p>The definitive guide to password protecting any file format or folder directly in your browser with AES-GCM encryption—no uploads, no software, and 100% private.</p>
+          <div class="card-link text-blue-600">
+            Read Comprehensive Guide <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </div>
+        </a>
+
+        <!-- Folder Protection Guide -->
+        <a href="/guides/how-to-password-protect-a-folder/" class="guide-index-card card-teal animate-fade-in-up md:col-span-2 bg-gradient-to-r from-teal-50/50 to-emerald-50/30">
+          <div class="card-icon" style="background:#f0fdfa;">
+            <svg class="w-7 h-7 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
+          </div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs font-bold uppercase tracking-wider bg-teal-100 text-teal-800 px-2.5 py-0.5 rounded-full">Top Spoke</span>
+          </div>
+          <h2>How to Password Protect a Folder (Windows 11 & Mac)</h2>
+          <p>Lock entire directories, client archives, and nested subfolders with authenticated AES-GCM encryption directly in your browser without software or cloud uploads.</p>
+          <div class="card-link text-teal-600">
+            Read Folder Guide <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </div>
+        </a>
+
         <!-- PDF Guide -->
         <a href="/guides/password-protect-pdf/" class="guide-index-card card-red animate-fade-in-up">
           <div class="card-icon" style="background:#fef2f2;">
@@ -73,6 +113,53 @@ import Layout from '../../layouts/Layout.astro';
           </div>
         </a>
 
+        <!-- Google Drive Guide -->
+        <a href="/guides/password-protect-google-drive-files/" class="guide-index-card card-blue animate-fade-in-up">
+          <div class="card-icon" style="background:#eff6ff;">
+            <svg class="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+          </div>
+          <h2>Password Protect Google Drive Files</h2>
+          <p>Encrypt documents and folders before uploading to Google Drive, Dropbox, or OneDrive for zero-knowledge privacy.</p>
+          <div class="card-link">
+            Read Guide <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </div>
+        </a>
+
+        <!-- Word Document Guide -->
+        <a href="/guides/password-protect-word-document/" class="guide-index-card card-blue animate-fade-in-up">
+          <div class="card-icon" style="background:#eff6ff;">
+            <svg class="w-7 h-7 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2zm6 1.5V9h4.5L13 4.5z"/></svg>
+          </div>
+          <h2>How to Password Protect a Word Document</h2>
+          <p>Learn how to encrypt .docx files with AES-256 directly in your browser without needing Microsoft Office.</p>
+          <div class="card-link">
+            Read Guide <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </div>
+        </a>
+
+        <!-- Secure File Sharing Guide -->
+        <a href="/guides/secure-file-sharing/" class="guide-index-card card-green animate-fade-in-up">
+          <div class="card-icon" style="background:#ecfdf5;">
+            <svg class="w-7 h-7 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+          </div>
+          <h2>Secure File Sharing &amp; Email Attachments</h2>
+          <p>Send encrypted documents and confidential files online with zero-knowledge protection and out-of-band passwords.</p>
+          <div class="card-link">
+            Read Guide <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </div>
+        </a>
+
+        <!-- Photos Guide -->
+        <a href="/guides/password-protect-photos/" class="guide-index-card card-purple animate-fade-in-up">
+          <div class="card-icon" style="background:#faf5ff;">
+            <svg class="w-7 h-7 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+          </div>
+          <h2>How to Password Protect Photos &amp; Images</h2>
+          <p>Lock sensitive images, IDs, passports, and photo album folders in your browser with AES-256 encryption.</p>
+          <div class="card-link">
+            Read Guide <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </div>
+        </a>
       </div>
 
       <!-- BOTTOM CTA -->

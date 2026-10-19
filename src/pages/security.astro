@@ -48,7 +48,7 @@ import Layout from '../layouts/Layout.astro';
 
           <h2>3. Large File Streaming</h2>
           <p>
-            Browser applications that load an entire large file into memory can encounter resource limits. FileLocker uses browser storage and streaming APIs to reduce the need to hold the entire file in memory. 
+            Browser applications that load an entire large file into memory can encounter resource limits. FileLocker uses browser storage and streaming APIs to reduce the need to hold the entire file in memory. Read our full explanation in the <a href="/guides/protect-large-videos/" class="text-brand-blue font-semibold hover:underline">large video file protection guide</a>.
           </p>
           <p>
             The current tool reads and encrypts data in smaller chunks, then writes the protected file through the browser's File System Access API. This reduces the need to hold the entire source file in memory at once. Actual file-size limits depend on browser support, available storage, device resources, and the file being processed.
@@ -58,12 +58,21 @@ import Layout from '../layouts/Layout.astro';
 
           <h2>4. Folder Packaging (TAR)</h2>
           <p>
-            When you choose to protect an entire folder, FileLocker intercepts the folder structure and creates a raw byte-stream <strong>TAR (Tape Archive)</strong> on the fly. This TAR stream is fed directly into the AES-GCM encryption pipeline. 
+            When you choose to protect an entire folder using our <a href="/lock-folder/" class="text-brand-blue font-semibold hover:underline">Folder Protection Tool</a>, FileLocker intercepts the folder structure and creates a raw byte-stream <strong>TAR (Tape Archive)</strong> on the fly. This TAR stream is fed directly into the AES-GCM encryption pipeline. 
           </p>
           <p>
-            When you unlock a protected folder, FileLocker reverses the packaging process to restore the folder structure. The resulting files depend on successful decryption and the integrity of the protected data.
+            When you unlock a protected folder with the <a href="/unlock-file/" class="text-brand-blue font-semibold hover:underline">Unlock Tool</a>, FileLocker reverses the packaging process to restore the folder structure. For complete step-by-step instructions across all file types, visit our <a href="/guides/how-to-password-protect-files/" class="text-brand-blue font-semibold hover:underline">Master File Protection Guide</a>.
           </p>
 
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-banner mt-10 animate-fade-in-up">
+        <p class="cta-label">Ready to test client-side encryption?</p>
+        <div class="flex flex-wrap justify-center gap-3 relative z-10">
+          <a href="/lock-file/" class="cta-button">Password Protect a File</a>
+          <a href="/lock-folder/" class="cta-button" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4);">Password Protect a Folder</a>
         </div>
       </div>
 

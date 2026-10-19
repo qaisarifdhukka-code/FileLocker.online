@@ -1,0 +1,494 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Securely Share Encrypted Files Online and via Email",
+  "description": "Learn how to encrypt confidential files and folders in your browser before emailing or sharing via cloud links for zero-knowledge data protection.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Encrypt Your File or Folder Client-Side",
+      "text": "Open FileLocker in your browser, drag your file or folder into the tool, and set a strong password. The file is encrypted locally using AES-GCM 256-bit without uploading any bytes to a server."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Send the Encrypted .vault File",
+      "text": "Attach the resulting .vault container to your email or upload it to your preferred cloud transfer service (Google Drive, Dropbox, OneDrive, or WeTransfer)."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Share the Password Out-of-Band",
+      "text": "Send the decryption password to your recipient through a separate, encrypted channel (such as Signal, WhatsApp, SMS, or an in-person call). The recipient unlocks it at FileLocker's Unlock tool with zero accounts."
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://filelocker.online/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Secure File Sharing", "item": "https://filelocker.online/guides/secure-file-sharing/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the most secure way to send files online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The most secure method is client-side zero-knowledge encryption. By encrypting files locally on your own computer before uploading or attaching them, the cloud transfer provider or email host only handles scrambled ciphertext. Even if the server or transit channel is breached, the attacker cannot read the contents without your private password."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why are standard email attachments not secure for confidential files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard emails travel across multiple third-party mail servers, relays, and corporate gateways. Many mail servers store unencrypted copies of attachments on disk indefinitely. Furthermore, email accounts are frequently targeted by credential stuffing, phishing, and phishing-forwarding rules that instantly expose unencrypted attachments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does client-side encryption protect files sent via WeTransfer or Dropbox?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When you upload a standard file to WeTransfer, Dropbox, or Google Drive, the service provider holds the decryption keys and can scan the file. If you first encrypt the file with FileLocker, you upload an authenticated AES-GCM .vault container. The cloud provider cannot inspect or monetize your contents, ensuring true zero-knowledge privacy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How should I transmit the password to the recipient?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Always transmit the password 'out-of-band'—meaning across a completely different communication network than the file. If you email the encrypted .vault file, send the password via an end-to-end encrypted messaging app (such as Signal or WhatsApp), an SMS, or verbally over a phone call. Never include the password in the same email."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the recipient need to create an account or pay to unlock the file?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The recipient does not need to register, provide an email address, or install any software. They simply visit FileLocker's Unlock tool, select the .vault file, enter the password you provided, and their browser decrypts the original file locally in seconds."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is FileLocker secure enough for business file sharing (contracts, payroll, NDAs)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. FileLocker uses authenticated AES-GCM encryption with 256-bit keys derived via PBKDF2 (100,000 iterations) directly inside the native Web Crypto API. Because zero data is sent to our servers, FileLocker eliminates third-party data processing risks under GDPR, HIPAA, and CCPA."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Secure File Sharing: Send Encrypted Files | FileLocker"
+  description="Need secure file sharing? Encrypt files in your browser before emailing or cloud upload. 100% free, private zero-knowledge transfer with no accounts."
+  canonical="https://filelocker.online/guides/secure-file-sharing/"
+>
+  <head slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </head>
+
+  <div class="guide-wrapper py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    <!-- BREADCRUMBS -->
+    <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-brand-blue transition-colors">Home</a>
+      <span class="text-gray-300">/</span>
+      <a href="/guides/" class="hover:text-brand-blue transition-colors">Guides</a>
+      <span class="text-gray-300">/</span>
+      <span class="text-gray-900 font-medium" aria-current="page">Secure File Sharing</span>
+    </nav>
+
+    <!-- ARTICLE HEADER -->
+    <header class="mb-10 text-center max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold uppercase tracking-wider mb-4 border border-emerald-100">
+        Enterprise Privacy &amp; Data Security Guide
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-4">
+        Secure File Sharing: How to Send Encrypted Files Online &amp; via Email
+      </h1>
+      <p class="text-lg text-gray-600 leading-relaxed">
+        Transfer confidential contracts, financial records, client payroll, and personal documents without cloud interception. Learn how to implement true zero-knowledge file exchange using free in-browser AES-GCM encryption.
+      </p>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="space-y-12">
+      <!-- DUAL ACTION CARDS -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+        <a href="/lock-file/" class="guide-index-card card-blue p-6 flex flex-col justify-between">
+          <div>
+            <div class="card-icon bg-blue-50 text-brand-blue mb-4">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 text-brand-blue text-xs font-bold uppercase tracking-wider mb-2">Single File</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Lock Single File Before Sharing</h3>
+            <p class="text-gray-600 text-sm">Encrypt contracts, PDFs, tax spreadsheets, or videos locally into an uncrackable .vault file.</p>
+          </div>
+          <div class="card-link mt-4 text-brand-blue font-semibold flex items-center gap-1">
+            Open File Locker <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </div>
+        </a>
+
+        <a href="/lock-folder/" class="guide-index-card card-teal p-6 flex flex-col justify-between">
+          <div>
+            <div class="card-icon bg-teal-50 text-teal-600 mb-4">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+              </svg>
+            </div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 text-xs font-bold uppercase tracking-wider mb-2">Entire Directory</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Lock Whole Folder for Sharing</h3>
+            <p class="text-gray-600 text-sm">Bundle complex project folders, photo albums, and nested archives into a single password-protected container.</p>
+          </div>
+          <div class="card-link mt-4 text-teal-600 font-semibold flex items-center gap-1">
+            Open Folder Locker <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          </div>
+        </a>
+      </div>
+
+      <!-- THE VULNERABILITY IN FILE SHARING -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">The Critical Vulnerability in Modern File Sharing &amp; Email Attachments</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4">
+          <p>
+            Whether running a small business, collaborating with remote freelancers, or sending tax documentation to an accountant, everyday digital workflows rely heavily on file transfers. Unfortunately, the two most common methods—<strong>email attachments</strong> and <strong>commercial cloud transfer platforms</strong>—have glaring security weaknesses:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>
+              <strong>Email Attachments Are Inherent Plaintext:</strong> When you attach a <code>.docx</code>, <code>.pdf</code>, or <code>.xlsx</code> file to an email, it traverses dozens of intermediate relays. Corporate IT departments, email hosts, and threat actors scraping mailboxes can read the raw contents directly.
+            </li>
+            <li>
+              <strong>Cloud Transfer Vendors Hold the Keys:</strong> Free services like WeTransfer, Sendspace, or standard Dropbox links utilize <em>server-side encryption</em>. This means the service provider possesses the encryption keys, enabling them (or rogue employees, automated scanners, and subpoenas) to inspect your files.
+            </li>
+            <li>
+              <strong>Link Leaks and Forwarding:</strong> Anyone who forwards or intercepts a "shared cloud link" gets instant, unauthenticated access to the file unless an independent passcode layer is applied.
+            </li>
+          </ul>
+          <p>
+            To achieve genuine privacy, individuals and enterprise teams must move away from blind trust in cloud vendors and adopt <strong>client-side pre-encryption</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- THE ZERO-KNOWLEDGE SOLUTION -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">The Zero-Knowledge Solution: Client-Side Pre-Encryption</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4">
+          <p>
+            Client-side pre-encryption means encrypting your data on your local device <em>before</em> sending it across the internet.
+          </p>
+          <p>
+            With <strong>FileLocker</strong>, this process takes seconds and requires no software installation or registration:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>You select any file, document, or entire folder in your modern web browser.</li>
+            <li>Your browser's built-in <a href="/security/" class="text-brand-blue font-semibold hover:underline">Web Crypto API</a> executes hardware-accelerated <strong>AES-GCM (256-bit)</strong> encryption locally in RAM.</li>
+            <li>A tamper-proof <code>.vault</code> container is saved to your computer.</li>
+            <li><strong>Zero bytes are transmitted to any server.</strong> FileLocker never sees your data, file names, or password.</li>
+          </ul>
+          <p>
+            Once encrypted, the <code>.vault</code> file is mathematically impenetrable. You can now transmit it via any ordinary channel—Gmail, Outlook, Slack, WhatsApp, WeTransfer, or Google Drive—with absolute peace of mind.
+          </p>
+        </div>
+      </div>
+
+      <!-- STEP BY STEP GUIDE -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">Step-by-Step: How to Securely Share Any File or Folder Online</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4">
+          <p>Follow this bulletproof 3-step workflow for safe file exchange:</p>
+          
+          <ol class="steps-grid my-6">
+            <li class="step-card">
+              <span class="step-number">1</span>
+              <strong>Lock Your File Client-Side</strong>
+              <span>Open FileLocker's <a href="/lock-file/" class="text-brand-blue font-semibold hover:underline">Lock File tool</a> (or <a href="/lock-folder/" class="text-brand-blue font-semibold hover:underline">Lock Folder tool</a>). Drop your file and enter a strong passphrase. Download the resulting <code>.vault</code> file.</span>
+            </li>
+            <li class="step-card">
+              <span class="step-number">2</span>
+              <strong>Send the .vault File via Any Channel</strong>
+              <span>Attach the encrypted <code>.vault</code> container to an email or share it via cloud storage (<a href="/guides/password-protect-google-drive-files/" class="text-brand-blue font-semibold hover:underline">Google Drive</a>, Dropbox, or OneDrive). Even if intercepted, it cannot be read without the password.</span>
+            </li>
+            <li class="step-card">
+              <span class="step-number">3</span>
+              <strong>Transmit the Password Out-of-Band</strong>
+              <span>Send the decryption password to your recipient through a secondary secure channel (Signal, SMS, or over the phone). Never include the password in the same message as the file!</span>
+            </li>
+          </ol>
+
+          <p class="text-sm bg-blue-50 border border-blue-200 rounded-lg p-4 text-blue-900 mt-4">
+            <strong>Security Pro-Tip:</strong> If you are sharing confidential business data, consult our <a href="/guides/how-to-password-protect-files/" class="font-bold underline">Master Guide to File Protection</a> for password complexity recommendations and PBKDF2 iteration technical details.
+          </p>
+        </div>
+      </div>
+
+      <!-- SAFE DELIVERY CHANNELS: OUT-OF-BAND PASSWORD SHARING -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">Safe Delivery Channels: How to Send the Password Out-of-Band</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4">
+          <p>
+            The single most common mistake in encrypted file sharing is sending the password in the same email or message as the attachment. If an attacker intercepts the email, they obtain both the locked safe and the combination.
+          </p>
+          <p>
+            Security professionals use <strong>Out-of-Band (OOB) Authentication</strong>. Here are the best channels for transmitting your decryption passphrase:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <h4 class="font-bold text-gray-900 mb-1 flex items-center gap-1.5">
+                <span class="text-emerald-600">✓</span> Signal / WhatsApp
+              </h4>
+              <p class="text-xs text-gray-600">End-to-end encrypted messaging channels provide perfect forward secrecy for sharing passcodes.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <h4 class="font-bold text-gray-900 mb-1 flex items-center gap-1.5">
+                <span class="text-emerald-600">✓</span> SMS / Cellular Text
+              </h4>
+              <p class="text-xs text-gray-600">Transfers over the telecom cellular network, keeping the password separate from the recipient's email system.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <h4 class="font-bold text-gray-900 mb-1 flex items-center gap-1.5">
+                <span class="text-emerald-600">✓</span> Voice Call or In-Person
+              </h4>
+              <p class="text-xs text-gray-600">The most secure method for highly sensitive legal, military, or high-value financial transfers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARISON TABLE -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">Comparison: FileLocker vs. Traditional Cloud Transfer Services</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4">
+          <p>
+            Compare how client-side encryption stacks up against mainstream cloud sharing and file transfer platforms:
+          </p>
+          
+          <div class="overflow-x-auto my-6">
+            <table class="comparison-table w-full text-left text-sm border-collapse">
+              <thead>
+                <tr class="bg-gray-100 border-b border-gray-200">
+                  <th class="p-3 font-semibold text-gray-900">Feature</th>
+                  <th class="p-3 font-bold text-brand-blue bg-blue-50/50">FileLocker Client-Side</th>
+                  <th class="p-3 font-semibold text-gray-700">WeTransfer / Sendspace</th>
+                  <th class="p-3 font-semibold text-gray-700">Google Drive / OneDrive</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="p-3 font-medium text-gray-900">Encryption Location</td>
+                  <td class="p-3 text-emerald-600 font-bold bg-blue-50/30">In-Browser (User Device)</td>
+                  <td class="p-3 text-gray-600">On Cloud Server</td>
+                  <td class="p-3 text-gray-600">On Cloud Server</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium text-gray-900">Decryption Key Holder</td>
+                  <td class="p-3 text-emerald-600 font-bold bg-blue-50/30">User Only (Zero Knowledge)</td>
+                  <td class="p-3 text-rose-600 font-medium">Service Provider</td>
+                  <td class="p-3 text-rose-600 font-medium">Google / Microsoft</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium text-gray-900">Cloud Server File Upload</td>
+                  <td class="p-3 text-emerald-600 font-bold bg-blue-50/30">Zero Bytes Uploaded</td>
+                  <td class="p-3 text-gray-600">Full Raw File Uploaded</td>
+                  <td class="p-3 text-gray-600">Full Raw File Uploaded</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium text-gray-900">Account Required</td>
+                  <td class="p-3 text-emerald-600 font-bold bg-blue-50/30">No (100% Anonymous)</td>
+                  <td class="p-3 text-gray-600">Optional / Paid for passwords</td>
+                  <td class="p-3 text-gray-600">Yes (Mandatory Google/MS)</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium text-gray-900">Cost for Password Protection</td>
+                  <td class="p-3 text-emerald-600 font-bold bg-blue-50/30">100% Free Forever</td>
+                  <td class="p-3 text-rose-600 font-medium">Requires Pro ($12+/mo)</td>
+                  <td class="p-3 text-rose-600 font-medium">Requires Enterprise Plan</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium text-gray-900">Compliance &amp; Data Leak Risk</td>
+                  <td class="p-3 text-emerald-600 font-bold bg-blue-50/30">Zero Server Exposure</td>
+                  <td class="p-3 text-gray-600">Subject to Third-Party Breaches</td>
+                  <td class="p-3 text-gray-600">Subject to Subpoenas / Scans</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOW RECIPIENTS UNLOCK -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">How Recipients Decrypt and Access Your Shared Files</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4">
+          <p>
+            One of the greatest obstacles to secure business communication is recipient friction. If a client has to install software or register an account, they often abandon the process.
+          </p>
+          <p>
+            With FileLocker, unlocking is completely friction-free:
+          </p>
+          <ol class="list-decimal pl-6 space-y-2">
+            <li>The recipient opens <a href="/unlock-file/" class="text-brand-blue font-semibold hover:underline">filelocker.online/unlock-file/</a> in Chrome, Safari, Edge, or Firefox.</li>
+            <li>They select or drop the <code>.vault</code> file.</li>
+            <li>They enter the passphrase you provided via Signal or phone.</li>
+            <li>Their browser decrypts the original file locally and saves it to their Downloads folder.</li>
+          </ol>
+          <p>
+            The decryption runs in less than 2 seconds, entirely offline within their browser tab.
+          </p>
+        </div>
+      </div>
+
+      <!-- FREQUENTLY ASKED QUESTIONS -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">Frequently Asked Questions About Secure File Sharing</h2>
+        <div class="space-y-4 my-6">
+          <details class="faq-accordion group border border-gray-200 rounded-xl p-4 transition-all duration-200 hover:border-gray-300">
+            <summary class="font-bold text-gray-900 cursor-pointer flex justify-between items-center select-none">
+              <span>What is the most secure way to send files online?</span>
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="text-gray-600 text-sm mt-3 leading-relaxed">
+              The most secure method is client-side zero-knowledge encryption. By encrypting files locally on your own computer before uploading or attaching them, the cloud transfer provider or email host only handles scrambled ciphertext. Even if the server or transit channel is breached, the attacker cannot read the contents without your private password.
+            </p>
+          </details>
+
+          <details class="faq-accordion group border border-gray-200 rounded-xl p-4 transition-all duration-200 hover:border-gray-300">
+            <summary class="font-bold text-gray-900 cursor-pointer flex justify-between items-center select-none">
+              <span>Why are standard email attachments not secure for confidential files?</span>
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="text-gray-600 text-sm mt-3 leading-relaxed">
+              Standard emails travel across multiple third-party mail servers, relays, and corporate gateways. Many mail servers store unencrypted copies of attachments on disk indefinitely. Furthermore, email accounts are frequently targeted by credential stuffing, phishing, and phishing-forwarding rules that instantly expose unencrypted attachments.
+            </p>
+          </details>
+
+          <details class="faq-accordion group border border-gray-200 rounded-xl p-4 transition-all duration-200 hover:border-gray-300">
+            <summary class="font-bold text-gray-900 cursor-pointer flex justify-between items-center select-none">
+              <span>How does client-side encryption protect files sent via WeTransfer or Dropbox?</span>
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="text-gray-600 text-sm mt-3 leading-relaxed">
+              When you upload a standard file to WeTransfer, Dropbox, or Google Drive, the service provider holds the decryption keys and can scan the file. If you first encrypt the file with FileLocker, you upload an authenticated AES-GCM .vault container. The cloud provider cannot inspect or monetize your contents, ensuring true zero-knowledge privacy.
+            </p>
+          </details>
+
+          <details class="faq-accordion group border border-gray-200 rounded-xl p-4 transition-all duration-200 hover:border-gray-300">
+            <summary class="font-bold text-gray-900 cursor-pointer flex justify-between items-center select-none">
+              <span>How should I transmit the password to the recipient?</span>
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="text-gray-600 text-sm mt-3 leading-relaxed">
+              Always transmit the password "out-of-band"—meaning across a completely different communication network than the file. If you email the encrypted .vault file, send the password via an end-to-end encrypted messaging app (such as Signal or WhatsApp), an SMS, or verbally over a phone call. Never include the password in the same email.
+            </p>
+          </details>
+
+          <details class="faq-accordion group border border-gray-200 rounded-xl p-4 transition-all duration-200 hover:border-gray-300">
+            <summary class="font-bold text-gray-900 cursor-pointer flex justify-between items-center select-none">
+              <span>Does the recipient need to create an account or pay to unlock the file?</span>
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="text-gray-600 text-sm mt-3 leading-relaxed">
+              No. The recipient does not need to register, provide an email address, or install any software. They simply visit FileLocker's Unlock tool, select the .vault file, enter the password you provided, and their browser decrypts the original file locally in seconds.
+            </p>
+          </details>
+
+          <details class="faq-accordion group border border-gray-200 rounded-xl p-4 transition-all duration-200 hover:border-gray-300">
+            <summary class="font-bold text-gray-900 cursor-pointer flex justify-between items-center select-none">
+              <span>Is FileLocker secure enough for business file sharing (contracts, payroll, NDAs)?</span>
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <p class="text-gray-600 text-sm mt-3 leading-relaxed">
+              Yes. FileLocker uses authenticated AES-GCM encryption with 256-bit keys derived via PBKDF2 (100,000 iterations) directly inside the native Web Crypto API. Because zero data is sent to our servers, FileLocker eliminates third-party data processing risks under GDPR, HIPAA, and CCPA.
+            </p>
+          </details>
+        </div>
+      </div>
+
+      <!-- RELATED GUIDES (INTERNAL LINKING MESH) -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">Related File &amp; Privacy Protection Guides</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
+          <a href="/guides/how-to-password-protect-files/" class="p-4 rounded-xl border border-gray-200 hover:border-brand-blue hover:shadow-md transition-all group">
+            <div class="text-xs font-semibold uppercase text-brand-blue mb-1">Master Pillar</div>
+            <div class="font-bold text-gray-900 group-hover:text-brand-blue">How to Password Protect Any File</div>
+            <p class="text-xs text-gray-500 mt-1">Our comprehensive 100% private browser encryption guide.</p>
+          </a>
+
+          <a href="/guides/password-protect-google-drive-files/" class="p-4 rounded-xl border border-gray-200 hover:border-brand-blue hover:shadow-md transition-all group">
+            <div class="text-xs font-semibold uppercase text-brand-blue mb-1">Cloud Storage</div>
+            <div class="font-bold text-gray-900 group-hover:text-brand-blue">Password Protect Google Drive Files</div>
+            <p class="text-xs text-gray-500 mt-1">Lock Google Drive documents &amp; folders before uploading.</p>
+          </a>
+
+          <a href="/guides/how-to-password-protect-a-folder/" class="p-4 rounded-xl border border-gray-200 hover:border-brand-blue hover:shadow-md transition-all group">
+            <div class="text-xs font-semibold uppercase text-brand-blue mb-1">Folder Master</div>
+            <div class="font-bold text-gray-900 group-hover:text-brand-blue">How to Password Protect a Folder</div>
+            <p class="text-xs text-gray-500 mt-1">Windows 11, Mac, and online zero-knowledge folder protection.</p>
+          </a>
+
+          <a href="/guides/password-protect-word-document/" class="p-4 rounded-xl border border-gray-200 hover:border-brand-blue hover:shadow-md transition-all group">
+            <div class="text-xs font-semibold uppercase text-brand-blue mb-1">Document Guide</div>
+            <div class="font-bold text-gray-900 group-hover:text-brand-blue">Password Protect Word Documents</div>
+            <p class="text-xs text-gray-500 mt-1">Encrypt confidential .docx files without Microsoft 365.</p>
+          </a>
+
+          <a href="/guides/password-protect-excel/" class="p-4 rounded-xl border border-gray-200 hover:border-brand-blue hover:shadow-md transition-all group">
+            <div class="text-xs font-semibold uppercase text-brand-blue mb-1">Spreadsheet Guide</div>
+            <div class="font-bold text-gray-900 group-hover:text-brand-blue">Password Protect Excel Spreadsheets</div>
+            <p class="text-xs text-gray-500 mt-1">Lock financial sheets and client payroll records in-browser.</p>
+          </a>
+
+          <a href="/guides/password-protect-zip/" class="p-4 rounded-xl border border-gray-200 hover:border-brand-blue hover:shadow-md transition-all group">
+            <div class="text-xs font-semibold uppercase text-brand-blue mb-1">Archive Guide</div>
+            <div class="font-bold text-gray-900 group-hover:text-brand-blue">Password Protect ZIP Files</div>
+            <p class="text-xs text-gray-500 mt-1">How to encrypt archives without installing WinRAR or 7-Zip.</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- BOTTOM CONVERSION CTA -->
+      <div class="rounded-2xl bg-gradient-to-br from-brand-blue to-blue-700 text-white p-8 sm:p-10 text-center shadow-xl my-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold mb-3 text-white">Ready for 100% Private File Sharing?</h2>
+        <p class="text-blue-100 max-w-2xl mx-auto mb-8 text-base">
+          No credit card, no email registration, and zero cloud uploads. Encrypt your confidential files right now directly on your device.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="/lock-file/" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold bg-white text-brand-blue hover:bg-blue-50 transition-all shadow-md">
+            Lock a File Free
+          </a>
+          <a href="/lock-folder/" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold bg-blue-800 text-white hover:bg-blue-900 transition-all border border-blue-400/30">
+            Lock an Entire Folder
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>

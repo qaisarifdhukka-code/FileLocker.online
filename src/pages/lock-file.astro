@@ -55,13 +55,48 @@ const faqSchema = {
     }
   ]
 };
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Password Protect Any File Online",
+  "description": "Learn how to password protect any file online in seconds directly in your web browser.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Select Your File",
+      "text": "Click the file selection box and choose any file from your computer or mobile device. Nothing is uploaded."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Enter a Strong Password",
+      "text": "Set your encryption password. FileLocker derives an authenticated AES-GCM 256-bit cryptographic key locally."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Download the Protected .vault File",
+      "text": "Click Lock File. Your browser encrypts the data locally and produces a tamper-proof .vault file."
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 3, "name": "Lock File", "item": "https://filelocker.online/lock-file/" }
+  ]
+};
 ---
 
 <Layout 
-  title="Password Protect a File Online | FileLocker"
-  description="Password protect a file online with FileLocker. Encrypt files directly in your browser without uploads, software installation, or an account."
+  title="Password Protect Files Online Free (AES-256) | FileLocker"
+  description="Password protect files online for free with FileLocker. Encrypt files in your browser with AES-256—zero uploads, no accounts, and 100% private."
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(howToSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
 
   <!-- HERO -->
@@ -159,9 +194,10 @@ const faqSchema = {
       </div>
 
       <div class="content-card animate-fade-in-up animate-delay-2">
-        <h2 class="section-heading">Protect Specific File Types</h2>
-        <p class="text-gray-600 mb-4">Follow a focused guide for the file you need to protect. <a href="/lock-folder/" class="text-brand-blue font-semibold hover:underline">Protect a folder instead →</a></p>
+        <h2 class="section-heading">Protect Specific File Types & Formats</h2>
+        <p class="text-gray-600 mb-4">Follow a focused tutorial or protect multiple items at once: <a href="/lock-folder/" class="text-brand-blue font-semibold hover:underline">Protect an entire folder instead →</a></p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <a href="/guides/how-to-password-protect-files/" class="guide-link font-semibold text-brand-blue">Master Guide: Password protect any file →</a>
           <a href="/guides/password-protect-pdf/" class="guide-link">Password protect a PDF →</a>
           <a href="/guides/password-protect-zip/" class="guide-link">Password protect a ZIP file →</a>
           <a href="/guides/password-protect-excel/" class="guide-link">Password protect an Excel file →</a>

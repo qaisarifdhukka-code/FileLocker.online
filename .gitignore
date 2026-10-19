@@ -17,3 +17,15 @@ dist/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Internal scratch scripts & SEO strategy/data
+scratch/
+seo/
+*.md
+!README.md
+
+# AI and Agent workspace directives
+.agents/
+AGENTS.md
+GEMINI.md
+

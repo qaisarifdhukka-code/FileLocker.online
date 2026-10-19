@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout 
   title="How FileLocker Works | Browser-Based File Protection" 
-  description="Learn the FileLocker browser workflow for protecting and opening files. See how local processing, passwords, and .vault files work without a FileLocker upload server."
+  description="Learn how FileLocker protects files directly in your browser. Discover how client-side processing and AES-GCM encryption keep your files 100% private."
 >
   <!-- HERO -->
   <div class="guide-hero">
@@ -47,21 +47,27 @@ import Layout from '../layouts/Layout.astro';
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
             </span>
             <strong>Save the protected file</strong>
-            <span>Your browser will prompt you to save the resulting protected file. You can then email it, upload it to cloud storage, or put it on a USB drive. Anyone opening the protected file will need the correct password to decrypt it.</span>
+            <span>Your browser will prompt you to save the resulting protected file. You can then email it, upload it to cloud storage, or put it on a USB drive. Anyone opening the protected file will need the correct password to decrypt it with our <a href="/unlock-file/" class="text-brand-blue font-semibold hover:underline">Unlock Tool</a>.</span>
           </li>
         </ol>
       </div>
 
       <div class="content-card animate-fade-in-up animate-delay-1">
-        <h2 class="section-heading">How FileLocker Handles Security</h2>
-        <p class="text-gray-600 leading-relaxed mb-4">FileLocker uses password-based key derivation and authenticated encryption to protect the data in the resulting .vault file. Learn more about the encryption design, browser storage, and local processing on the security page.</p>
-        <a href="/security/" class="text-brand-blue font-semibold hover:underline">Read the FileLocker security architecture →</a>
+        <h2 class="section-heading">How FileLocker Handles Security & Cryptography</h2>
+        <p class="text-gray-600 leading-relaxed mb-4">FileLocker uses PBKDF2/Argon2id key derivation and authenticated AES-GCM encryption to protect your data. Explore our complete technical write-up or read practical step-by-step guides for different file formats.</p>
+        <div class="flex flex-wrap gap-4 mt-2">
+          <a href="/security/" class="text-brand-blue font-semibold hover:underline">Read the FileLocker security architecture →</a>
+          <a href="/guides/how-to-password-protect-files/" class="text-brand-blue font-semibold hover:underline">Read the Master File Protection Guide →</a>
+        </div>
       </div>
 
       <!-- CTA -->
       <div class="cta-banner mt-8 animate-fade-in-up animate-delay-2">
-        <p class="cta-label">Ready to protect your files?</p>
-        <a href="/lock-file/" class="cta-button">Protect a File Now</a>
+        <p class="cta-label">Ready to password protect your data?</p>
+        <div class="flex flex-wrap justify-center gap-3 relative z-10">
+          <a href="/lock-file/" class="cta-button">Protect a File Now</a>
+          <a href="/lock-folder/" class="cta-button" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4);">Protect a Folder Now</a>
+        </div>
       </div>
 
     </div>

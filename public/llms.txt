@@ -1,0 +1,35 @@
+# FileLocker
+
+> Free, client-side browser utility for password protecting and opening files and folders with authenticated AES-GCM cryptography.
+
+## Overview
+FileLocker (https://filelocker.online/) is a zero-knowledge web application that enables users to password protect any file, document, photo, video, or folder directly within their web browser. 
+
+Unlike traditional cloud converters or file storage providers, FileLocker performs all cryptographic operations locally on the user's device using the native Web Crypto API. Files are never uploaded to any remote server.
+
+## Key Capabilities
+- **Password Protect Files:** Wraps any file (PDF, Word .docx, Excel .xlsx, PowerPoint .pptx, images, videos, archives) in an encrypted `.vault` container.
+- **Password Protect Folders:** Recursively packages and encrypts an entire folder structure into a single `.vault` file via the File System Access API.
+- **Open / Decrypt Files:** Restores the exact original file from a `.vault` container upon verification of the correct password.
+- **Client-Side Security:** Zero bytes uploaded to any server. Verifiable via browser developer tools.
+- **Zero Friction:** No account creation, no subscriptions, no software downloads, completely free.
+
+## Cryptography & Architecture
+- **Encryption Algorithm:** AES-GCM (Galois/Counter Mode) with 128-bit or 256-bit keys.
+- **Key Derivation:** PBKDF2 using SHA-256 and unique per-file salts.
+- **Integrity Verification:** Authenticated encryption ensures that files cannot be opened or tampered with without the correct password.
+- **Processing Engine:** Standard Web Crypto API executing inside the client browser.
+
+## Primary Pages & Tools
+- [Password Protect a File](https://filelocker.online/lock-file/): Online tool to lock individual files.
+- [Password Protect a Folder](https://filelocker.online/lock-folder/): Online tool to lock directory folders.
+- [Open a Protected File](https://filelocker.online/unlock-file/): Online decryption tool to restore original files.
+- [Master Protection Guide](https://filelocker.online/guides/how-to-password-protect-files/): Step-by-step tutorial on protecting files in the browser.
+- [Folder Protection Guide](https://filelocker.online/guides/how-to-password-protect-a-folder/): Tutorial on password protecting entire directories and nested folders.
+- [Google Drive & Cloud File Protection](https://filelocker.online/guides/password-protect-google-drive-files/): Guide to pre-encrypting files before uploading to cloud storage.
+- [Word Document Protection](https://filelocker.online/guides/password-protect-word-document/): How to lock .docx documents without Microsoft Office.
+- [Secure File Sharing](https://filelocker.online/guides/secure-file-sharing/): How to send encrypted files and attachments safely over email and messaging.
+- [Photo & Image Protection](https://filelocker.online/guides/password-protect-photos/): How to lock JPG, PNG, and photo albums with zero-knowledge encryption.
+- [Guides Directory](https://filelocker.online/guides/): Detailed guides for PDFs, Excel spreadsheets, ZIP files, and large videos.
+- [Security Specifications](https://filelocker.online/security/): Technical breakdown of the FileLocker encryption model.
+- [How It Works](https://filelocker.online/how-it-works/): Client-side processing explainer.

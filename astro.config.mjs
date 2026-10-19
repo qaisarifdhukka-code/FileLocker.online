@@ -8,15 +8,14 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://filelocker.online',
+  trailingSlash: 'always',
   integrations: [
     react(), 
     sitemap({
       filter: (page) => !page.includes('/test') && !page.includes('/e2e') && !page.endsWith('/lock') && !page.endsWith('/unlock'),
       serialize(item) {
-        if (item.url === 'https://filelocker.online' || item.url === 'https://filelocker.online/') {
-          item.url = 'https://filelocker.online/';
-        } else if (item.url.endsWith('/')) {
-          item.url = item.url.slice(0, -1);
+        if (!item.url.endsWith('/')) {
+          item.url = item.url + '/';
         }
         return item;
       }
@@ -26,11 +25,11 @@ export default defineConfig({
   redirects: {
     '/lock': {
       status: 301,
-      destination: '/lock-file'
+      destination: '/lock-file/'
     },
     '/unlock': {
       status: 301,
-      destination: '/unlock-file'
+      destination: '/unlock-file/'
     },
     '/about/': {
       status: 301,
@@ -38,43 +37,43 @@ export default defineConfig({
     },
     '/docs/': {
       status: 301,
-      destination: '/guides'
+      destination: '/guides/'
     },
     '/docs/delivery-methods/': {
       status: 301,
-      destination: '/how-it-works'
+      destination: '/how-it-works/'
     },
     '/docs/faq/': {
       status: 301,
-      destination: '/faq'
+      destination: '/faq/'
     },
     '/docs/getting-started/': {
       status: 301,
-      destination: '/how-it-works'
+      destination: '/how-it-works/'
     },
     '/docs/locking-files/': {
       status: 301,
-      destination: '/lock-file'
+      destination: '/lock-file/'
     },
     '/docs/passwords/': {
       status: 301,
-      destination: '/security'
+      destination: '/security/'
     },
     '/docs/security/': {
       status: 301,
-      destination: '/security'
+      destination: '/security/'
     },
     '/docs/supported-browsers/': {
       status: 301,
-      destination: '/faq'
+      destination: '/faq/'
     },
     '/docs/troubleshooting/': {
       status: 301,
-      destination: '/faq'
+      destination: '/faq/'
     },
     '/docs/unlocking-files/': {
       status: 301,
-      destination: '/unlock-file'
+      destination: '/unlock-file/'
     },
     '/early-access/': {
       status: 301,
@@ -91,6 +90,10 @@ export default defineConfig({
     '/who-its-for/': {
       status: 301,
       destination: '/'
+    },
+    '/guides/protect-photos/': {
+      status: 301,
+      destination: '/guides/password-protect-photos/'
     }
   },
 

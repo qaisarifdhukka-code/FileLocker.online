@@ -59,11 +59,14 @@ const siteSchema = {
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="FileLocker" />
+    <meta property="og:image" content="https://filelocker.online/hero.png" />
     
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://filelocker.online/hero.png" />
+    <meta name="theme-color" content="#1e40af" />
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="canonical" href={canonicalURL} />
@@ -119,7 +122,13 @@ const siteSchema = {
                 <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-64 bg-white border border-gray-100 shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 transform origin-top overflow-hidden">
                     <div class="flex flex-col py-2">
                         <a href="/guides/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Guides Directory</a>
+                        <a href="/guides/how-to-password-protect-files/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors font-semibold">How to Password Protect Any File</a>
+                        <a href="/guides/how-to-password-protect-a-folder/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors font-semibold">How to Password Protect a Folder</a>
+                        <a href="/guides/secure-file-sharing/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors font-medium">Secure File Sharing Guide</a>
+                        <a href="/guides/password-protect-word-document/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Protect a Word Document</a>
+                        <a href="/guides/password-protect-google-drive-files/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Protect Google Drive Files</a>
                         <a href="/guides/password-protect-pdf/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Password Protect a PDF</a>
+                        <a href="/guides/password-protect-photos/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Protect Photos &amp; Images</a>
                         <a href="/guides/protect-large-videos/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Protect Large Video Files</a>
                     </div>
                 </div>
@@ -179,10 +188,16 @@ const siteSchema = {
             <div>
                 <p class="font-bold text-gray-900 mb-4">Guides</p>
                 <ul class="space-y-3 text-sm text-gray-500">
+                    <li><a href="/guides/how-to-password-protect-files/" class="hover:text-brand-blue transition-colors font-medium text-gray-700">How to Password Protect Any File</a></li>
+                    <li><a href="/guides/how-to-password-protect-a-folder/" class="hover:text-brand-blue transition-colors font-medium text-gray-700">How to Password Protect a Folder</a></li>
+                    <li><a href="/guides/secure-file-sharing/" class="hover:text-brand-blue transition-colors font-medium text-gray-700">Secure File Sharing Guide</a></li>
+                    <li><a href="/guides/password-protect-word-document/" class="hover:text-brand-blue transition-colors font-medium text-gray-700">How to Password Protect Word Docs</a></li>
+                    <li><a href="/guides/password-protect-google-drive-files/" class="hover:text-brand-blue transition-colors">Protect Google Drive Files</a></li>
                     <li><a href="/guides/password-protect-pdf/" class="hover:text-brand-blue transition-colors">How to Password Protect a PDF</a></li>
                     <li><a href="/guides/password-protect-zip/" class="hover:text-brand-blue transition-colors">How to Password Protect a ZIP File</a></li>
                     <li><a href="/guides/password-protect-excel/" class="hover:text-brand-blue transition-colors">How to Password Protect an Excel File</a></li>
                     <li><a href="/guides/protect-large-videos/" class="hover:text-brand-blue transition-colors">How to Protect Large Video Files</a></li>
+                    <li><a href="/guides/password-protect-photos/" class="hover:text-brand-blue transition-colors">How to Password Protect Photos</a></li>
                     <li><a href="/guides/" class="hover:text-brand-blue transition-colors">Browse All Guides</a></li>
                 </ul>
             </div>
