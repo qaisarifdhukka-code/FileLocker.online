@@ -76,85 +76,256 @@ const siteSchema = {
 </head>
 <body class="text-brand-dark flex flex-col min-h-screen bg-bg-light overflow-x-hidden">
 
-    <!-- NAVIGATION BAR -->
-    <nav aria-label="Main navigation" class="bg-white px-4 md:px-8 py-3 flex items-center justify-between sticky top-0 z-50 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
-        <!-- Logo -->
-        <a href="/" aria-label="FileLocker home" class="flex items-center gap-2 cursor-pointer flex-shrink-0">
-            <img src="/filelocker-logo-main.svg" alt="FileLocker" class="h-7 w-auto" />
-        </a>
-        
-        <!-- Center Links (Desktop Dropdowns) -->
-        <div class="hidden md:flex items-center gap-6 lg:gap-10 text-[15px] font-medium text-gray-700 ml-auto mr-4">
+    <!-- FLOATING CAPSULE HEADER WRAPPER -->
+    <header class="sticky top-3 sm:top-4 z-50 w-full px-3 sm:px-6 pointer-events-none">
+        <nav aria-label="Main navigation" class="pointer-events-auto max-w-5xl mx-auto bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.06),0_1px_3px_rgb(0,0,0,0.04)] rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between transition-all duration-300">
+            <!-- Left: Logo -->
+            <a href="/" aria-label="FileLocker home" class="flex items-center gap-2 cursor-pointer flex-shrink-0 pl-1 sm:pl-2 group">
+                <img src="/filelocker-logo-main.svg" alt="FileLocker" class="h-6 sm:h-7 w-auto transition-transform group-hover:scale-[1.02]" />
+            </a>
             
-            <!-- Protect Dropdown -->
-            <div class="relative group py-2">
-                <button type="button" aria-haspopup="true" class="flex items-center gap-1 hover:text-brand-blue transition-colors outline-none focus:outline-none">
-                    Protect
-                    <svg class="w-4 h-4 text-gray-400 group-hover:text-brand-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                </button>
-                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-56 bg-white border border-gray-100 shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 transform origin-top overflow-hidden">
-                    <div class="flex flex-col py-2">
-                        <a href="/lock-file/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Password Protect a File</a>
-                        <a href="/lock-folder/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Password Protect a Folder</a>
+            <!-- Center: Navigation Links (Desktop) -->
+            <div class="hidden md:flex items-center gap-1 lg:gap-2 text-sm font-medium text-slate-600">
+                
+                <!-- Protect Dropdown -->
+                <div class="relative group py-1">
+                    <button type="button" aria-haspopup="true" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:text-slate-900 hover:bg-slate-100/70 transition-all outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer">
+                        <span>Protect</span>
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-700 transition-transform duration-200 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <!-- Popover Dropdown Card -->
+                    <div class="absolute top-full left-0 pt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0">
+                        <div class="bg-white/95 backdrop-blur-xl border border-slate-200/80 shadow-[0_20px_50px_rgba(15,23,42,0.12)] rounded-2xl p-2 flex flex-col gap-1">
+                            <a href="/lock-file/" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors group/item">
+                                <div class="w-9 h-9 rounded-lg bg-blue-50 text-brand-blue flex items-center justify-center flex-shrink-0 group-hover/item:bg-blue-600 group-hover/item:text-white transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-semibold text-slate-900 group-hover/item:text-brand-blue transition-colors">Protect a File</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Encrypt single files with AES-256</span>
+                                </div>
+                            </a>
+                            <a href="/lock-folder/" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors group/item">
+                                <div class="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0 group-hover/item:bg-indigo-600 group-hover/item:text-white transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-semibold text-slate-900 group-hover/item:text-indigo-600 transition-colors">Protect a Folder</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Pack & lock entire folders into a vault</span>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Unlock Dropdown -->
-            <div class="relative group py-2">
-                <button type="button" aria-haspopup="true" class="flex items-center gap-1 hover:text-brand-blue transition-colors outline-none focus:outline-none">
-                    Unlock
-                    <svg class="w-4 h-4 text-gray-400 group-hover:text-brand-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                </button>
-                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 bg-white border border-gray-100 shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 transform origin-top overflow-hidden">
-                    <div class="flex flex-col py-2">
-                        <a href="/unlock-file/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Open a Protected File</a>
+                <!-- Unlock Link -->
+                <a href="/unlock-file/" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:text-slate-900 hover:bg-slate-100/70 transition-all outline-none focus:ring-2 focus:ring-blue-500/20">
+                    <span>Unlock</span>
+                </a>
+
+                <!-- Guides Dropdown -->
+                <div class="relative group py-1">
+                    <button type="button" aria-haspopup="true" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:text-slate-900 hover:bg-slate-100/70 transition-all outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer">
+                        <span>Guides</span>
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-700 transition-transform duration-200 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <!-- Popover Dropdown Card -->
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 transform origin-top -translate-y-1 group-hover:translate-y-0">
+                        <div class="bg-white/95 backdrop-blur-xl border border-slate-200/80 shadow-[0_20px_50px_rgba(15,23,42,0.12)] rounded-2xl p-2.5 flex flex-col gap-1">
+                            <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Featured Guides</div>
+                            <a href="/guides/how-to-password-protect-files/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-brand-blue transition-colors">
+                                <span>How to Password Protect Any File</span>
+                                <span class="text-slate-400 text-[11px]">→</span>
+                            </a>
+                            <a href="/guides/how-to-password-protect-a-folder/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-brand-blue transition-colors">
+                                <span>How to Password Protect a Folder</span>
+                                <span class="text-slate-400 text-[11px]">→</span>
+                            </a>
+                            <a href="/guides/secure-file-sharing/" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 text-xs font-medium text-slate-700 hover:text-brand-blue transition-colors">
+                                <span>Secure File Sharing Guide</span>
+                                <span class="text-slate-400 text-[11px]">→</span>
+                            </a>
+                            <div class="border-t border-slate-100 mt-1 pt-1">
+                                <a href="/guides/" class="flex items-center justify-between p-2 rounded-xl bg-slate-50/80 hover:bg-blue-50 text-xs font-semibold text-brand-blue transition-colors">
+                                    <span>Browse All Guides</span>
+                                    <span>→</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Guides Dropdown -->
-            <div class="relative group py-2">
-                <button type="button" aria-haspopup="true" class="flex items-center gap-1 hover:text-brand-blue transition-colors outline-none focus:outline-none">
-                    Guides
-                    <svg class="w-4 h-4 text-gray-400 group-hover:text-brand-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                <!-- How It Works Link -->
+                <a href="/how-it-works/" class="px-3 py-1.5 rounded-full hover:text-slate-900 hover:bg-slate-100/70 transition-all outline-none focus:ring-2 focus:ring-blue-500/20">
+                    How It Works
+                </a>
+
+            </div>
+            
+            <!-- Right: Actions (Desktop CTA + Mobile Menu Button) -->
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <!-- Desktop Brand Blue Pill CTA -->
+                <a href="/lock-file/" class="hidden sm:inline-flex items-center gap-1.5 bg-brand-blue hover:bg-brand-blue-dark text-white text-xs sm:text-sm font-semibold px-5 py-2 rounded-full shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200 active:scale-95 group/btn">
+                    <span>Protect a File</span>
+                    <span class="transition-transform duration-200 group-hover/btn:translate-x-0.5">→</span>
+                </a>
+
+                <!-- Mobile Hamburger Toggle Button -->
+                <button id="mobile-menu-btn" type="button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden p-2 rounded-full text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer">
+                    <svg id="hamburger-icon-open" class="w-5 h-5 block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="hamburger-icon-close" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </button>
-                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-64 bg-white border border-gray-100 shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 transform origin-top overflow-hidden">
-                    <div class="flex flex-col py-2">
-                        <a href="/guides/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Guides Directory</a>
-                        <a href="/guides/how-to-password-protect-files/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors font-semibold">How to Password Protect Any File</a>
-                        <a href="/guides/how-to-password-protect-a-folder/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors font-semibold">How to Password Protect a Folder</a>
-                        <a href="/guides/secure-file-sharing/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors font-medium">Secure File Sharing Guide</a>
-                        <a href="/guides/password-protect-word-document/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Protect a Word Document</a>
-                        <a href="/guides/password-protect-google-drive-files/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Protect Google Drive Files</a>
-                        <a href="/guides/password-protect-pdf/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Password Protect a PDF</a>
-                        <a href="/guides/password-protect-photos/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Protect Photos &amp; Images</a>
-                        <a href="/guides/protect-large-videos/" class="px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-brand-blue transition-colors">Protect Large Video Files</a>
-                    </div>
-                </div>
             </div>
+        </nav>
 
-        </div>
-        
-        <!-- Right Actions (Hamburger on Mobile) -->
-        <div class="flex items-center flex-shrink-0">
-            <button id="mobile-menu-btn" type="button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden p-2 text-gray-500 hover:text-brand-blue focus:outline-none">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    </header>
+
+    <!-- FULLSCREEN MOBILE NAVIGATION DRAWER (Image 2 & 3 direction) -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-white hidden flex-col justify-between p-6 sm:p-8 overflow-y-auto md:hidden transition-all duration-300">
+        <!-- Top Drawer Header: Logo + Close Button -->
+        <div class="flex items-center justify-between pb-5 border-b border-slate-100 flex-shrink-0">
+            <a href="/" aria-label="FileLocker home" class="mobile-nav-link flex items-center gap-2">
+                <img src="/filelocker-logo-main.svg" alt="FileLocker" class="h-7 w-auto" />
+            </a>
+            <button id="mobile-menu-close-btn" type="button" aria-label="Close navigation menu" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
 
-        <!-- MOBILE DROPDOWN MENU -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 shadow-lg absolute w-full z-40 top-full left-0 overflow-hidden">
-            <div class="flex flex-col px-4 py-4 space-y-4 font-medium text-gray-700">
-                <a href="/lock-file/" class="hover:text-brand-blue flex items-center justify-between border-b border-gray-50 pb-2">Protect a File <span>→</span></a>
-                <a href="/lock-folder/" class="hover:text-brand-blue flex items-center justify-between border-b border-gray-50 pb-2">Protect a Folder <span>→</span></a>
-                <a href="/unlock-file/" class="hover:text-brand-blue flex items-center justify-between border-b border-gray-50 pb-2">Open Protected File <span>→</span></a>
-                <a href="/guides/" class="hover:text-brand-blue flex items-center justify-between">Guides <span>→</span></a>
+        <!-- Main Navigation Links (Clear affordance: Down chevron for dropdowns, Right arrow for links) -->
+        <div class="py-4 flex flex-col divide-y divide-slate-100 flex-1">
+            
+            <!-- Protect Accordion (Dropdown) -->
+            <div class="py-2.5">
+                <button type="button" class="mobile-accordion-btn w-full flex items-center justify-between text-[17px] font-semibold text-slate-800 hover:text-brand-blue py-2 transition-colors cursor-pointer" data-target="accordion-protect">
+                    <span>Protect</span>
+                    <span class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 transition-transform duration-200 accordion-arrow">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </span>
+                </button>
+                <div id="accordion-protect" class="hidden pl-3 pt-2 pb-1 space-y-2">
+                    <a href="/lock-file/" class="mobile-nav-link block text-sm font-medium text-slate-600 hover:text-brand-blue py-1.5">
+                        Password Protect a File
+                    </a>
+                    <a href="/lock-folder/" class="mobile-nav-link block text-sm font-medium text-slate-600 hover:text-brand-blue py-1.5">
+                        Password Protect a Folder
+                    </a>
+                </div>
+            </div>
+
+            <!-- Unlock Link (Direct Page Navigation) -->
+            <div class="py-2.5">
+                <a href="/unlock-file/" class="mobile-nav-link flex items-center justify-between text-[17px] font-semibold text-slate-800 hover:text-brand-blue py-2 transition-colors group">
+                    <span>Unlock</span>
+                    <span class="w-7 h-7 flex items-center justify-center text-slate-400 group-hover:text-brand-blue transition-colors">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Guides Accordion (Dropdown) -->
+            <div class="py-2.5">
+                <button type="button" class="mobile-accordion-btn w-full flex items-center justify-between text-[17px] font-semibold text-slate-800 hover:text-brand-blue py-2 transition-colors cursor-pointer" data-target="accordion-guides">
+                    <span>Guides</span>
+                    <span class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 transition-transform duration-200 accordion-arrow">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </span>
+                </button>
+                <div id="accordion-guides" class="hidden pl-3 pt-2 pb-1 space-y-2">
+                    <a href="/guides/how-to-password-protect-files/" class="mobile-nav-link block text-sm font-medium text-slate-600 hover:text-brand-blue py-1.5">
+                        How to Password Protect Any File
+                    </a>
+                    <a href="/guides/how-to-password-protect-a-folder/" class="mobile-nav-link block text-sm font-medium text-slate-600 hover:text-brand-blue py-1.5">
+                        How to Password Protect a Folder
+                    </a>
+                    <a href="/guides/secure-file-sharing/" class="mobile-nav-link block text-sm font-medium text-slate-600 hover:text-brand-blue py-1.5">
+                        Secure File Sharing Guide
+                    </a>
+                    <a href="/guides/" class="mobile-nav-link flex items-center gap-1 text-sm font-semibold text-brand-blue py-1.5">
+                        <span>Browse All Guides</span>
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- How It Works Link (Direct Page Navigation) -->
+            <div class="py-2.5">
+                <a href="/how-it-works/" class="mobile-nav-link flex items-center justify-between text-[17px] font-semibold text-slate-800 hover:text-brand-blue py-2 transition-colors group">
+                    <span>How It Works</span>
+                    <span class="w-7 h-7 flex items-center justify-center text-slate-400 group-hover:text-brand-blue transition-colors">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Security Architecture Link (Direct Page Navigation) -->
+            <div class="py-2.5">
+                <a href="/security/" class="mobile-nav-link flex items-center justify-between text-[17px] font-semibold text-slate-800 hover:text-brand-blue py-2 transition-colors group">
+                    <span>Security</span>
+                    <span class="w-7 h-7 flex items-center justify-center text-slate-400 group-hover:text-brand-blue transition-colors">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <!-- FAQ Link (Direct Page Navigation) -->
+            <div class="py-2.5">
+                <a href="/faq/" class="mobile-nav-link flex items-center justify-between text-[17px] font-semibold text-slate-800 hover:text-brand-blue py-2 transition-colors group">
+                    <span>FAQ</span>
+                    <span class="w-7 h-7 flex items-center justify-center text-slate-400 group-hover:text-brand-blue transition-colors">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Bottom Drawer Actions & Footer (Image 2 & 3 formatting) -->
+        <div class="pt-5 border-t border-slate-100 flex flex-col gap-3.5 flex-shrink-0">
+            <!-- CTA Button in Logo Brand Blue -->
+            <a href="/lock-file/" class="mobile-nav-link w-full py-3.5 px-6 rounded-full bg-brand-blue hover:bg-brand-blue-dark text-white font-bold text-center text-sm sm:text-base shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2 active:scale-98">
+                <span>Protect a File</span>
+                <span>→</span>
+            </a>
+
+
+
+            <!-- Minimal Secondary Links -->
+            <div class="flex items-center justify-center gap-4 text-xs text-slate-400 font-medium pt-1">
+                <a href="/privacy/" class="mobile-nav-link hover:text-slate-600">Privacy</a>
+                <span>•</span>
+                <a href="/terms/" class="mobile-nav-link hover:text-slate-600">Terms</a>
+                <span>•</span>
+                <a href="/contact/" class="mobile-nav-link hover:text-slate-600">Contact</a>
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- MAIN CONTENT -->
     <main id="main-content" class="flex-1 flex flex-col w-full relative">
@@ -162,73 +333,214 @@ const siteSchema = {
     </main>
     
     <!-- FOOTER -->
-    <footer class="w-full bg-white border-t border-gray-100 py-16 mt-auto">
-        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
-            <div class="md:col-span-1">
-                <a href="/" aria-label="FileLocker home" class="flex items-center gap-2 mb-4">
-                    <img src="/filelocker-logo-main.svg" alt="FileLocker" class="h-6 w-auto" />
-                </a>
-                <p class="text-gray-500 text-sm mb-4">
-                    Browser-based tools to password protect and open files securely.
-                </p>
-                <p class="text-gray-400 text-sm">
-                    &copy; {new Date().getFullYear()} FileLocker.
-                </p>
-            </div>
-            
-            <div>
-                <p class="font-bold text-gray-900 mb-4">Tools</p>
-                <ul class="space-y-3 text-sm text-gray-500">
-                    <li><a href="/lock-file/" class="hover:text-brand-blue transition-colors">Password Protect a File</a></li>
-                    <li><a href="/lock-folder/" class="hover:text-brand-blue transition-colors">Password Protect a Folder</a></li>
-                    <li><a href="/unlock-file/" class="hover:text-brand-blue transition-colors">Open a Protected File</a></li>
-                </ul>
+    <footer class="w-full bg-slate-50/80 border-t border-slate-200/80 pt-16 pb-12 mt-auto relative overflow-hidden">
+        <!-- Top subtle accent light diffuser -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Main Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-8 mb-14">
+                
+                <!-- Col 1: Brand & Cryptographic Authority -->
+                <div class="sm:col-span-2 md:col-span-3 lg:col-span-2 pr-0 lg:pr-8">
+                    <a href="/" aria-label="FileLocker home" class="inline-flex items-center gap-2 mb-4 group">
+                        <img src="/filelocker-logo-main.svg" alt="FileLocker" class="h-7 w-auto transition-transform group-hover:scale-[1.02]" />
+                    </a>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 max-w-sm">
+                        Zero-knowledge client-side encryption. Protect files and folders directly in your browser using AES-GCM 256-bit cryptography. No accounts, and zero bytes ever uploaded.
+                    </p>
+
+                </div>
+                
+                <!-- Col 2: Tools -->
+                <div>
+                    <p class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">Tools</p>
+                    <ul class="space-y-3 text-sm">
+                        <li>
+                            <a href="/lock-file/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1.5 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Password Protect a File</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/lock-folder/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1.5 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Password Protect a Folder</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/unlock-file/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1.5 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Open a Protected File</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/how-it-works/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1.5 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">How FileLocker Works</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Popular Guides -->
+                <div>
+                    <p class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">Core Guides</p>
+                    <ul class="space-y-3 text-sm">
+                        <li>
+                            <a href="/guides/how-to-password-protect-files/" class="text-slate-700 font-semibold hover:text-brand-blue transition-colors flex items-center gap-1 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">How to Protect Any File</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/guides/how-to-password-protect-a-folder/" class="text-slate-700 font-semibold hover:text-brand-blue transition-colors flex items-center gap-1 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">How to Protect a Folder</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/guides/secure-file-sharing/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Secure File Sharing Guide</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/guides/password-protect-word-document/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Protect Word Documents</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/guides/password-protect-google-drive-files/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Protect Google Drive Files</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Format Guides & Directory -->
+                <div>
+                    <p class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">Formats</p>
+                    <ul class="space-y-3 text-sm">
+                        <li>
+                            <a href="/guides/password-protect-pdf/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Password Protect PDF</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/guides/password-protect-zip/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Password Protect ZIP</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/guides/password-protect-excel/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Password Protect Excel</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/guides/password-protect-photos/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Protect Photos & Images</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/guides/protect-large-videos/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Protect Large Videos</span>
+                            </a>
+                        </li>
+                        <li class="pt-1">
+                            <a href="/guides/" class="text-brand-blue font-bold text-xs hover:underline inline-flex items-center gap-1">
+                                <span>Browse All Guides</span>
+                                <span>→</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
-            <div>
-                <p class="font-bold text-gray-900 mb-4">Guides</p>
-                <ul class="space-y-3 text-sm text-gray-500">
-                    <li><a href="/guides/how-to-password-protect-files/" class="hover:text-brand-blue transition-colors font-medium text-gray-700">How to Password Protect Any File</a></li>
-                    <li><a href="/guides/how-to-password-protect-a-folder/" class="hover:text-brand-blue transition-colors font-medium text-gray-700">How to Password Protect a Folder</a></li>
-                    <li><a href="/guides/secure-file-sharing/" class="hover:text-brand-blue transition-colors font-medium text-gray-700">Secure File Sharing Guide</a></li>
-                    <li><a href="/guides/password-protect-word-document/" class="hover:text-brand-blue transition-colors font-medium text-gray-700">How to Password Protect Word Docs</a></li>
-                    <li><a href="/guides/password-protect-google-drive-files/" class="hover:text-brand-blue transition-colors">Protect Google Drive Files</a></li>
-                    <li><a href="/guides/password-protect-pdf/" class="hover:text-brand-blue transition-colors">How to Password Protect a PDF</a></li>
-                    <li><a href="/guides/password-protect-zip/" class="hover:text-brand-blue transition-colors">How to Password Protect a ZIP File</a></li>
-                    <li><a href="/guides/password-protect-excel/" class="hover:text-brand-blue transition-colors">How to Password Protect an Excel File</a></li>
-                    <li><a href="/guides/protect-large-videos/" class="hover:text-brand-blue transition-colors">How to Protect Large Video Files</a></li>
-                    <li><a href="/guides/password-protect-photos/" class="hover:text-brand-blue transition-colors">How to Password Protect Photos</a></li>
-                    <li><a href="/guides/" class="hover:text-brand-blue transition-colors">Browse All Guides</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <p class="font-bold text-gray-900 mb-4">About</p>
-                <ul class="space-y-3 text-sm text-gray-500">
-                    <li><a href="/how-it-works/" class="hover:text-brand-blue transition-colors">How FileLocker Works</a></li>
-                    <li><a href="/privacy/" class="hover:text-brand-blue transition-colors">Privacy</a></li>
-                    <li><a href="/security/" class="hover:text-brand-blue transition-colors">Security</a></li>
-                    <li><a href="/faq/" class="hover:text-brand-blue transition-colors">FAQ</a></li>
-                    <li><a href="/terms/" class="hover:text-brand-blue transition-colors">Terms of Service</a></li>
-                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors">Contact</a></li>
-                </ul>
+            <!-- Bottom Sub-Footer Bar -->
+            <div class="border-t border-slate-200/80 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                <div class="flex items-center gap-2">
+                    <p>&copy; {new Date().getFullYear()} FileLocker. 100% Client-Side Encryption.</p>
+                </div>
+                
+                <!-- Secondary / Legal Navigation Links -->
+                <div class="flex flex-wrap items-center justify-center gap-6">
+                    <a href="/security/" class="hover:text-brand-blue transition-colors">Security</a>
+                    <a href="/privacy/" class="hover:text-brand-blue transition-colors">Privacy</a>
+                    <a href="/terms/" class="hover:text-brand-blue transition-colors">Terms of Service</a>
+                    <a href="/faq/" class="hover:text-brand-blue transition-colors">FAQ</a>
+                    <a href="/contact/" class="hover:text-brand-blue transition-colors">Contact</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const btn = document.getElementById('mobile-menu-btn');
+            const openBtn = document.getElementById('mobile-menu-btn');
+            const closeBtn = document.getElementById('mobile-menu-close-btn');
             const menu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            const accordionBtns = document.querySelectorAll('.mobile-accordion-btn');
             
-            if (btn && menu) {
-                btn.addEventListener('click', () => {
-                    menu.classList.toggle('hidden');
-                    const isOpen = !menu.classList.contains('hidden');
-                    btn.setAttribute('aria-expanded', String(isOpen));
-                    btn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+            function toggleMenu(open) {
+                const isOpen = open !== undefined ? open : menu?.classList.contains('hidden');
+                if (isOpen) {
+                    menu?.classList.remove('hidden');
+                    menu?.classList.add('flex');
+                    document.body.style.overflow = 'hidden';
+                    openBtn?.setAttribute('aria-expanded', 'true');
+                    openBtn?.setAttribute('aria-label', 'Close navigation menu');
+                } else {
+                    menu?.classList.add('hidden');
+                    menu?.classList.remove('flex');
+                    document.body.style.overflow = '';
+                    openBtn?.setAttribute('aria-expanded', 'false');
+                    openBtn?.setAttribute('aria-label', 'Open navigation menu');
+                }
+            }
+
+            if (openBtn && menu) {
+                openBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleMenu(true);
                 });
             }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleMenu(false);
+                });
+            }
+
+            mobileLinks.forEach((link) => {
+                link.addEventListener('click', () => {
+                    toggleMenu(false);
+                });
+            });
+
+            // Accordion toggle functionality for Protect and Guides
+            accordionBtns.forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const targetId = btn.getAttribute('data-target');
+                    if (!targetId) return;
+                    const content = document.getElementById(targetId);
+                    const arrow = btn.querySelector('.accordion-arrow');
+                    if (content) {
+                        const isHidden = content.classList.contains('hidden');
+                        if (isHidden) {
+                            content.classList.remove('hidden');
+                            arrow?.classList.add('rotate-180');
+                        } else {
+                            content.classList.add('hidden');
+                            arrow?.classList.remove('rotate-180');
+                        }
+                    }
+                });
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && menu && !menu.classList.contains('hidden')) {
+                    toggleMenu(false);
+                    openBtn?.focus();
+                }
+            });
         });
     </script>
 </body>
