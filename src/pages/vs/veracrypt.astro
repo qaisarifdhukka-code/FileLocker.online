@@ -1,0 +1,198 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProvisioningApp from '../../components/ProvisioningApp';
+
+const techArticleSchema = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "FileLocker vs VeraCrypt: Full-Disk Volumes vs Lightweight Portable Encryption",
+  "description": "Technical comparison between FileLocker zero-install web encryption and VeraCrypt virtual volume encryption. Architecture, threat models, and cloud compatibility.",
+  "inLanguage": "en-US",
+  "author": {
+    "@type": "Organization",
+    "name": "FileLocker Security Research",
+    "url": "https://filelocker.online/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "FileLocker",
+    "url": "https://filelocker.online/"
+  },
+  "datePublished": "2026-11-01",
+  "dateModified": "2026-11-03"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Comparisons", "item": "https://filelocker.online/vs/veracrypt/" },
+    { "@type": "ListItem", "position": 3, "name": "FileLocker vs VeraCrypt", "item": "https://filelocker.online/vs/veracrypt/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can FileLocker replace VeraCrypt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For sharing files and folders over the internet, yes. For encrypting an entire operating system partition or creating plausible-deniability hidden volumes, no. VeraCrypt is designed for system-level disk encryption, whereas FileLocker is built for portable, zero-install file and folder sharing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is VeraCrypt difficult to use with cloud storage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "VeraCrypt pre-allocates a fixed-size volume file (e.g. 20GB). Every time you modify a single file inside the mounted volume, the entire 20GB container's timestamp changes, forcing cloud sync services like Dropbox or Google Drive to re-upload huge amounts of data. FileLocker creates individual, lightweight .vault files that sync instantly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need administrator privileges to use FileLocker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. VeraCrypt requires root/administrator privileges to install kernel-level disk drivers. FileLocker runs entirely within your browser's sandboxed JavaScript engine without needing any system privileges."
+      }
+    }
+  ]
+};
+---
+
+<Layout 
+  title="FileLocker vs VeraCrypt: Which Encryption Tool Do You Need? | FileLocker"
+  description="Compare FileLocker vs VeraCrypt. Explore the differences between lightweight browser-based file encryption and heavy full-disk virtual containers."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(techArticleSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- HERO -->
+  <section class="w-full relative overflow-hidden bg-white pt-16 pb-20 border-b border-gray-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-semibold text-indigo-700 mb-6 shadow-sm">
+        <span>Architectural Analysis &amp; Threat Model Comparison</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4 tracking-tight">
+        FileLocker vs <span class="text-indigo-600">VeraCrypt</span>
+      </h1>
+      <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed font-normal">
+        VeraCrypt is the gold standard for full-disk and virtual volume encryption, but it is heavy and complex for everyday sharing. Here is how FileLocker provides a lightweight, browser-based alternative.
+      </p>
+
+      <!-- LIVE DROPZONE TEST -->
+      <div class="w-full max-w-2xl mx-auto bg-white rounded-3xl border border-gray-200/90 shadow-[0_12px_45px_rgba(0,0,0,0.08)] overflow-hidden text-left mb-6">
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-4 text-white flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="font-bold text-sm sm:text-base">Test Lightweight In-Browser Encryption</span>
+          </div>
+          <span class="text-xs bg-white/15 px-3 py-1 rounded-full font-medium">Zero Disk Drivers</span>
+        </div>
+        <div class="p-4 sm:p-6">
+          <ProvisioningApp client:load initialMode="both" hideHeader={true} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON MATRIX & BREAKDOWN -->
+  <section class="w-full bg-[#f8fafc] py-16 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-12">
+
+      <!-- MATRIX -->
+      <div class="bg-white rounded-2xl border border-gray-200/80 p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">FileLocker vs VeraCrypt Comparison Matrix</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 bg-gray-50/70 text-gray-700 font-semibold">
+                <th class="py-3 px-4">Feature</th>
+                <th class="py-3 px-4 text-brand-blue font-bold">FileLocker.online</th>
+                <th class="py-3 px-4 text-gray-700">VeraCrypt</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-gray-700">
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Primary Use Case</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">Portable file &amp; folder sharing</td>
+                <td class="py-3.5 px-4">Full-disk &amp; virtual drive volumes</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Installation &amp; Kernel Drivers</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">None (100% WebAssembly/Browser)</td>
+                <td class="py-3.5 px-4 text-amber-700">Requires OS installer &amp; root drivers</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Cloud Sharing (Drive / Dropbox)</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">Seamless: Individual lightweight .vault files</td>
+                <td class="py-3.5 px-4 text-red-600 font-medium">Poor: Monolithic multi-GB file syncs</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Mobile Support (iPhone / Android)</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">Native in Safari &amp; Chrome</td>
+                <td class="py-3.5 px-4 text-red-600 font-medium">No official mobile apps</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Corruption / Crash Risk</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">Near zero: Self-contained files</td>
+                <td class="py-3.5 px-4 text-amber-700">Medium: Unclean unmounts damage volumes</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Plausible Deniability / Hidden Volumes</td>
+                <td class="py-3.5 px-4 text-gray-500">Not supported</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">Supported (Hidden outer/inner volumes)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- IN-DEPTH ANALYSIS -->
+      <div class="bg-white rounded-2xl border border-gray-200/80 p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">When to Choose Which Tool</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+          <div class="p-6 rounded-2xl border border-indigo-100 bg-indigo-50/40">
+            <h3 class="font-bold text-indigo-950 text-base mb-3">Choose VeraCrypt If:</h3>
+            <ul class="space-y-2.5 text-xs sm:text-sm text-indigo-900 list-disc pl-4">
+              <li>You want to encrypt your entire Windows, Linux, or macOS boot drive against physical laptop theft.</li>
+              <li>You work in journalism or state-adversary environments requiring <em>plausible deniability</em> with hidden volumes.</li>
+              <li>You need a permanent local vault on your desktop that stays mounted all day as drive letter <code>Z:\</code>.</li>
+            </ul>
+          </div>
+          <div class="p-6 rounded-2xl border border-blue-100 bg-blue-50/40">
+            <h3 class="font-bold text-blue-950 text-base mb-3">Choose FileLocker If:</h3>
+            <ul class="space-y-2.5 text-xs sm:text-sm text-blue-900 list-disc pl-4">
+              <li>You need to send an encrypted PDF, Excel workbook, or photo folder to a client who does not have VeraCrypt.</li>
+              <li>You are on a work laptop, Chromebook, or smartphone where you cannot install kernel drivers.</li>
+              <li>You want zero-knowledge encryption before uploading backups to Google Drive, Dropbox, or OneDrive.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl p-8 sm:p-10 text-white text-center shadow-lg">
+        <h2 class="text-2xl sm:text-3xl font-extrabold mb-3">Experience Zero-Friction Encryption</h2>
+        <p class="text-indigo-100 max-w-xl mx-auto mb-6 text-sm sm:text-base">
+          No kernel drivers, no pre-allocated containers. Encrypt any file or folder directly in your browser.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="/lock-file/" class="px-6 py-3 rounded-full bg-white text-indigo-900 font-bold text-sm shadow hover:bg-indigo-50 transition-colors">
+            Protect a File
+          </a>
+          <a href="/lock-folder/" class="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-colors">
+            Protect a Folder
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+

@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -54,7 +54,7 @@ import Layout from '../layouts/Layout.astro';
 
       <div class="content-card animate-fade-in-up animate-delay-1">
         <h2 class="section-heading">How FileLocker Handles Security & Cryptography</h2>
-        <p class="text-gray-600 leading-relaxed mb-4">FileLocker uses PBKDF2/Argon2id key derivation and authenticated AES-GCM encryption to protect your data. Explore our complete technical write-up or read practical step-by-step guides for different file formats.</p>
+        <p class="text-gray-600 leading-relaxed mb-4">FileLocker uses Argon2id key derivation (allocating 64 MB of RAM per hash) and authenticated AES-256-GCM encryption to protect your data. Explore our complete technical write-up or read practical step-by-step guides for different file formats.</p>
         <div class="flex flex-wrap gap-4 mt-2">
           <a href="/security/" class="text-brand-blue font-semibold hover:underline">Read the FileLocker security architecture →</a>
           <a href="/guides/how-to-password-protect-files/" class="text-brand-blue font-semibold hover:underline">Read the Master File Protection Guide →</a>

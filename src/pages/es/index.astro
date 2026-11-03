@@ -1,0 +1,176 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProvisioningApp from '../../components/ProvisioningApp';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "es",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿FileLocker es gratis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. FileLocker es 100% gratuito. No requiere registro, correo electrónico ni suscripciones."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Mis archivos se suben a algún servidor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. FileLocker procesa todos los archivos localmente en tu navegador web. Cero bytes se envían a servidores remotos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo proteger carpetas completas con contraseña?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Puedes seleccionar cualquier carpeta y FileLocker empaquetará y cifrará toda la estructura de directorios y subcarpetas con una sola contraseña."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué tipo de cifrado utiliza?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Utiliza cifrado autenticado AES-GCM de 256 bits y derivación de claves con Argon2id (64 MB de memoria RAM)."
+      }
+    }
+  ]
+};
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FileLocker en Español",
+  "url": "https://filelocker.online/es/",
+  "inLanguage": "es",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Cualquier navegador moderno (Chrome, Safari, Edge, Firefox)",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Herramienta gratuita para proteger archivos y carpetas con contraseña en tu navegador con cifrado AES-256 privado sin subir datos a servidores."
+};
+---
+
+<Layout
+  lang="es"
+  title="Proteger Archivos con Contraseña Online Gratis | FileLocker"
+  description="Protege archivos y carpetas con contraseña directamente en tu navegador. Cifrado AES-256 privado 100% en tu dispositivo, sin registros ni subidas a la nube."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
+
+  <!-- HERO SECTION -->
+  <section class="w-full relative overflow-hidden bg-white pt-16 pb-24 lg:pt-24 lg:pb-32">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      <!-- Text -->
+      <div class="flex flex-col items-start text-left z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-brand-blue mb-6 shadow-xs">
+          <span class="bg-blue-600 text-white px-2 py-0.5 rounded-md font-bold text-[10px] uppercase tracking-wide">Gratis</span>
+          <span>100% en tu navegador · Cero subidas a la nube</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6 tracking-tight">
+          Protege Archivos y <span class="text-brand-blue">Carpetas</span> con Contraseña.
+        </h1>
+        
+        <p class="text-lg text-gray-600 leading-relaxed mb-8 max-w-lg">
+          Cifra documentos, hojas de cálculo Excel, PDFs, fotos y carpetas enteras con AES-256 militar. Tus datos nunca salen de tu ordenador o teléfono.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="/es/lock-file/" class="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-bold px-6 py-3.5 rounded-full shadow-lg shadow-blue-500/25 transition-all">
+            Proteger un Archivo →
+          </a>
+          <a href="/es/lock-folder/" class="inline-flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-700 font-bold px-6 py-3.5 rounded-full transition-all">
+            Proteger una Carpeta
+          </a>
+        </div>
+      </div>
+
+      <!-- Live Tool Dropzone -->
+      <div class="w-full max-w-xl mx-auto bg-white rounded-[2rem] border border-gray-200 shadow-[0_12px_45px_rgba(0,0,0,0.08)] overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 text-white flex items-center justify-between">
+          <span class="font-bold text-sm">Cifrar Archivo o Carpeta Ahora</span>
+          <span class="text-xs bg-white/20 px-2.5 py-1 rounded-full font-medium">AES-GCM 256-bit</span>
+        </div>
+        <div class="p-6">
+          <ProvisioningApp client:load initialMode="both" hideHeader={true} />
+        </div>
+        <div class="text-center py-3 bg-gray-50 border-t border-gray-100 text-[12px] text-gray-400 font-medium">
+          Tus archivos se procesan localmente. Nada se sube a internet.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section class="w-full bg-[#f8fafc] py-16 px-6 border-t border-gray-200">
+    <div class="max-w-5xl mx-auto space-y-12">
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-3">¿Por qué usar FileLocker?</h2>
+        <p class="text-gray-600">La diferencia fundamental entre FileLocker y otros conversores en la nube:</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 bg-white rounded-2xl border border-gray-200 shadow-xs">
+          <div class="w-10 h-10 rounded-xl bg-blue-100 text-brand-blue flex items-center justify-center font-bold text-lg mb-4">1</div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Cero Subidas al Servidor</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">A diferencia de Smallpdf o iLovePDF, tus archivos nunca viajan por internet. El cifrado ocurre dentro de la memoria de tu navegador.</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-2xl border border-gray-200 shadow-xs">
+          <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-lg mb-4">2</div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Cifrado Militar AES-256</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">Protegido por AES-GCM de 256 bits y derivación de contraseña con Argon2id resistente a ataques por fuerza bruta.</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-2xl border border-gray-200 shadow-xs">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg mb-4">3</div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Sin Registro ni Programas</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">Funciona en Windows 11, Mac, Linux, iPhone y Android sin instalar aplicaciones ni crear cuentas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQS -->
+  <section class="w-full bg-white py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-10">Preguntas Frecuentes</h2>
+      <div class="space-y-4">
+        <details class="group p-5 bg-gray-50 rounded-2xl border border-gray-200">
+          <summary class="font-bold text-gray-900 cursor-pointer flex justify-between items-center">
+            <span>¿Cómo abro un archivo protegido?</span>
+            <span class="text-brand-blue group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-sm text-gray-600 mt-3 leading-relaxed">Visita <a href="/unlock-file/" class="text-brand-blue font-bold hover:underline">filelocker.online/unlock-file/</a> en cualquier navegador, arrastra tu archivo .vault, introduce la contraseña y se descargará descifrado al instante.</p>
+        </details>
+        <details class="group p-5 bg-gray-50 rounded-2xl border border-gray-200">
+          <summary class="font-bold text-gray-900 cursor-pointer flex justify-between items-center">
+            <span>¿Qué pasa si olvido mi contraseña?</span>
+            <span class="text-brand-blue group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-sm text-gray-600 mt-3 leading-relaxed">FileLocker utiliza arquitectura de conocimiento cero. No guardamos contraseñas ni llaves maestras. Si olvidas tu clave, el archivo no se puede recuperar.</p>
+        </details>
+        <details class="group p-5 bg-gray-50 rounded-2xl border border-gray-200">
+          <summary class="font-bold text-gray-900 cursor-pointer flex justify-between items-center">
+            <span>¿Puedo cifrar carpetas enteras?</span>
+            <span class="text-brand-blue group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-sm text-gray-600 mt-3 leading-relaxed">Sí, nuestra herramienta empaqueta todas las subcarpetas y documentos en un contenedor seguro .vault en un solo clic.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</Layout>
+

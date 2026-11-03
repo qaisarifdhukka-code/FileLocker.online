@@ -1,4 +1,4 @@
-
+﻿
 import { useState } from 'react';
 import { argon2id } from 'hash-wasm';
 import { LockOpen, File as FileIcon, Loader2, CheckCircle2, AlertCircle, Eye, EyeOff, RotateCcw, ShieldAlert, XCircle } from 'lucide-react';
@@ -12,6 +12,16 @@ const NONCE_SIZE = 8;
 const CHUNK_PLAIN = 10 * 1024 * 1024;
 const CHUNK_ENC = CHUNK_PLAIN + 12 + 16;
 
+
+function trackGA4Event(name: string, params?: Record<string, any>) {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    try {
+      (window as any).gtag('event', name, params);
+    } catch {
+      // safe fallback
+    }
+  }
+}
 function hexToBytes(hex: string) {
   const b = new Uint8Array(hex.length / 2);
   for (let i = 0; i < hex.length; i += 2) b[i / 2] = parseInt(hex.substring(i, i + 2), 16);
@@ -68,6 +78,8 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
       const dataStart = metaStart + metaLen + NONCE_SIZE;
 
       setFile(selected);
+            trackGA4Event('file_selected', { is_folder: false, file_size: selected.size, format: 'vault' });
+      trackGA4Event('decryption_file_selected', { file_size: selected.size });
       setMeta({ ...parsedMeta, dataStart });
       setErrorMsg('');
     } catch (err: any) {
@@ -83,6 +95,7 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
       setIsDeriving(true);
       setErrorMsg('');
       setStatus('DECRYPTING');
+      trackGA4Event('decryption_started');
 
       const reader = new BlobReader(file);
 
@@ -277,6 +290,9 @@ export default function UnlockApp({ hideHeader = false }: { hideHeader?: boolean
       setPassword('');
       setIsDeriving(false);
       setStatus('DONE');
+            trackGA4Event('decryption_success', { is_folder: meta?.isFolder });
+      trackGA4Event('file_downloaded', { is_folder: meta?.isFolder });
+      trackGA4Event('decryption_completed', { is_folder: meta?.isFolder });
 
     } catch (err: any) {
       console.error(err);

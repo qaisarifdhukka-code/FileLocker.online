@@ -4,6 +4,16 @@ import { argon2id } from 'hash-wasm';
 import { createPureVault, type VaultSource } from '../tools/file-locker/vault/pure-vault-writer';
 import { createTarStream, getFilesRecursively, bufferStream } from '../tools/file-locker/vault/FolderTar';
 
+
+function trackGA4Event(name: string, params?: Record<string, any>) {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    try {
+      (window as any).gtag('event', name, params);
+    } catch {
+      // safe fallback
+    }
+  }
+}
 function formatBytes(bytes: number) {
   if (!bytes) return '0 B';
   const k = 1024;
@@ -28,9 +38,13 @@ type ProvisioningMode = 'file' | 'folder' | 'both';
 type ProvisioningAppProps = {
   initialMode?: ProvisioningMode;
   hideHeader?: boolean;
+  acceptExtensions?: string;
+  formatName?: string;
+  customTitle?: string;
+  customSubtitle?: string;
 };
 
-export default function ProvisioningApp({ initialMode = 'both', hideHeader = false }: ProvisioningAppProps) {
+export default function ProvisioningApp({ initialMode = 'both', hideHeader = false, acceptExtensions, formatName, customTitle, customSubtitle }: ProvisioningAppProps) {
   const [step, setStep] = useState(STEPS.SELECT);
   const [selectedSource, setSelectedSource] = useState<AppSource | null>(null);
   const [password, setPassword] = useState('');
@@ -47,19 +61,24 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
       if (!window.showOpenFilePicker) throw new Error('fallback');
       // @ts-ignore
       const [handle] = await window.showOpenFilePicker({
-        types: [{ description: 'All Files', accept: { '*/*': [] } }]
+        types: acceptExtensions ? [{ description: formatName ? (formatName + ' Files') : 'Supported Files', accept: { 'application/octet-stream': acceptExtensions.split(',').map((e: string) => e.trim()) } }] : [{ description: 'All Files', accept: { '*/*': [] } }]
       });
       const file = await handle.getFile();
       setSelectedSource({ file, name: file.name, size: file.size, isFolder: false });
+      trackGA4Event('file_selected', { is_folder: false, file_size: file.size, format: formatName || 'file' });
+      trackGA4Event('tool_file_selected', { is_folder: false, file_size: file.size });
       setStep(STEPS.CONFIGURE);
     } catch (e: any) {
       if (e.message === 'fallback' || e.name === 'TypeError') {
         const input = document.createElement('input');
         input.type = 'file';
+        if (acceptExtensions) input.accept = acceptExtensions;
         input.onchange = (e: any) => {
           const file = e.target.files[0];
           if (file) {
             setSelectedSource({ file, name: file.name, size: file.size, isFolder: false });
+      trackGA4Event('file_selected', { is_folder: false, file_size: file.size, format: formatName || 'file' });
+            trackGA4Event('tool_file_selected', { is_folder: false, file_size: file.size });
             setStep(STEPS.CONFIGURE);
           }
         };
@@ -79,11 +98,14 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
         totalSize += f.file.size;
       }
       setSelectedSource({ dirHandle, name: dirHandle.name, size: totalSize, isFolder: true });
+      trackGA4Event('file_selected', { is_folder: true, file_size: totalSize, format: 'folder' });
+      trackGA4Event('tool_file_selected', { is_folder: true, file_size: totalSize });
       setStep(STEPS.CONFIGURE);
     } catch (e: any) {
       if (e.message === 'fallback' || e.name === 'TypeError') {
         const input = document.createElement('input');
         input.type = 'file';
+        if (acceptExtensions) input.accept = acceptExtensions;
         input.webkitdirectory = true;
         input.onchange = (e: any) => {
           const rawFiles = Array.from(e.target.files as FileList);
@@ -99,6 +121,8 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
             // @ts-ignore
             const folderName = rawFiles[0].webkitRelativePath ? rawFiles[0].webkitRelativePath.split('/')[0] : 'Folder';
             setSelectedSource({ fileList, name: folderName, size: totalSize, isFolder: true });
+      trackGA4Event('file_selected', { is_folder: true, file_size: totalSize, format: 'folder' });
+            trackGA4Event('tool_file_selected', { is_folder: true, file_size: totalSize });
             setStep(STEPS.CONFIGURE);
           }
         };
@@ -117,6 +141,7 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
     setError('');
     setProgress(0);
     setProgressLabel('Preparing file...');
+    trackGA4Event('encryption_started', { is_folder: selectedSource.isFolder, file_size: selectedSource.size });
     setStep(STEPS.PROCESSING);
 
     try {
@@ -187,6 +212,9 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
         setOsLockWarning(null);
       }
 
+            trackGA4Event('encryption_success', { is_folder: selectedSource.isFolder, file_size: selectedSource.size });
+      trackGA4Event('file_downloaded', { is_folder: selectedSource.isFolder, file_size: selectedSource.size });
+      trackGA4Event('encryption_completed', { is_folder: selectedSource.isFolder, file_size: selectedSource.size });
       setStep(STEPS.DONE);
     } catch (err: any) {
       setError(err.message);
@@ -205,8 +233,8 @@ export default function ProvisioningApp({ initialMode = 'both', hideHeader = fal
   };
 
   // Determine Title based on mode
-  const title = initialMode === 'file' ? 'Protect a File' : initialMode === 'folder' ? 'Protect a Folder' : 'Protect your files';
-  const subtitle = initialMode === 'file' ? 'Add password protection before sharing or storing a file.' : initialMode === 'folder' ? 'Protect an entire folder with one password.' : 'Add a password to a file or folder directly in your browser.';
+  const title = customTitle || (initialMode === 'file' ? (formatName ? ('Protect ' + formatName + ' File') : 'Protect a File') : initialMode === 'folder' ? 'Protect a Folder' : 'Protect your files');
+  const subtitle = customSubtitle || (initialMode === 'file' ? (formatName ? ('Add client-side AES-256 encryption to your ' + formatName + ' document.') : 'Add password protection before sharing or storing a file.') : initialMode === 'folder' ? 'Protect an entire folder with one password.' : 'Add a password to a file or folder directly in your browser.');
 
   return (
     <div className={`w-full h-full mx-auto ${hideHeader ? '' : 'py-12 px-4 sm:px-6'}`}>

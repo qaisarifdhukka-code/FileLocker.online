@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../layouts/Layout.astro';
 import ProvisioningApp from '../components/ProvisioningApp';
 
@@ -202,6 +202,20 @@ const breadcrumbSchema = {
           <a href="/guides/password-protect-zip/" class="guide-link">Password protect a ZIP file →</a>
           <a href="/guides/password-protect-excel/" class="guide-link">Password protect an Excel file →</a>
           <a href="/guides/protect-large-videos/" class="guide-link">Protect large video files →</a>
+        </div>
+        <div class="mt-4 p-4 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
+              ZIP
+            </div>
+            <div>
+              <p class="font-bold text-gray-900 text-sm mb-0.5">Encrypting or locking a ZIP file?</p>
+              <p class="text-xs text-gray-600 mb-0">Learn why standard ZipCrypto is vulnerable and how to lock ZIP archives with AES-256 on Windows, Mac, and Linux.</p>
+            </div>
+          </div>
+          <a href="/guides/password-protect-zip/" class="text-xs font-bold text-brand-blue bg-white hover:bg-blue-50 border border-blue-200 px-3.5 py-2 rounded-xl whitespace-nowrap transition-colors shadow-xs">
+            Read ZIP Guide &rarr;
+          </a>
         </div>
       </div>
 

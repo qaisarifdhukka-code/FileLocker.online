@@ -1,0 +1,104 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProvisioningApp from '../../components/ProvisioningApp';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "pt",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O FileLocker é gratuito?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. O FileLocker é 100% gratuito. Não requer cadastro, e-mail nem assinaturas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Meus arquivos são enviados para algum servidor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não. O FileLocker processa todos os arquivos localmente no seu navegador. Zero bytes são transmitidos para a internet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Posso proteger pastas inteiras com senha?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. Você pode selecionar qualquer pasta e o FileLocker compactará e criptografará toda a estrutura de diretórios em um arquivo .vault com uma única senha."
+      }
+    }
+  ]
+};
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FileLocker em Português",
+  "url": "https://filelocker.online/pt/",
+  "inLanguage": "pt",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Qualquer navegador moderno (Chrome, Safari, Edge, Firefox)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Ferramenta gratuita para proteger arquivos e pastas com senha no navegador usando criptografia AES-256 privada sem upload para a nuvem."
+};
+---
+
+<Layout
+  lang="pt"
+  title="Proteger Arquivos e Pastas com Senha Online | FileLocker"
+  description="Proteja arquivos e pastas com senha diretamente no seu navegador. Criptografia AES-256 privada 100% no seu dispositivo, sem cadastro e sem upload."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
+
+  <!-- HERO SECTION -->
+  <section class="w-full relative overflow-hidden bg-white pt-16 pb-24 lg:pt-24 lg:pb-32">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      <!-- Text -->
+      <div class="flex flex-col items-start text-left z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-brand-blue mb-6 shadow-xs">
+          <span class="bg-blue-600 text-white px-2 py-0.5 rounded-md font-bold text-[10px] uppercase tracking-wide">Gratuito</span>
+          <span>100% no seu navegador · Zero uploads para servidores</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6 tracking-tight">
+          Proteja Arquivos e <span class="text-brand-blue">Pastas</span> com Senha.
+        </h1>
+        
+        <p class="text-lg text-gray-600 leading-relaxed mb-8 max-w-lg">
+          Criptografe documentos, planilhas Excel, PDFs, fotos e pastas inteiras com AES-256. Seus dados nunca saem do seu computador ou celular.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="/pt/lock-file/" class="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-bold px-6 py-3.5 rounded-full shadow-lg shadow-blue-500/25 transition-all">
+            Proteger um Arquivo →
+          </a>
+          <a href="/es/lock-folder/" class="inline-flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-700 font-bold px-6 py-3.5 rounded-full transition-all">
+            Proteger uma Pasta
+          </a>
+        </div>
+      </div>
+
+      <!-- Live Tool Dropzone -->
+      <div class="w-full max-w-xl mx-auto bg-white rounded-[2rem] border border-gray-200 shadow-[0_12px_45px_rgba(0,0,0,0.08)] overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 text-white flex items-center justify-between">
+          <span class="font-bold text-sm">Criptografar Arquivo Agora</span>
+          <span class="text-xs bg-white/20 px-2.5 py-1 rounded-full font-medium">AES-GCM 256-bit</span>
+        </div>
+        <div class="p-6">
+          <ProvisioningApp client:load initialMode="both" hideHeader={true} />
+        </div>
+        <div class="text-center py-3 bg-gray-50 border-t border-gray-100 text-[12px] text-gray-400 font-medium">
+          Seus arquivos são processados localmente. Nada é enviado para a nuvem.
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+

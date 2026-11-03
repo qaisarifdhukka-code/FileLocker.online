@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProvisioningApp from '../../components/ProvisioningApp';
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FileLocker en Español — Cifrar Carpetas",
+  "url": "https://filelocker.online/es/lock-folder/",
+  "inLanguage": "es",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Cualquier navegador moderno",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Herramienta gratuita para empaquetar y proteger carpetas enteras con contraseña en tu navegador web."
+};
+---
+
+<Layout
+  lang="es"
+  title="Proteger Carpeta con Contraseña Online | FileLocker"
+  description="Bloquea carpetas enteras con contraseña directamente en tu navegador. Cifrado AES-256 privado sin límites ni subidas a servidores."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
+
+  <div class="guide-hero" style="padding-bottom:2rem;">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-inner" style="text-align:center; max-width:40rem;">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-5">
+        Carpetas completas · Sin programas · 100% privado
+      </span>
+      <h1>Proteger una Carpeta con Contraseña</h1>
+      <p class="hero-subtitle" style="margin:0 auto;">Selecciona cualquier carpeta de tu ordenador y protégela con una única contraseña en un contenedor seguro .vault.</p>
+    </div>
+  </div>
+
+  <div class="w-full bg-white border-b border-gray-100 py-8 px-4 sm:px-6 flex items-center justify-center">
+    <div class="w-full max-w-2xl mx-auto bg-white rounded-[2rem] border border-gray-100 shadow-[0_8px_40px_rgba(0,0,0,0.07)] overflow-hidden">
+      <ProvisioningApp client:load initialMode="folder" hideHeader={true} />
+      <div class="text-center py-3.5 bg-gray-50 border-t border-gray-100 text-[12px] text-gray-400 font-medium flex items-center justify-center gap-1.5">
+        Tu estructura de carpetas se procesa localmente. Nada se sube a internet.
+      </div>
+    </div>
+  </div>
+</Layout>
+

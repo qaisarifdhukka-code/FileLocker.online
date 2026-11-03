@@ -1,0 +1,189 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProvisioningApp from '../../components/ProvisioningApp';
+
+const techArticleSchema = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "FileLocker vs AxCrypt: Cloud Subscriptions vs 100% Free Client-Side Encryption",
+  "description": "Comprehensive comparison between FileLocker free browser encryption and AxCrypt commercial software. Subscription costs, account privacy, and email attachment safety.",
+  "inLanguage": "en-US",
+  "author": {
+    "@type": "Organization",
+    "name": "FileLocker Security Research",
+    "url": "https://filelocker.online/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "FileLocker",
+    "url": "https://filelocker.online/"
+  },
+  "datePublished": "2026-11-01",
+  "dateModified": "2026-11-03"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Comparisons", "item": "https://filelocker.online/vs/axcrypt/" },
+    { "@type": "ListItem", "position": 3, "name": "FileLocker vs AxCrypt", "item": "https://filelocker.online/vs/axcrypt/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is FileLocker completely free compared to AxCrypt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. AxCrypt charges approximately $60/year ($5/month) and heavily limits its free version (e.g. restricting key features to view-only). FileLocker is 100% free with unlimited encryption, zero subscriptions, and no credit card required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do email providers block AxCrypt self-decrypting archives?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AxCrypt's self-decrypting archives are compiled as Windows executable (.exe) files. Modern corporate security filters in Gmail, Microsoft 365, and Outlook automatically quarantine or delete .exe attachments because they could contain trojans or malware. FileLocker creates inert .vault binary containers that pass email scanners safely and decrypt inside the recipient's web browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I have to create an account with FileLocker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. AxCrypt mandates creating an account with your email address and syncs key pairs through their servers. FileLocker requires zero accounts, collects zero email addresses, and has no server backends."
+      }
+    }
+  ]
+};
+---
+
+<Layout 
+  title="FileLocker vs AxCrypt: Free Private Encryption Alternative | FileLocker"
+  description="Compare FileLocker vs AxCrypt. Discover why FileLocker's zero-account, zero-install, 100% free client-side encryption is the superior alternative to AxCrypt."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(techArticleSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- HERO -->
+  <section class="w-full relative overflow-hidden bg-white pt-16 pb-20 border-b border-gray-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-xs font-semibold text-emerald-800 mb-6 shadow-sm">
+        <span>Commercial Software Comparison</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4 tracking-tight">
+        FileLocker vs <span class="text-brand-blue">AxCrypt</span>
+      </h1>
+      <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed font-normal">
+        Looking for a free, zero-knowledge alternative to AxCrypt? Compare subscription pricing, account requirements, and email attachment deliverability.
+      </p>
+
+      <!-- LIVE DROPZONE TEST -->
+      <div class="w-full max-w-2xl mx-auto bg-white rounded-3xl border border-gray-200/90 shadow-[0_12px_45px_rgba(0,0,0,0.08)] overflow-hidden text-left mb-6">
+        <div class="bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-4 text-white flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="font-bold text-sm sm:text-base">Encrypt Files Without Account Registration</span>
+          </div>
+          <span class="text-xs bg-white/15 px-3 py-1 rounded-full font-medium">100% Free Forever</span>
+        </div>
+        <div class="p-4 sm:p-6">
+          <ProvisioningApp client:load initialMode="both" hideHeader={true} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE & DETAILS -->
+  <section class="w-full bg-[#f8fafc] py-16 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-12">
+
+      <!-- COMPARISON TABLE -->
+      <div class="bg-white rounded-2xl border border-gray-200/80 p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">FileLocker vs AxCrypt Comparison</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 bg-gray-50/70 text-gray-700 font-semibold">
+                <th class="py-3 px-4">Feature</th>
+                <th class="py-3 px-4 text-brand-blue font-bold">FileLocker.online</th>
+                <th class="py-3 px-4 text-gray-700">AxCrypt</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-gray-700">
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Pricing Model</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">100% Free Forever</td>
+                <td class="py-3.5 px-4 text-red-600 font-medium">~$60/yr ($5/month subscription)</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Account / Email Requirement</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">Zero (No account, no email)</td>
+                <td class="py-3.5 px-4 text-amber-700">Mandatory email registration</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Server Contact</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">0 bytes sent to any server</td>
+                <td class="py-3.5 px-4 text-amber-700">Syncs key pairs through AxCrypt servers</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Email Delivery Safety</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">Safe: Non-executable .vault containers</td>
+                <td class="py-3.5 px-4 text-red-600 font-medium">High quarantine rate (.exe self-extractors)</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-medium">Software Installation</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">Zero: Instant web browser execution</td>
+                <td class="py-3.5 px-4">Desktop app installation required</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-medium">KDF &amp; Brute-Force Defense</td>
+                <td class="py-3.5 px-4 text-emerald-700 font-semibold">Argon2id (64MB RAM memory-hard)</td>
+                <td class="py-3.5 px-4">PBKDF2-SHA512</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- THE EXE EMAIL TRAP -->
+      <div class="bg-white rounded-2xl border border-gray-200/80 p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">The Problem with AxCrypt's Self-Decrypting Executables</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          AxCrypt promotes its ability to create "Self-Decrypting Files" (SDF) that package files into an executable <code>.exe</code> so the recipient doesn't have to install AxCrypt.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          In practice, this feature fails almost every corporate email test. Modern spam and antimalware gateways in <strong>Gmail, Microsoft Exchange, Outlook 365, and Proofpoint automatically block or quarantine all <code>.exe</code> attachments</strong> regardless of whether they are password-protected.
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+          FileLocker solves this elegantly: our <code>.vault</code> format is completely inert binary data that passes through email firewalls without tripping executable alerts. The recipient decrypts the container using the browser's native Web Crypto API. Read more in our <a href="/self-decrypting-archive/" class="text-brand-blue font-semibold hover:underline">Self-Decrypting Archive Guide</a>.
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl p-8 sm:p-10 text-white text-center shadow-lg">
+        <h2 class="text-2xl sm:text-3xl font-extrabold mb-3">Ditch the Paid Subscriptions</h2>
+        <p class="text-emerald-100 max-w-xl mx-auto mb-6 text-sm sm:text-base">
+          Encrypt your files with zero accounts, zero software, and 100% free client-side cryptography.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="/lock-file/" class="px-6 py-3 rounded-full bg-white text-emerald-800 font-bold text-sm shadow hover:bg-emerald-50 transition-colors">
+            Protect a File Free
+          </a>
+          <a href="/lock-folder/" class="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-colors">
+            Protect a Folder Free
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+

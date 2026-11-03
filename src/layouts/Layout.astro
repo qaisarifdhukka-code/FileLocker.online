@@ -1,4 +1,4 @@
----
+﻿---
 import '../styles/global.css';
 
 interface Props {
@@ -70,9 +70,25 @@ const siteSchema = {
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="canonical" href={canonicalURL} />
+    <!-- Hreflang alternates -->
+    <link rel="alternate" hreflang="x-default" href="https://filelocker.online/" />
+    <link rel="alternate" hreflang="en" href="https://filelocker.online/" />
+    <link rel="alternate" hreflang="es" href="https://filelocker.online/es/" />
+    <link rel="alternate" hreflang="pt" href="https://filelocker.online/pt/" />
+    <!-- OG image dimensions for correct social card rendering -->
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
     <slot name="head" />
+    <!-- Google Analytics 4 - G-RG0JP0HT1R -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RG0JP0HT1R"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RG0JP0HT1R');
+    </script>
 </head>
 <body class="text-brand-dark flex flex-col min-h-screen bg-bg-light overflow-x-hidden">
 
@@ -80,7 +96,7 @@ const siteSchema = {
     <header class="sticky top-3 sm:top-4 z-50 w-full px-3 sm:px-6 pointer-events-none">
         <nav aria-label="Main navigation" class="pointer-events-auto max-w-5xl mx-auto bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.06),0_1px_3px_rgb(0,0,0,0.04)] rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between transition-all duration-300">
             <!-- Left: Logo -->
-            <a href="/" aria-label="FileLocker home" class="flex items-center gap-2 cursor-pointer flex-shrink-0 pl-1 sm:pl-2 group">
+            <a href="/" aria-label="FileLocker â€” Online File Locker" class="flex items-center gap-2 cursor-pointer flex-shrink-0 pl-1 sm:pl-2 group">
                 <img src="/filelocker-logo-main.svg" alt="FileLocker" class="h-6 sm:h-7 w-auto transition-transform group-hover:scale-[1.02]" />
             </a>
             
@@ -118,6 +134,28 @@ const siteSchema = {
                                 <div class="flex flex-col">
                                     <span class="text-xs font-semibold text-slate-900 group-hover/item:text-indigo-600 transition-colors">Protect a Folder</span>
                                     <span class="text-[11px] text-slate-500 font-normal">Pack & lock entire folders into a vault</span>
+                                </div>
+                            </a>
+                            <a href="/encrypt-files/" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors group/item">
+                                <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 group-hover/item:bg-emerald-600 group-hover/item:text-white transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-semibold text-slate-900 group-hover/item:text-emerald-600 transition-colors">Encrypt Files Online</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Free AES-256 in-browser file encryption</span>
+                                </div>
+                            </a>
+                            <a href="/self-decrypting-archive/" class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors group/item">
+                                <div class="w-9 h-9 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0 group-hover/item:bg-purple-600 group-hover/item:text-white transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-semibold text-slate-900 group-hover/item:text-purple-600 transition-colors">Self-Decrypting Archive</span>
+                                    <span class="text-[11px] text-slate-500 font-normal">Zero-install portable containers</span>
                                 </div>
                             </a>
                         </div>
@@ -196,7 +234,7 @@ const siteSchema = {
     <div id="mobile-menu" class="fixed inset-0 z-50 bg-white hidden flex-col justify-between p-6 sm:p-8 overflow-y-auto md:hidden transition-all duration-300">
         <!-- Top Drawer Header: Logo + Close Button -->
         <div class="flex items-center justify-between pb-5 border-b border-slate-100 flex-shrink-0">
-            <a href="/" aria-label="FileLocker home" class="mobile-nav-link flex items-center gap-2">
+            <a href="/" aria-label="FileLocker â€” Online File Locker" class="mobile-nav-link flex items-center gap-2">
                 <img src="/filelocker-logo-main.svg" alt="FileLocker" class="h-7 w-auto" />
             </a>
             <button id="mobile-menu-close-btn" type="button" aria-label="Close navigation menu" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer">
@@ -225,6 +263,12 @@ const siteSchema = {
                     </a>
                     <a href="/lock-folder/" class="mobile-nav-link block text-sm font-medium text-slate-600 hover:text-brand-blue py-1.5">
                         Password Protect a Folder
+                    </a>
+                    <a href="/encrypt-files/" class="mobile-nav-link block text-sm font-medium text-slate-600 hover:text-brand-blue py-1.5">
+                        Encrypt Files Online
+                    </a>
+                    <a href="/self-decrypting-archive/" class="mobile-nav-link block text-sm font-medium text-slate-600 hover:text-brand-blue py-1.5">
+                        Self-Decrypting Archive
                     </a>
                 </div>
             </div>
@@ -343,7 +387,7 @@ const siteSchema = {
                 
                 <!-- Col 1: Brand & Cryptographic Authority -->
                 <div class="sm:col-span-2 md:col-span-3 lg:col-span-2 pr-0 lg:pr-8">
-                    <a href="/" aria-label="FileLocker home" class="inline-flex items-center gap-2 mb-4 group">
+                    <a href="/" aria-label="FileLocker â€” Online File Locker" class="inline-flex items-center gap-2 mb-4 group">
                         <img src="/filelocker-logo-main.svg" alt="FileLocker" class="h-7 w-auto transition-transform group-hover:scale-[1.02]" />
                     </a>
                     <p class="text-slate-600 text-sm leading-relaxed mb-6 max-w-sm">
@@ -364,6 +408,16 @@ const siteSchema = {
                         <li>
                             <a href="/lock-folder/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1.5 group">
                                 <span class="group-hover:translate-x-0.5 transition-transform">Password Protect a Folder</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/encrypt-files/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1.5 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Encrypt Files Online</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/self-decrypting-archive/" class="text-slate-600 hover:text-brand-blue transition-colors flex items-center gap-1.5 group">
+                                <span class="group-hover:translate-x-0.5 transition-transform">Self-Decrypting Archive</span>
                             </a>
                         </li>
                         <li>
@@ -459,6 +513,10 @@ const siteSchema = {
                 
                 <!-- Secondary / Legal Navigation Links -->
                 <div class="flex flex-wrap items-center justify-center gap-6">
+                                        <a href="/vs/7-zip/" class="hover:text-brand-blue transition-colors">vs 7-Zip</a>
+                    <a href="/vs/veracrypt/" class="hover:text-brand-blue transition-colors">vs VeraCrypt</a>
+                    <a href="/vs/axcrypt/" class="hover:text-brand-blue transition-colors">vs AxCrypt</a>
+                    <span class="text-slate-300">|</span>
                     <a href="/security/" class="hover:text-brand-blue transition-colors">Security</a>
                     <a href="/privacy/" class="hover:text-brand-blue transition-colors">Privacy</a>
                     <a href="/terms/" class="hover:text-brand-blue transition-colors">Terms of Service</a>

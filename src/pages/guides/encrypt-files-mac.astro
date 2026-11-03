@@ -1,0 +1,239 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProvisioningApp from '../../components/ProvisioningApp';
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Encrypt Files on Mac (macOS)",
+  "description": "Learn how to encrypt files and folders on Mac for free without third-party software, using FileLocker in Safari or macOS Disk Utility.",
+  "totalTime": "PT1M",
+  "supply": [
+    { "@type": "HowToSupply", "name": "Mac File or Document" }
+  ],
+  "tool": [
+    { "@type": "HowToTool", "name": "Safari or Google Chrome on macOS" }
+  ],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Select File or Folder",
+      "text": "Drop your Mac file into the tool above or open filelocker.online/lock-file/ in Safari. Nothing is uploaded to remote servers."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Enter Password",
+      "text": "Type a strong passphrase. FileLocker derives an authenticated 256-bit key using Argon2id."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Download Encrypted File",
+      "text": "Click 'Lock File'. Your Mac browser encrypts the file using AES-GCM and exports a safe, cross-platform .vault container."
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://filelocker.online/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Encrypt Files Mac", "item": "https://filelocker.online/guides/encrypt-files-mac/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can you password protect a file on Mac without extra software?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "macOS does not offer a right-click 'Password Protect' option in Finder for arbitrary files. While Apple provides Disk Utility (to create encrypted .dmg disk images) and Terminal (zip -e), both have severe limitations. Disk images cannot be opened on Windows or Android, and Terminal zip uses weak ZipCrypto by default. FileLocker lets you password protect files directly in Safari with authenticated AES-256 encryption that opens on any device."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a Mac encrypted .dmg file open on Windows?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Apple Disk Utility creates .dmg or sparseimage files formatted with APFS or HFS+, which Windows and Android cannot natively read without commercial third-party disk mounting drivers. FileLocker solves this cross-platform barrier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does FileFileLocker upload Mac files to the cloud?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Zero bytes leave your Mac. All cryptographic computations execute locally inside Apple Safari or Chrome via the Web Crypto API."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I encrypt an entire folder on Mac?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use FileLocker's folder tool at /lock-folder/ in Safari. Select any directory from your Mac, set a password, and your entire folder tree is packaged into an encrypted .vault container."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="How to Encrypt Files on Mac (Free & Private) | FileLocker"
+  description="Learn how to encrypt files and folders on Mac for free. Compare FileLocker in-browser AES-256 encryption, Disk Utility encrypted DMGs, and Terminal."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(howToSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- HERO -->
+  <div class="guide-hero">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+    <div class="hero-inner">
+      <nav class="hero-breadcrumb">
+        <a href="/guides/">Guides</a>
+        <span class="separator">/</span>
+        <span class="current">Encrypt Files on Mac</span>
+      </nav>
+      <h1>How to Encrypt Files on Mac (macOS)</h1>
+      <p class="hero-subtitle">
+        Apple's macOS makes it remarkably difficult to password-protect individual files and folders for sharing. Here is how to encrypt files on Mac using browser-native AES-256, Disk Utility, and Terminal.
+      </p>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE EMBEDDED TOOL DROPZONE -->
+  <div class="w-full bg-[#f8fafc] border-b border-gray-200/80 py-8 px-4 sm:px-6 flex items-center justify-center">
+    <div class="w-full max-w-2xl mx-auto bg-white rounded-[2rem] border border-gray-200/80 shadow-[0_12px_45px_rgba(0,0,0,0.06)] overflow-hidden">
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="p-1.5 bg-white/20 rounded-lg text-white">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </span>
+          <span class="font-bold text-sm sm:text-base">Encrypt Mac Files in Safari / Chrome</span>
+        </div>
+        <span class="text-xs bg-white/15 px-2.5 py-1 rounded-full font-medium">100% Client-Side</span>
+      </div>
+
+      <div class="p-4 sm:p-6">
+        <ProvisioningApp client:load initialMode="file" hideHeader={true} />
+      </div>
+
+      <div class="text-center py-3 bg-gray-50 border-t border-gray-100 text-[12px] text-gray-500 font-medium flex items-center justify-center gap-2">
+        <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <span>Zero cloud uploads. Generates cross-platform containers compatible with Windows &amp; mobile.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN EDITORIAL CONTENT -->
+  <div class="w-full bg-[#f8fafc] py-12 px-6">
+    <div class="max-w-4xl mx-auto space-y-10">
+
+      <!-- SECTION 1: THE MACOS FILE ENCRYPTION DILEMMA -->
+      <div class="content-card animate-fade-in-up">
+        <div class="prose max-w-none text-gray-700 leading-relaxed">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">The macOS File Encryption Dilemma</h2>
+          <p>
+            While macOS is renowned for its user-friendly interface, password-protecting individual files or folders has always been an awkward blind spot. Right-clicking a file in Finder gives you options to <em>Compress</em>, <em>Duplicate</em>, or <em>Share</em>, but there is no <em>"Protect with Password"</em> option.
+          </p>
+          <p>
+            Apple provides <strong>FileVault</strong> for whole-disk encryption, but FileVault only protects your Mac when it is powered off. It cannot encrypt an individual document for email or cloud transfer.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 2: METHOD 1 - FILELOCKER -->
+      <div class="content-card animate-fade-in-up">
+        <div class="prose max-w-none text-gray-700 leading-relaxed">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-brand-blue text-xs font-bold uppercase tracking-wide mb-3">
+            Method 1 · Recommended for Sharing
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Encrypt Any Mac File with FileLocker (Cross-Platform)</h2>
+          <p>
+            FileLocker is the simplest way to encrypt files and folders on a Mac without installing terminal packages or creating complex disk images:
+          </p>
+          <ol class="space-y-3 pl-5 list-decimal text-sm sm:text-base">
+            <li>Drop any file or document into the tool above (or navigate to <a href="/lock-file/" class="text-brand-blue font-semibold hover:underline">/lock-file/</a>).</li>
+            <li>Enter your password. FileLocker derives an authenticated 256-bit key using <strong>Argon2id</strong>.</li>
+            <li>Click <strong>Lock File</strong>. Your Mac browser encrypts the file using <strong>AES-GCM 256-bit</strong> authenticated encryption.</li>
+            <li>Download the resulting <code>.vault</code> container. Your file can now be safely emailed, stored in iCloud Drive, or sent to colleagues using Windows or Android devices.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- SECTION 3: METHOD 2 - DISK UTILITY -->
+      <div class="content-card animate-fade-in-up">
+        <div class="prose max-w-none text-gray-700 leading-relaxed">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-bold uppercase tracking-wide mb-3">
+            Method 2 · Apple Built-In Tool
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">How to Create an Encrypted Disk Image on Mac (Disk Utility)</h2>
+          <p>
+            Apple's built-in solution for locking files is creating an encrypted virtual disk image (<code>.dmg</code>):
+          </p>
+          <ol class="space-y-2 pl-5 list-decimal text-sm sm:text-base">
+            <li>Press <kbd class="px-2 py-0.5 bg-gray-100 rounded border text-xs font-mono">Cmd + Space</kbd>, type <strong>Disk Utility</strong>, and press Enter.</li>
+            <li>From the menu bar, choose <strong>File &gt; New Image &gt; Image from Folder...</strong></li>
+            <li>Select the folder you wish to protect and click <strong>Choose</strong>.</li>
+            <li>In the <em>Encryption</em> dropdown, choose <strong>128-bit AES encryption</strong> or <strong>256-bit AES encryption</strong>.</li>
+            <li>Enter and verify your password when prompted. (Uncheck <em>"Remember password in my keychain"</em> if you want it to prompt on every open).</li>
+            <li>Set <em>Image Format</em> to <strong>read/write</strong> and click <strong>Save</strong>.</li>
+          </ol>
+          <div class="mt-4 p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs sm:text-sm text-amber-900">
+            <strong>Cross-Platform Warning:</strong> An encrypted <code>.dmg</code> image can only be opened on other Macs. Windows PC and Android users will not be able to open or decrypt the file without specialized commercial third-party disk mounting utilities.
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: FAQS -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <div class="faq-grid mt-6">
+          <div class="faq-item">
+            <h3>Can I encrypt files on Mac without downloading software?</h3>
+            <p>Yes. FileLocker runs natively in Apple Safari using the Web Crypto API. You can encrypt files or entire folders with AES-256 without installing software.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can someone on a Windows PC open my encrypted file?</h3>
+            <p>Yes. FileLocker .vault containers can be decrypted on Windows, Linux, iOS, and Android simply by visiting <a href="/unlock-file/" class="text-brand-blue hover:underline">filelocker.online/unlock-file/</a>.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Does FileLocker upload my files?</h3>
+            <p>No. Zero bytes of your files or passwords leave your Mac. All cryptographic processing occurs locally in browser memory.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can forgotten passwords be recovered?</h3>
+            <p>No. FileLocker uses zero-knowledge authenticated encryption. There are no recovery keys or backdoors.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: CTA -->
+      <div class="cta-banner mt-8 animate-fade-in-up">
+        <h2 class="text-white text-2xl font-bold mb-2">Encrypt Your Mac Files Now</h2>
+        <p class="cta-label mb-6">Lock any document or folder directly in Safari with private AES-256 client-side encryption.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="/lock-file/" class="cta-button">Encrypt a File</a>
+          <a href="/lock-folder/" class="cta-button" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4);">Encrypt a Folder</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</Layout>
+

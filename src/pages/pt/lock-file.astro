@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProvisioningApp from '../../components/ProvisioningApp';
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FileLocker em Português — Proteger Arquivos",
+  "url": "https://filelocker.online/pt/lock-file/",
+  "inLanguage": "pt",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Qualquer navegador moderno",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Ferramenta gratuita para proteger arquivos com senha e AES-256 no seu navegador sem upload para a nuvem."
+};
+---
+
+<Layout
+  lang="pt"
+  title="Proteger Arquivo com Senha Online | FileLocker"
+  description="Bloqueie qualquer arquivo com senha diretamente no seu navegador. Criptografia AES-256 100% no seu dispositivo e sem cadastro."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
+
+  <div class="guide-hero" style="padding-bottom:2rem;">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-inner" style="text-align:center; max-width:40rem;">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-brand-blue text-xs font-bold uppercase tracking-wider mb-5">
+        Gratuito · Sem cadastro · 100% privado
+      </span>
+      <h1>Proteger um Arquivo com Senha</h1>
+      <p class="hero-subtitle" style="margin:0 auto;">Selecione um arquivo, defina uma senha e baixe seu arquivo protegido .vault com segurança.</p>
+    </div>
+  </div>
+
+  <div class="w-full bg-white border-b border-gray-100 py-8 px-4 sm:px-6 flex items-center justify-center">
+    <div class="w-full max-w-2xl mx-auto bg-white rounded-[2rem] border border-gray-100 shadow-[0_8px_40px_rgba(0,0,0,0.07)] overflow-hidden">
+      <ProvisioningApp client:load initialMode="file" hideHeader={true} />
+      <div class="text-center py-3.5 bg-gray-50 border-t border-gray-100 text-[12px] text-gray-400 font-medium flex items-center justify-center gap-1.5">
+        Seus arquivos são processados localmente. Nada é enviado para servidores.
+      </div>
+    </div>
+  </div>
+</Layout>
+

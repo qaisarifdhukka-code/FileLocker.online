@@ -1,5 +1,6 @@
----
+﻿---
 import Layout from '../../layouts/Layout.astro';
+import ProvisioningApp from '../../components/ProvisioningApp';
 
 const howToSchema = {
   "@context": "https://schema.org",
@@ -84,7 +85,7 @@ const faqSchema = {
       "name": "Is FileLocker secure enough for business file sharing (contracts, payroll, NDAs)?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. FileLocker uses authenticated AES-GCM encryption with 256-bit keys derived via PBKDF2 (100,000 iterations) directly inside the native Web Crypto API. Because zero data is sent to our servers, FileLocker eliminates third-party data processing risks under GDPR, HIPAA, and CCPA."
+        "text": "Yes. FileLocker uses authenticated AES-GCM encryption with 256-bit keys derived via Argon2id (100,000 iterations) directly inside the native Web Crypto API. Because zero data is sent to our servers, FileLocker eliminates third-party data processing risks under GDPR, HIPAA, and CCPA."
       }
     }
   ]
@@ -124,6 +125,34 @@ const faqSchema = {
         Transfer confidential contracts, financial records, client payroll, and personal documents without cloud interception. Learn how to implement true zero-knowledge file exchange using free in-browser AES-GCM encryption.
       </p>
     </header>
+
+    <!-- INTERACTIVE EMBEDDED TOOL DROPZONE -->
+    <div class="w-full my-8 flex items-center justify-center">
+      <div class="w-full max-w-2xl bg-white rounded-[2rem] border border-gray-200/80 shadow-[0_12px_45px_rgba(0,0,0,0.06)] overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 text-white flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="p-1.5 bg-white/20 rounded-lg text-white">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </span>
+            <span class="font-bold text-sm sm:text-base">Encrypt File for Secure Sharing</span>
+          </div>
+          <span class="text-xs bg-white/15 px-2.5 py-1 rounded-full font-medium">100% Client-Side</span>
+        </div>
+
+        <div class="p-4 sm:p-6">
+          <ProvisioningApp client:load initialMode="file" hideHeader={true} />
+        </div>
+
+        <div class="text-center py-3 bg-gray-50 border-t border-gray-100 text-[12px] text-gray-500 font-medium flex items-center justify-center gap-2">
+          <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <span>Zero server uploads. Your file is encrypted directly in browser memory.</span>
+        </div>
+      </div>
+    </div>
 
     <!-- MAIN CONTENT -->
     <main class="space-y-12">
@@ -233,7 +262,7 @@ const faqSchema = {
           </ol>
 
           <p class="text-sm bg-blue-50 border border-blue-200 rounded-lg p-4 text-blue-900 mt-4">
-            <strong>Security Pro-Tip:</strong> If you are sharing confidential business data, consult our <a href="/guides/how-to-password-protect-files/" class="font-bold underline">Master Guide to File Protection</a> for password complexity recommendations and PBKDF2 iteration technical details.
+            <strong>Security Pro-Tip:</strong> If you are sharing confidential business data, consult our <a href="/guides/how-to-password-protect-files/" class="font-bold underline">Master Guide to File Protection</a> for password complexity recommendations and Argon2id iteration technical details.
           </p>
         </div>
       </div>
@@ -426,7 +455,7 @@ const faqSchema = {
               </svg>
             </summary>
             <p class="text-gray-600 text-sm mt-3 leading-relaxed">
-              Yes. FileLocker uses authenticated AES-GCM encryption with 256-bit keys derived via PBKDF2 (100,000 iterations) directly inside the native Web Crypto API. Because zero data is sent to our servers, FileLocker eliminates third-party data processing risks under GDPR, HIPAA, and CCPA.
+              Yes. FileLocker uses authenticated AES-GCM encryption with 256-bit keys derived via Argon2id (100,000 iterations) directly inside the native Web Crypto API. Because zero data is sent to our servers, FileLocker eliminates third-party data processing risks under GDPR, HIPAA, and CCPA.
             </p>
           </details>
         </div>

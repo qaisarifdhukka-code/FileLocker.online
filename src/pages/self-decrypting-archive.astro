@@ -1,0 +1,383 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProvisioningApp from '../components/ProvisioningApp';
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FileLocker — In-Browser Self-Decrypting Archive Creator",
+  "url": "https://filelocker.online/self-decrypting-archive/",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "All modern browsers (Windows, macOS, Linux, iOS, Android)",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Create self-decrypting, zero-installation encrypted archives directly in your browser with AES-256 and Argon2id. Open anywhere without executable risks."
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Create a Self-Decrypting Archive Online",
+  "description": "Learn how to package and password-protect your files into an in-browser self-decrypting archive without compiling risky executable files.",
+  "totalTime": "PT1M",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Select Files or Folder",
+      "text": "Choose any file, document, or directory from your computer or phone using the secure dropzone above. All data is processed strictly in your local browser sandbox."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Define a Secure Passphrase",
+      "text": "Enter your encryption password. FileLocker derives an authenticated 256-bit key using memory-hard Argon2id key derivation."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Download Your Protected Container",
+      "text": "Click 'Lock File'. Your browser encrypts the data with AES-GCM and exports a portable .vault container that opens on any device with zero software installation."
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://filelocker.online/" },
+    { "@type": "ListItem", "position": 3, "name": "Self-Decrypting Archive", "item": "https://filelocker.online/self-decrypting-archive/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a self-decrypting archive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A self-decrypting archive is an encrypted package that can be unlocked and extracted by the recipient without needing dedicated third-party decompression software installed on their machine. Historically, these were built as Windows .exe executables, but modern security standards favor browser-decrypting containers like FileLocker."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why are traditional .exe self-extracting archives obsolete?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Traditional .exe self-extracting archives (created by tools like 7-Zip, WinRAR, or AxCrypt) present severe security and delivery problems: modern email filters (Gmail, Outlook, Microsoft 365) block executable attachments automatically, corporate endpoint antivirus programs flag them as potential malware, and they only run on Windows, completely failing on Macs, iPhones, and Android devices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does FileLocker solve the self-decrypting problem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "FileLocker uses the universal web browser as the decryption engine. When you package a file or folder into a .vault container, the recipient simply drags it onto filelocker.online/unlock-file/ in Chrome, Safari, Edge, or Firefox. Decryption runs locally via the native Web Crypto API with zero software downloads and zero server uploads."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I email a FileLocker encrypted archive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Because FileLocker produces clean .vault containers rather than executable binaries (.exe), email servers and firewall gateways will not block or quarantine your attachments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the recipient need to create an account or pay?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. FileLocker is 100% free with no signups, subscriptions, or accounts. Anyone with the password can open the archive in any web browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are my files uploaded when creating or opening the archive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Never. Zero bytes of your files or passwords leave your device. All encryption and decryption occurs locally in your browser memory."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Self-Decrypting Archive Online (No .exe) | FileLocker"
+  description="Create in-browser self-decrypting archives with AES-256 encryption. Open on Windows, Mac, iOS, & Android with zero software installation and zero uploads."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(webAppSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(howToSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- HERO -->
+  <div class="guide-hero" style="padding-bottom:2rem;">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+    <div class="hero-inner" style="text-align:center; max-width:44rem;">
+      <nav class="hero-breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <span class="current">Self-Decrypting Archive</span>
+      </nav>
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-brand-blue text-xs font-bold uppercase tracking-wider mb-5">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C9.243 2 7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zm0 2c1.654 0 3 1.346 3 3v3H9V7c0-1.654 1.346-3 3-3z"/></svg>
+        Browser Native · No Executable Risk · Cross-Platform
+      </span>
+      <h1>In-Browser Self-Decrypting Archive Creator</h1>
+      <p class="hero-subtitle" style="margin:0 auto;">
+        Create password-protected archives that open anywhere without installing software. Eliminate blocked .exe attachments, antivirus alerts, and cross-platform incompatibilities.
+      </p>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE EMBEDDED TOOL DROPZONE -->
+  <div class="w-full bg-[#f8fafc] border-b border-gray-200/80 py-8 px-4 sm:px-6 flex items-center justify-center">
+    <div class="w-full max-w-2xl mx-auto bg-white rounded-[2rem] border border-gray-200/80 shadow-[0_12px_45px_rgba(0,0,0,0.06)] overflow-hidden">
+      <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-6 py-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="p-1.5 bg-white/20 rounded-lg text-white">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
+            </svg>
+          </span>
+          <span class="font-bold text-sm sm:text-base">Create Self-Decrypting Container</span>
+        </div>
+        <span class="text-xs bg-white/15 px-2.5 py-1 rounded-full font-medium">AES-GCM 256-bit</span>
+      </div>
+
+      <div class="p-4 sm:p-6">
+        <ProvisioningApp client:load initialMode="file" hideHeader={true} />
+      </div>
+
+      <div class="text-center py-3 bg-gray-50 border-t border-gray-100 text-[12px] text-gray-500 font-medium flex items-center justify-center gap-2">
+        <svg class="w-3.5 h-3.5 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+        <span>100% Client-Side. Recipient opens in any browser at /unlock-file/ without installing apps.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDITORIAL CONTENT -->
+  <div class="w-full bg-[#f8fafc] py-12 px-6">
+    <div class="max-w-4xl mx-auto space-y-10">
+
+      <!-- SECTION 1: WHAT IS A SELF-DECRYPTING ARCHIVE -->
+      <div class="content-card animate-fade-in-up">
+        <div class="prose max-w-none text-gray-700 leading-relaxed">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">The Evolution of the Self-Decrypting Archive</h2>
+          <p>
+            When you need to send sensitive financial spreadsheets, confidential client files, or encrypted backups to someone outside your organization, you face a universal friction point: <strong>what software does the recipient have installed?</strong>
+          </p>
+          <p>
+            If you send an encrypted <code>.7z</code> or <code>.rar</code> file, the recipient may not have 7-Zip or WinRAR installed. If you send an encrypted BitLocker or VeraCrypt volume, non-technical users will fail to mount it.
+          </p>
+          <p>
+            To solve this, legacy encryption tools developed the <strong>Self-Extracting / Self-Decrypting Archive (SFX)</strong>: combining compressed, encrypted files with a miniature software decompressor into a single package.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 2: WHY .EXE ARCHIVES ARE DEAD -->
+      <div class="content-card animate-fade-in-up">
+        <div class="prose max-w-none text-gray-700 leading-relaxed">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-700 text-xs font-bold uppercase tracking-wide mb-3">
+            Security Alert
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Why Traditional .exe Self-Decryptors Are Obsolete &amp; Blocked</h2>
+          <p>
+            Legacy software like <strong>AxCrypt</strong>, <strong>7-Zip SFX</strong>, and <strong>WinRAR SFX</strong> build self-decrypting archives by compiling files into a Windows executable (<code>.exe</code>). While convenient in the 1990s, this approach has become completely unusable in modern enterprise and consumer environments:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+            <div class="p-4 rounded-xl bg-red-50/60 border border-red-200">
+              <span class="text-xl block mb-2">🚫</span>
+              <strong class="text-red-900 font-bold block mb-1">Blocked by Email Gateways</strong>
+              <p class="text-xs text-red-800 leading-relaxed mb-0">
+                Google Workspace, Microsoft 365, and corporate Exchange servers automatically strip or quarantine any email containing a <code>.exe</code> attachment to prevent ransomware.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200">
+              <span class="text-xl block mb-2">⚠️</span>
+              <strong class="text-amber-900 font-bold block mb-1">Antivirus False Positives</strong>
+              <p class="text-xs text-amber-800 leading-relaxed mb-0">
+                Modern endpoint detection (CrowdStrike, Windows Defender, SentinelOne) aggressively flags unknown executable droppers, scaring recipients with security warnings.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="text-xl block mb-2">💻</span>
+              <strong class="text-slate-900 font-bold block mb-1">Operating System Lock-in</strong>
+              <p class="text-xs text-slate-700 leading-relaxed mb-0">
+                An <code>.exe</code> file can only run on Windows. If your recipient is on an Apple Mac, iPhone, iPad, Chromebook, or Android device, the archive is 100% unopenable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: THE FILELOCKER BROWSER REVOLUTION -->
+      <div class="content-card animate-fade-in-up">
+        <div class="prose max-w-none text-gray-700 leading-relaxed">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wide mb-3">
+            The Modern Standard
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">The FileLocker Solution: In-Browser Universal Decryption</h2>
+          <p>
+            FileLocker reinvents the self-decrypting archive by turning <strong>every modern web browser into a cryptographically verified decryption engine</strong>:
+          </p>
+          <ul class="space-y-3 pl-5 list-disc text-sm sm:text-base">
+            <li>
+              <strong>Zero Software Downloads:</strong> Your recipient never needs to install 7-Zip, AxCrypt, WinRAR, or browser extensions.
+            </li>
+            <li>
+              <strong>Universal OS Compatibility:</strong> Opens identically across Windows 11, macOS Sequoia, Ubuntu Linux, iOS Mobile Safari, and Android Chrome.
+            </li>
+            <li>
+              <strong>Email &amp; Firewall Friendly:</strong> Files are saved as safe, structured <code>.vault</code> containers. Email gateways never block them as dangerous executables.
+            </li>
+            <li>
+              <strong>Military-Grade Cryptography:</strong> Protected by authenticated <strong>AES-GCM 256-bit encryption</strong> with <strong>Argon2id key derivation</strong> (64MB memory hardness) to resist GPU brute-force attacks.
+            </li>
+            <li>
+              <strong>100% Client-Side Privacy:</strong> Zero bytes are sent to any remote server. Decryption runs entirely inside local browser WebAssembly and the native Web Crypto API.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SECTION 4: COMPARISON MATRIX -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">Detailed Architectural Comparison</h2>
+        <p class="text-gray-600 mb-6 text-sm">
+          Compare FileLocker against traditional desktop self-extracting archive creators:
+        </p>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 bg-gray-50 text-gray-900">
+                <th class="py-3 px-3.5 font-bold">Solution</th>
+                <th class="py-3 px-3.5 font-bold">Output Format</th>
+                <th class="py-3 px-3.5 font-bold">Email Friendly?</th>
+                <th class="py-3 px-3.5 font-bold">Mac / Mobile?</th>
+                <th class="py-3 px-3.5 font-bold">Zero Uploads?</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-gray-700">
+              <tr class="bg-blue-50/40">
+                <td class="py-3 px-3.5 font-bold text-brand-blue">FileLocker In-Browser</td>
+                <td class="py-3 px-3.5">.vault (AES-GCM)</td>
+                <td class="py-3 px-3.5 text-emerald-600 font-bold">✓ Never Blocked</td>
+                <td class="py-3 px-3.5 text-emerald-600 font-bold">✓ All Devices</td>
+                <td class="py-3 px-3.5 text-emerald-600 font-bold">✓ 100% Local</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-semibold text-gray-900">AxCrypt Self-Decryptor</td>
+                <td class="py-3 px-3.5">.exe Executable</td>
+                <td class="py-3 px-3.5 text-red-600 font-medium">✗ Blocked by Gmail/Outlook</td>
+                <td class="py-3 px-3.5 text-red-600 font-medium">✗ Windows Only</td>
+                <td class="py-3 px-3.5 text-emerald-600 font-bold">✓ Local Software</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-semibold text-gray-900">7-Zip SFX (.exe)</td>
+                <td class="py-3 px-3.5">.exe Executable</td>
+                <td class="py-3 px-3.5 text-red-600 font-medium">✗ Blocked as Binary</td>
+                <td class="py-3 px-3.5 text-red-600 font-medium">✗ Windows Only</td>
+                <td class="py-3 px-3.5 text-emerald-600 font-bold">✓ Local Software</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-semibold text-gray-900">WinRAR SFX</td>
+                <td class="py-3 px-3.5">.exe Executable</td>
+                <td class="py-3 px-3.5 text-red-600 font-medium">✗ Blocked as Binary</td>
+                <td class="py-3 px-3.5 text-red-600 font-medium">✗ Windows Only</td>
+                <td class="py-3 px-3.5 text-emerald-600 font-bold">✓ Local Software</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SECTION 5: HOW TO DECRYPT -->
+      <div class="content-card animate-fade-in-up">
+        <div class="prose max-w-none text-gray-700 leading-relaxed">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">How Does the Recipient Open the File?</h2>
+          <p>
+            Unlocking a FileLocker container takes less than five seconds for any recipient, even on non-technical devices:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 text-brand-blue flex items-center justify-center font-bold text-sm mb-3">1</span>
+              <strong class="text-slate-900 font-bold block mb-1">Open Unlock Tool</strong>
+              <p class="text-xs text-slate-600 mb-0">The recipient visits <a href="/unlock-file/" class="text-brand-blue font-semibold hover:underline">filelocker.online/unlock-file/</a> in any browser.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 text-brand-blue flex items-center justify-center font-bold text-sm mb-3">2</span>
+              <strong class="text-slate-900 font-bold block mb-1">Drop the .vault File</strong>
+              <p class="text-xs text-slate-600 mb-0">They drop the protected file and enter the password you shared with them out-of-band.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 text-brand-blue flex items-center justify-center font-bold text-sm mb-3">3</span>
+              <strong class="text-slate-900 font-bold block mb-1">Instant Local Decrypt</strong>
+              <p class="text-xs text-slate-600 mb-0">Their browser verifies file integrity and decrypts the original documents instantly to their downloads.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6: FAQS -->
+      <div class="content-card animate-fade-in-up">
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <div class="faq-grid mt-6">
+          <div class="faq-item">
+            <h3>What is a self-decrypting archive?</h3>
+            <p>An archive that packages encrypted data so that the recipient can unlock it without installing specialized decompressor utilities.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why are traditional .exe archives blocked?</h3>
+            <p>Modern email filters (Gmail, Outlook) automatically block <code>.exe</code> files to stop malware distribution, and they cannot run on Macs or smartphones.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does FileLocker solve this?</h3>
+            <p>FileLocker produces safe <code>.vault</code> containers that decrypt locally inside any web browser at <a href="/unlock-file/" class="text-brand-blue hover:underline">/unlock-file/</a> with zero installations and zero uploads.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I encrypt an entire folder?</h3>
+            <p>Yes. You can lock individual files or entire folders with nested subdirectories using our <a href="/lock-folder/" class="text-brand-blue hover:underline">Folder Protection Tool</a>.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is FileLocker free?</h3>
+            <p>FileLocker is 100% free with no email requirements, subscription fees, or hidden file limits.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can forgotten passwords be recovered?</h3>
+            <p>No. FileLocker uses zero-knowledge authenticated encryption. There are no master keys or backdoors. Store your passwords securely.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 7: CTA -->
+      <div class="cta-banner mt-8 animate-fade-in-up">
+        <h2 class="text-white text-2xl font-bold mb-2">Create a Self-Decrypting Container Now</h2>
+        <p class="cta-label mb-6">Lock any file or folder directly in your browser. 100% private AES-256 client-side encryption.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="/lock-file/" class="cta-button">Protect a File</a>
+          <a href="/lock-folder/" class="cta-button" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4);">Protect a Folder</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</Layout>
+

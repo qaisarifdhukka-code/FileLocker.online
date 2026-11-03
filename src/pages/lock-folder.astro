@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../layouts/Layout.astro';
 import ProvisioningApp from '../components/ProvisioningApp';
 
@@ -148,7 +148,7 @@ const faqSchema = {
           <li class="step-card">
             <span class="step-number">2</span>
             <strong>Set a strong password</strong>
-            <span>Create a master password. FileLocker uses PBKDF2 key derivation and military-grade AES-GCM 256-bit encryption.</span>
+            <span>Create a master password. FileLocker uses memory-hard Argon2id key derivation (64MB RAM) and authenticated AES-256-GCM encryption.</span>
           </li>
           <li class="step-card">
             <span class="step-number">3</span>
