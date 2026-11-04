@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://filelocker.online/sitemap-index.xml
+Sitemap: https://filelocker.online/sitemap-0.xml
